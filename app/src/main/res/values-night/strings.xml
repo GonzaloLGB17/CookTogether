@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cook Together</string>
     <string name="etUsername">Usuario</string>
     <string name="btLogin">Iniciar sesión</string>
     <string name="etPassword">Contraseña</string>
