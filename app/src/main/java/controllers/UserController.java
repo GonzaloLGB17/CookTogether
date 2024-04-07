@@ -7,8 +7,8 @@ import DAO.UserDAO;
 import models.UserModel;
 
 public class UserController {
-    public boolean insertarUsuario(String nombre, String apellidos, String username, String password) throws SQLException {
-        return new UserDAO().insertarUsuario(nombre,apellidos,username,password);
+    public boolean insertarUsuario(UserModel userModel) throws SQLException {
+        return new UserDAO().insertarUsuario(userModel);
     }
 
     public UserModel buscarUsuario(String username) throws SQLException{
@@ -16,13 +16,13 @@ public class UserController {
     }
 
 
-    /*public boolean comprobarUsuario(String username) throws SQLException {
+    public boolean comprobarUsuario(String username) throws SQLException {
         return new UserDAO().comprobarUsuario(username);
-    }*/
+    }
 
-    /*public boolean actualizarPuntos(String username, int puntos) throws SQLException{
-        return new UserDAO().actualizarPuntos(username, puntos);
-    }*/
+    public boolean actualizarPuntuacion(String username, int puntos) throws SQLException{
+        return new UserDAO().actualizarPuntuacion(username, puntos);
+    }
 
 
 

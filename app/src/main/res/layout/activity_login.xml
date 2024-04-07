@@ -71,6 +71,7 @@
         android:layout_width="300dp"
         android:layout_height="47dp"
         android:backgroundTint="@color/dorado"
+        android:fontFamily="@font/amaranth"
         android:text="@string/btLogin"
         android:textColor="@color/gris"
         app:layout_constraintBottom_toBottomOf="parent"

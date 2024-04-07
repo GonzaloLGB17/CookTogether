@@ -1,22 +1,25 @@
 package models;
 
 public class UserModel {
+    private int id;
     private String nombre;
     private String apellidos;
+    private String correo;
     private String username;
     private String password;
-    private int id;
-    private int puntos;
-
-    private int nivelesDesbloqueados;
-    public UserModel(int id,String nombre, String apellidos, String username, String password, int puntos, int nivelesDesbloqueados) {
+    private double puntuacion;
+    public UserModel(int id, String nombre, String apellidos, String correo, String username, String password, double puntuacion) {
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.correo = correo;
         this.username = username;
         this.password = password;
-        this.id = id;
-        this.puntos = puntos;
-        this.nivelesDesbloqueados = nivelesDesbloqueados;
+        this.puntuacion = puntuacion;
+    }
+
+    public UserModel() {
+
     }
 
     public int getId() {
@@ -43,6 +46,14 @@ public class UserModel {
         this.apellidos = apellidos;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -59,18 +70,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public int getPuntos() {
-        return puntos;
+    public double getPuntuacion() {
+        return puntuacion;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
-    }
-    public int getNivelesDesbloqueados() {
-        return nivelesDesbloqueados;
-    }
-
-    public void setNivelesDesbloqueados(int nivelesDesbloqueados) {
-        this.nivelesDesbloqueados = nivelesDesbloqueados;
+    public void setPuntuacion(double puntuacion) {
+        this.puntuacion = puntuacion;
     }
 }

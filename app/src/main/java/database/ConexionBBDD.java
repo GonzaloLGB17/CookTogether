@@ -31,7 +31,7 @@ public class ConexionBBDD {
         return conexion;
     }
 
-    /*public void cerrarConexion(Connection conexion)throws Exception{
+    public void cerrarConexion(Connection conexion)throws Exception{
         conexion.close();
-    }*/
+    }
 }
