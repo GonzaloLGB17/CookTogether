@@ -18,6 +18,15 @@ public class UserModel {
         this.puntuacion = puntuacion;
     }
 
+    public UserModel(String nombre, String apellidos, String correo, String username, String password, double puntuacion) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.username = username;
+        this.password = password;
+        this.puntuacion = puntuacion;
+    }
+
     public UserModel() {
 
     }

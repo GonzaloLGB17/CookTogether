@@ -8,12 +8,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logopngo"
+        android:icon="@drawable/defcookicon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logopngo"
+        android:roundIcon="@drawable/defcookicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CookTogether"
         tools:targetApi="31">
+        <activity
+            android:name="views.RegisterActivity"
+            android:exported="false" />
         <activity
             android:name="views.LoginActivity"
             android:exported="true">
@@ -23,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

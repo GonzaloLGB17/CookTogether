@@ -8,9 +8,9 @@
     tools:context="views.LoginActivity">
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUsernameLogin"
         android:layout_width="300dp"
-        android:layout_height="36dp"
+        android:layout_height="50dp"
         android:background="@drawable/fondo_et_gris"
         android:ems="10"
         android:fontFamily="@font/amaranth"
@@ -26,12 +26,12 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etPasswordLogin"
         android:layout_width="300dp"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:background="@drawable/fondo_et_gris"
         android:ems="10"
         android:fontFamily="@font/amaranth"
@@ -46,10 +46,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.599" />
 
     <TextView
-        android:id="@+id/tvRegister"
+        android:id="@+id/tvRegisterLogin"
         android:layout_width="204dp"
         android:layout_height="28dp"
         android:fontFamily="@font/amaranth"
@@ -63,26 +64,26 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667"
+        app:layout_constraintVertical_bias="0.785"
         tools:text="@string/tvRegister" />
 
     <Button
         android:id="@+id/btLogin"
         android:layout_width="300dp"
-        android:layout_height="47dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/dorado"
         android:fontFamily="@font/amaranth"
         android:text="@string/btLogin"
         android:textColor="@color/gris"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.589" />
+        app:layout_constraintVertical_bias="0.701" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgLogoLogin"
         android:layout_width="215dp"
         android:layout_height="210dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,5 +92,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.151"
-        app:srcCompat="@drawable/logopngo" />
+        app:srcCompat="@drawable/defcookicon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,9 @@
     <string name="btLogin">Iniciar sesión</string>
     <string name="etPassword">Contraseña</string>
     <string name="tvRegister">Crear cuenta nueva</string>
+    <string name="etUsernameRegister">Usuario</string>
+    <string name="etCorreoRegister">Correo electrónico</string>
+    <string name="etNombreRegister">Nombre</string>
+    <string name="etApellidosRegister">Apellidos</string>
+    <string name="btRegister">Registrarte</string>
 </resources>
