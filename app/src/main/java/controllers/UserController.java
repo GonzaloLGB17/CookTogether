@@ -24,7 +24,9 @@ public class UserController {
         return new UserDAO().actualizarPuntuacion(username, puntos);
     }
 
-
+    public UserModel iniciarSesion(String usernameMail, String passwd) throws SQLException {
+        return new UserDAO().iniciarSesion(usernameMail,passwd);
+    }
 
 
 }

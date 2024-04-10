@@ -1,5 +1,6 @@
 package views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (SQLException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(login);
 
     }
 }
