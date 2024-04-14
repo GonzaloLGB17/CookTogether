@@ -5,8 +5,10 @@ import android.os.StrictMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConexionBBDD {
+
     private Connection conexion = null;
     private static final String DRIVER = "org.postgresql.Driver";
     private static final String URL = "jdbc:postgresql://10.0.2.2:5432/cooktogether";
@@ -34,4 +36,8 @@ public class ConexionBBDD {
     public void cerrarConexion(Connection conexion)throws Exception{
         conexion.close();
     }
+
+
+
+
 }

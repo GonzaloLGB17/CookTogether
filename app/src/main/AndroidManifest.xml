@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CookTogether"
         tools:targetApi="31">
         <activity
+            android:name="views.PublicarActivity"
+            android:exported="false" />
+        <activity
             android:name="views.RegisterActivity"
             android:exported="false" />
         <activity
