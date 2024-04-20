@@ -8,7 +8,9 @@ public class UserModel {
     private String username;
     private String password;
     private double puntuacion;
-    public UserModel(int id, String nombre, String apellidos, String correo, String username, String password, double puntuacion) {
+
+    private byte[] fotoUsuario;
+    public UserModel(int id, String nombre, String apellidos, String correo, String username, String password, double puntuacion, byte[] fotoUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -16,15 +18,17 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.puntuacion = puntuacion;
+        this.fotoUsuario = fotoUsuario;
     }
 
-    public UserModel(String nombre, String apellidos, String correo, String username, String password, double puntuacion) {
+    public UserModel(String nombre, String apellidos, String correo, String username, String password, double puntuacion, byte[] fotoUsuario) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
         this.username = username;
         this.password = password;
         this.puntuacion = puntuacion;
+        this.fotoUsuario = fotoUsuario;
     }
 
     public UserModel() {
@@ -85,5 +89,12 @@ public class UserModel {
 
     public void setPuntuacion(double puntuacion) {
         this.puntuacion = puntuacion;
+    }
+    public byte[] getFotoUsuario() {
+        return fotoUsuario;
+    }
+
+    public void setFotoUsuario(byte[] fotoUsuario) {
+        this.fotoUsuario = fotoUsuario;
     }
 }

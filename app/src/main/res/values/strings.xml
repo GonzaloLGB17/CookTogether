@@ -10,4 +10,5 @@
     <string name="etApellidosRegister">Apellidos</string>
     <string name="btRegister">Registrarte</string>
     <string name="imgBtReturnRegister">Boton para volver al login</string>
+    <string name="etConfirmarPasswordRegister">Confirmar contraseña</string>
 </resources>

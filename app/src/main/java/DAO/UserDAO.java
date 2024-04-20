@@ -41,7 +41,7 @@ public class UserDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT id, nombre, apellidos, correo, username, password, puntuacion FROM usuarios WHERE username = ?";
+        String query = "SELECT id, nombre, apellidos, correo, username, password, puntuacion, foto_usuario FROM usuarios WHERE username = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, username);
         rs = sentencia.executeQuery();
@@ -54,7 +54,8 @@ public class UserDAO {
                     rs.getString("correo"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getDouble("puntuacion")
+                    rs.getDouble("puntuacion"),
+                    rs.getBytes("foto_usuario")
             );
         } else {
             throw new SQLException("No existe el usuario indicado.");
@@ -92,7 +93,8 @@ public class UserDAO {
                     rs.getString("correo"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getDouble("puntuacion")
+                    rs.getDouble("puntuacion"),
+                    rs.getBytes("foto_usuario")
             );
 
             if(usuario!=null){
@@ -130,7 +132,7 @@ public class UserDAO {
         }
 
         try {
-            String query = "{? = call agregar_usuario(?,?,?,?,?,?)}";
+            String query = "{? = call agregar_usuario(?,?,?,?,?,?,?)}";
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, user.getNombre());
@@ -139,6 +141,7 @@ public class UserDAO {
             callableStatement.setString(5, user.getUsername());
             callableStatement.setString(6, user.getPassword());
             callableStatement.setDouble(7, user.getPuntuacion());
+            callableStatement.setBytes(8, user.getFotoUsuario());
             callableStatement.execute();
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
@@ -180,7 +183,7 @@ public class UserDAO {
 
             if (result == 0) {
                 // Inicio de sesión exitoso, obtener detalles del usuario
-                String getUserQuery = "SELECT nombre, apellidos, correo, username, puntuacion FROM usuarios WHERE username = ? OR correo = ?";
+                String getUserQuery = "SELECT nombre, apellidos, correo, username, puntuacion, foto_usuario FROM usuarios WHERE username = ? OR correo = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(getUserQuery);
                 preparedStatement.setString(1, usernameMail);
                 preparedStatement.setString(2, usernameMail);

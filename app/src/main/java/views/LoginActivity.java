@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,10 +19,12 @@ import android.widget.Toast;
 
 import com.example.cooktogether.R;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 
 import controllers.UserController;
 import database.ConexionBBDD;
+import models.UserModel;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegisterLogin;
     private EditText etUsernameLogin, etPasswordLogin;
     private UserController userController = new UserController();
-    private ImageView fotoH;
+    private ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsernameLogin = findViewById(R.id.etUsernameLogin);
         etPasswordLogin = findViewById(R.id.etPasswordLogin);
         tvRegisterLogin = findViewById(R.id.tvRegisterLogin);
+        logo = findViewById(R.id.imgLogoLogin);
         tvRegisterLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(register);
             }
         });
+
     }
 
     public void login(View view){
@@ -61,4 +66,5 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
 }
