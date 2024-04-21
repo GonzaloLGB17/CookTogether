@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etNombreRegister, etApellidosRegister, etCorreoRegister, etUsernameRegister, etPasswordRegister, etConfirmarPasswordRegister;
     private ImageView imgUserRegister;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private ImageUtil imageUtil = new ImageUtil();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registrar(View view){
-        if(etUsernameRegister.getText().toString().isEmpty() || etNombreRegister.getText().toString().isEmpty() ||
+        if(bitmap == null){
+            Toast.makeText(this, "Selecciona una foto para tu perfil.", Toast.LENGTH_SHORT).show();
+        }
+        else if(etUsernameRegister.getText().toString().isEmpty() || etNombreRegister.getText().toString().isEmpty() ||
                 etApellidosRegister.getText().toString().isEmpty() || etCorreoRegister.getText().toString().isEmpty() ||
                 etPasswordRegister.getText().toString().isEmpty() || etConfirmarPasswordRegister.getText().toString().isEmpty()){
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
@@ -110,12 +113,11 @@ public class RegisterActivity extends AppCompatActivity {
             try {
                 userController.insertarUsuario(userModel);
                 Toast.makeText(this, "Usuario registrado con éxito.", Toast.LENGTH_SHORT).show();
+                Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(login);
             } catch (SQLException e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-            Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(login);
         }
     }
 

@@ -6,4 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="views.PublicarActivity"/>
+    tools:context="views.PublicarActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nbPublicar"
+        android:layout_width="415dp"
+        android:layout_height="75dp"
+        android:background="@drawable/fondo_et_nave"
+        android:layoutMode="opticalBounds"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageButton
+            android:id="@+id/btPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            app:srcCompat="@drawable/user" />
+
+        <ImageButton
+            android:id="@+id/btPublicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            app:srcCompat="@drawable/add" />
+
+        <ImageButton
+            android:id="@+id/btBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            app:srcCompat="@drawable/search" />
+
+        <ImageButton
+            android:id="@+id/btInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            app:srcCompat="@drawable/home" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
