@@ -11,4 +11,12 @@
     <string name="btRegister">Registrarte</string>
     <string name="imgBtReturnRegister">Boton para volver al login</string>
     <string name="etConfirmarPasswordRegister">Confirmar contraseña</string>
+    <string name="btPerfil">Botón de perfil de usuario.</string>
+    <string name="btInicio">Botón para regresar al inicio.</string>
+    <string name="btPublicar">Botón para publicar una receta.</string>
+    <string name="btBuscar">Botón para buscar una receta o un usuario.</string>
+    <string name="etTituloReceta">Nombre de la receta</string>
+    <string name="tvDescReceta">"Descripción "</string>
+    <string name="tvIngr">Ingredientes</string>
+    <string name="tvIntrReceta">Instrucciones</string>
 </resources>

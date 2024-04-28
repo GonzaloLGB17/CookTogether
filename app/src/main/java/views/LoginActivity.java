@@ -60,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPasswordLogin.getText().toString();
         try {
             userController.iniciarSesion(username,password);
+            UserModel user = userController.buscarUsuario(username);
             Intent publicar = new Intent(LoginActivity.this, PublicarActivity.class);
+            publicar.putExtra("username", username);
             startActivity(publicar);
         } catch (SQLException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -10,15 +10,15 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nbPublicar"
-        android:layout_width="415dp"
+        android:layout_width="411dp"
         android:layout_height="75dp"
-        android:background="@drawable/fondo_et_nave"
+        android:background="@color/black"
         android:layoutMode="opticalBounds"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -30,6 +30,7 @@
             android:layout_marginLeft="320dp"
             android:layout_marginTop="10dp"
             android:background="@null"
+            android:contentDescription="@string/btPerfil"
             app:srcCompat="@drawable/user" />
 
         <ImageButton
@@ -48,6 +49,7 @@
             android:layout_marginLeft="120dp"
             android:layout_marginTop="10dp"
             android:background="@null"
+            android:contentDescription="@string/btBuscar"
             app:srcCompat="@drawable/search" />
 
         <ImageButton
@@ -57,7 +59,170 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:background="@null"
+            android:contentDescription="@string/btInicio"
             app:srcCompat="@drawable/home" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <ScrollView
+        android:layout_width="411dp"
+        android:layout_height="654dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nbPublicar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="218dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgUserPublicar"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.083"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/defcookicon"
+                    app:strokeColor="@color/dorado"
+                    app:strokeWidth="0dp" />
+
+                <TextView
+                    android:id="@+id/tvUserPublicar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Usuario"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/plateado"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="392dp"
+                android:layout_height="91dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etTituloReceta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/etTituloReceta"
+                    android:inputType="text"
+                    android:textColor="@color/plateado"
+                    android:textColorHint="@color/plateado"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/imgRecetaPublicar"
+                    android:layout_width="157dp"
+                    android:layout_height="91dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDescReceta"
+                android:layout_width="392dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tvDescReceta"
+                android:textColor="@color/plateado"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etDescReceta"
+                android:layout_width="392dp"
+                android:layout_height="134dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/fondo_et_plat"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbarSize="4dp"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right" />
+
+
+            <TextView
+                android:id="@+id/tvIngrReceta"
+                android:layout_width="392dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tvIngr"
+                android:textColor="@color/plateado"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etIngrReceta"
+                android:layout_width="392dp"
+                android:layout_height="134dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/fondo_et_plat"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbarSize="4dp"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right" />
+
+            <TextView
+                android:id="@+id/tvIntrReceta"
+                android:layout_width="392dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tvIntrReceta"
+                android:textColor="@color/plateado"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etIntrReceta"
+                android:layout_width="392dp"
+                android:layout_height="134dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/fondo_et_plat"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbarSize="4dp"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
