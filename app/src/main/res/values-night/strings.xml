@@ -19,4 +19,5 @@
     <string name="tvDescReceta">"Descripción "</string>
     <string name="tvIngr">Ingredientes</string>
     <string name="tvIntrReceta">Instrucciones</string>
+    <string name="btCompartir">Compartir</string>
 </resources>

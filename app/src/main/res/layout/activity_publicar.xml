@@ -10,8 +10,8 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nbPublicar"
-        android:layout_width="411dp"
-        android:layout_height="75dp"
+        android:layout_width="409dp"
+        android:layout_height="67dp"
         android:background="@color/black"
         android:layoutMode="opticalBounds"
         android:paddingLeft="20dp"
@@ -64,8 +64,8 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <ScrollView
-        android:layout_width="411dp"
-        android:layout_height="654dp"
+        android:layout_width="409dp"
+        android:layout_height="659dp"
         app:layout_constraintBottom_toBottomOf="@+id/nbPublicar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,7 +76,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="218dp"
@@ -137,7 +137,7 @@
                     android:layout_width="157dp"
                     android:layout_height="91dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/addimagereceta" />
             </LinearLayout>
 
             <TextView
@@ -147,7 +147,8 @@
                 android:layout_gravity="center"
                 android:text="@string/tvDescReceta"
                 android:textColor="@color/plateado"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etDescReceta"
@@ -160,10 +161,12 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
+                android:overScrollMode="always"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:scrollbarSize="4dp"
+                android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right" />
 
@@ -175,7 +178,8 @@
                 android:layout_gravity="center"
                 android:text="@string/tvIngr"
                 android:textColor="@color/plateado"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etIngrReceta"
@@ -188,10 +192,12 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
+                android:overScrollMode="always"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:scrollbarSize="4dp"
+                android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right" />
 
@@ -202,7 +208,8 @@
                 android:layout_gravity="center"
                 android:text="@string/tvIntrReceta"
                 android:textColor="@color/plateado"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etIntrReceta"
@@ -215,12 +222,31 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
+                android:overScrollMode="always"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:scrollbarSize="4dp"
+                android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right" />
+
+            <Button
+                android:id="@+id/btCompartir"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/dorado"
+                android:fontFamily="@font/amaranth"
+                android:onClick="publicar"
+                android:text="@string/btCompartir"
+                android:textColor="@color/gris"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.86" />
 
         </LinearLayout>
     </ScrollView>
