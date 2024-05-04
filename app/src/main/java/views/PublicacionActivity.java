@@ -2,15 +2,12 @@ package views;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,42 +25,32 @@ import models.RecetaModel;
 import models.UserModel;
 import utils.ImageUtil;
 
-public class PublicarActivity extends AppCompatActivity {
-    private ImageView imgUserPublicar, imgRecetaPublicar;
-    private TextView tvUserPublicar;
+public class PublicacionActivity extends AppCompatActivity {
+    private ImageView imgUserPublicacion, imgRecetaPublicacion;
+    private TextView tvUserPublicacion;
     private EditText etDescripcion, etInstrucciones, etIngredientes, etTitulo;
     private UserController userController = new UserController();
     private RecetaController recetaController = new RecetaController();
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Bitmap bitmap = null;
     private ImageUtil imageUtil = new ImageUtil();
     UserModel user = new UserModel();
+    RecetaModel receta = new RecetaModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_publicar);
+        setContentView(R.layout.activity_publicacion);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
         initComponents();
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        tvUserPublicar.setText(username);
-        imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
     }
 
     private void initComponents(){
-        imgUserPublicar = findViewById(R.id.imgUserPublicar);
-        imgRecetaPublicar = findViewById(R.id.imgRecetaPublicar);
-        tvUserPublicar = findViewById(R.id.tvUserPublicar);
+        imgUserPublicacion = findViewById(R.id.imgUserPublicacion);
+        imgRecetaPublicacion = findViewById(R.id.imgRecetaPublicacion);
+        tvUserPublicacion = findViewById(R.id.tvUserPublicacion);
         etDescripcion = findViewById(R.id.etDescReceta);
         etInstrucciones = findViewById(R.id.etIntrReceta);
         etIngredientes = findViewById(R.id.etIngrReceta);
@@ -75,10 +62,10 @@ public class PublicarActivity extends AppCompatActivity {
                 if (view.getId() == R.id.etIngrReceta) {
                     view.getParent().requestDisallowInterceptTouchEvent(true);
                     /**
-                    * Evita que el padre del EditText intercepte eventos táctiles.
-                    * Esto significa que los eventos táctiles no se propagarán a los View padres,
-                    * permitiendo que el EditText maneje los eventos táctiles de manera independiente.
-                    **/
+                     * Evita que el padre del EditText intercepte eventos táctiles.
+                     * Esto significa que los eventos táctiles no se propagarán a los View padres,
+                     * permitiendo que el EditText maneje los eventos táctiles de manera independiente.
+                     **/
                     switch (event.getAction()&MotionEvent.ACTION_MASK){
                         /**
                          * Comienza un switch basado en el tipo de acción del evento táctil.
@@ -132,64 +119,16 @@ public class PublicarActivity extends AppCompatActivity {
             }
         });
 
-        imgRecetaPublicar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Abrir la galería cuando el ImageView sea clickeado
-                Intent intent = new Intent();
-                intent.setType("image/*"); // Establece el tipo de datos que se espera seleccionar en la galería como imágenes.
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST); // Inicia una actividad para seleccionar una imagen de la galería y espera el resultado.
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            // Cuando se selecciona una imagen de la galería, obtener la URI de la imagen
-            Uri uri = data.getData(); // Obtiene la URI de la imagen seleccionada.
-            try {
-                // Convertir la URI en un Bitmap
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                // Establecer el Bitmap en el ImageView
-                imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap, 1000, 1000));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            receta = recetaController.buscarReceta("arrozsad", 22);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    }
 
-    public void publicar(View view){
-        if(bitmap == null){
-            Toast.makeText(this, "Selecciona una foto para tu receta.", Toast.LENGTH_SHORT).show();
-        }
-        else if(etInstrucciones.getText().toString().isEmpty() || etDescripcion.getText().toString().isEmpty() ||
-                etIngredientes.getText().toString().isEmpty()){
-            Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
-        }else{
-            RecetaModel receta = new RecetaModel(
-                    etTitulo.getText().toString(),
-                    etDescripcion.getText().toString(),
-                    etIngredientes.getText().toString(),
-                    etInstrucciones.getText().toString(),
-                    user.getId(),
-                    0,
-                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
-            );
-            try {
-                recetaController.insertarReceta(receta);
-                Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    public void ir(View view){
-        Intent intent = new Intent(PublicarActivity.this, PublicacionActivity.class);
-        startActivity(intent);
+        etTitulo.setText(receta.getTitulo());
+        etDescripcion.setText(receta.getDescripcion());
+        etIngredientes.setText(receta.getIngredientes());
+        etInstrucciones.setText(receta.getInstrucciones());
+        imgRecetaPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
     }
 }

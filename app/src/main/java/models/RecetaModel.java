@@ -31,6 +31,9 @@ public class RecetaModel {
         this.fotoReceta = fotoReceta;
     }
 
+    public RecetaModel() {
+    }
+
     public String getTitulo() {
         return titulo;
     }

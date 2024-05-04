@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="views.PublicarActivity">
+    tools:context="views.PublicacionActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nbPublicar"
@@ -60,7 +60,6 @@
             android:layout_marginTop="10dp"
             android:background="@null"
             android:contentDescription="@string/btInicio"
-            android:onClick="ir"
             app:srcCompat="@drawable/home" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -85,7 +84,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgUserPublicar"
+                    android:id="@+id/imgUserPublicacion"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:padding="10dp"
@@ -100,7 +99,7 @@
                     app:strokeWidth="0dp" />
 
                 <TextView
-                    android:id="@+id/tvUserPublicar"
+                    android:id="@+id/tvUserPublicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -134,7 +133,7 @@
                     android:textSize="16dp" />
 
                 <ImageView
-                    android:id="@+id/imgRecetaPublicar"
+                    android:id="@+id/imgRecetaPublicacion"
                     android:layout_width="157dp"
                     android:layout_height="91dp"
                     android:layout_weight="1"
@@ -232,22 +231,6 @@
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right" />
 
-            <Button
-                android:id="@+id/btCompartir"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/dorado"
-                android:fontFamily="@font/amaranth"
-                android:onClick="publicar"
-                android:text="@string/btCompartir"
-                android:textColor="@color/gris"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.86" />
 
         </LinearLayout>
     </ScrollView>
