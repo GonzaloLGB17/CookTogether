@@ -58,6 +58,7 @@ public class PublicarActivity extends AppCompatActivity {
         }
         tvUserPublicar.setText(username);
         imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+        //ir();
     }
 
     private void initComponents(){
@@ -188,7 +189,7 @@ public class PublicarActivity extends AppCompatActivity {
         }
     }
 
-    public void ir(View view){
+    public void ir(){
         Intent intent = new Intent(PublicarActivity.this, PublicacionActivity.class);
         startActivity(intent);
     }

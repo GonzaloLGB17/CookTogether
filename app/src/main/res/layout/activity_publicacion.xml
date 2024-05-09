@@ -8,7 +8,7 @@
     android:background="@color/black"
     tools:context="views.PublicacionActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nbPublicar"
         android:layout_width="409dp"
         android:layout_height="67dp"
@@ -61,12 +61,35 @@
             android:background="@null"
             android:contentDescription="@string/btInicio"
             app:srcCompat="@drawable/home" />
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+
+    <nl.joery.animatedbottombar.AnimatedBottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        app:abb_indicatorAppearance="round"
+        app:abb_indicatorHeight="4dp"
+        app:abb_indicatorMargin="16dp"
+        app:abb_selectedIndex="1"
+        app:abb_selectedTabType="text"
+        app:abb_tabs="@menu/tabs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="1.0"
+        android:backgroundTint="@color/black"
+        app:abb_tabColor="@color/dorado"
+        app:abb_tabColorSelected="@color/plateado"/>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="409dp"
-        android:layout_height="659dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nbPublicar"
+        android:layout_height="754dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +180,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/fondo_et_plat"
+                android:editable="true"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -179,27 +203,20 @@
                 android:text="@string/tvIngr"
                 android:textColor="@color/plateado"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible"/>
 
-            <EditText
-                android:id="@+id/etIngrReceta"
+            <TextView
+                android:id="@+id/tvIngrRecetaContent"
                 android:layout_width="392dp"
-                android:layout_height="134dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/fondo_et_plat"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:isScrollContainer="true"
-                android:overScrollMode="always"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:scrollbarSize="4dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:verticalScrollbarPosition="right" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/fondo_et_gris"
+                android:text="@string/tvIngr"
+                android:textColor="@color/plateado"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/tvIntrReceta"
@@ -209,29 +226,20 @@
                 android:text="@string/tvIntrReceta"
                 android:textColor="@color/plateado"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible"/>
 
-            <EditText
-                android:id="@+id/etIntrReceta"
+            <TextView
+                android:id="@+id/tvIntrRecetaContent"
                 android:layout_width="392dp"
-                android:layout_height="134dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/fondo_et_plat"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:isScrollContainer="true"
-                android:overScrollMode="always"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:scrollbarSize="4dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:verticalScrollbarPosition="right" />
-
-
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/fondo_et_gris"
+                android:text="@string/tvIntrReceta"
+                android:textColor="@color/plateado"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
         </LinearLayout>
     </ScrollView>
 

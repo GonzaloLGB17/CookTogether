@@ -8,7 +8,7 @@
     android:background="@color/black"
     tools:context="views.PublicarActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nbPublicar"
         android:layout_width="409dp"
         android:layout_height="67dp"
@@ -62,12 +62,34 @@
             android:contentDescription="@string/btInicio"
             android:onClick="ir"
             app:srcCompat="@drawable/home" />
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+    <nl.joery.animatedbottombar.AnimatedBottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:backgroundTint="@color/black"
+        app:abb_indicatorAppearance="round"
+        app:abb_indicatorHeight="4dp"
+        app:abb_indicatorMargin="16dp"
+        app:abb_selectedIndex="1"
+        app:abb_selectedTabType="text"
+        app:abb_tabColor="@color/dorado"
+        app:abb_tabs="@menu/tabs"
+        app:abb_tabColorSelected="@color/plateado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="409dp"
-        android:layout_height="659dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nbPublicar"
+        android:layout_height="754dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +131,8 @@
                     android:textAlignment="textStart"
                     android:textColor="@color/plateado"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
 
             </LinearLayout>
 
