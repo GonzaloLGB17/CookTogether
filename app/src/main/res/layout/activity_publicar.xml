@@ -65,15 +65,17 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
-        android:id="@+id/bottomBar"
+        android:id="@+id/bottomBarPublicar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
         android:backgroundTint="@color/black"
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="4dp"
+        app:abb_indicatorColor="@color/dorado"
+        app:abb_indicatorLocation="bottom"
         app:abb_indicatorMargin="16dp"
-        app:abb_selectedIndex="1"
+        app:abb_selectedIndex="2"
         app:abb_selectedTabType="text"
         app:abb_tabColor="@color/dorado"
         app:abb_tabs="@menu/tabs"
@@ -176,8 +178,8 @@
 
             <EditText
                 android:id="@+id/etDescReceta"
-                android:layout_width="392dp"
-                android:layout_height="134dp"
+                android:layout_width="396dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/fondo_et_plat"
@@ -196,7 +198,7 @@
 
 
             <TextView
-                android:id="@+id/tvIngrReceta"
+                android:id="@+id/tvContentPublicacion"
                 android:layout_width="392dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

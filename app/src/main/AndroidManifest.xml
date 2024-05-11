@@ -15,6 +15,15 @@
         android:theme="@style/Theme.CookTogether"
         tools:targetApi="31">
         <activity
+            android:name="views.PerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name="views.BuscarActivity"
+            android:exported="false" />
+        <activity
+            android:name="views.InicioActivity"
+            android:exported="false" />
+        <activity
             android:name="views.PublicacionActivity"
             android:exported="false" />
         <activity

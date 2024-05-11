@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,9 +28,11 @@ import controllers.RecetaController;
 import controllers.UserController;
 import models.RecetaModel;
 import models.UserModel;
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
 public class PublicarActivity extends AppCompatActivity {
+    private AnimatedBottomBar bottomBar;
     private ImageView imgUserPublicar, imgRecetaPublicar;
     private TextView tvUserPublicar;
     private EditText etDescripcion, etInstrucciones, etIngredientes, etTitulo;
@@ -49,16 +53,6 @@ public class PublicarActivity extends AppCompatActivity {
             return insets;
         });
         initComponents();
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        tvUserPublicar.setText(username);
-        imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
-        //ir();
     }
 
     private void initComponents(){
@@ -69,6 +63,19 @@ public class PublicarActivity extends AppCompatActivity {
         etInstrucciones = findViewById(R.id.etIntrReceta);
         etIngredientes = findViewById(R.id.etIngrReceta);
         etTitulo = findViewById(R.id.etTituloReceta);
+        bottomBar = findViewById(R.id.bottomBarPublicar);
+
+        Intent login = getIntent();
+        String username = login.getStringExtra("username");
+        try {
+            user = userController.buscarUsuario(username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        tvUserPublicar.setText(username);
+        imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
             // Este metodo lo utilizo para poder scrollear en el edit text dentro de un scroll view.
             @Override
@@ -133,6 +140,7 @@ public class PublicarActivity extends AppCompatActivity {
             }
         });
 
+
         imgRecetaPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +151,50 @@ public class PublicarActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST); // Inicia una actividad para seleccionar una imagen de la galería y espera el resultado.
             }
         });
+
+
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
+                if (tab.getTitle().equals("Inicio")) {
+                    Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (tab.getTitle().equals("Buscar")) {
+                    Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (tab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
+                if (newTab.getTitle().equals("Inicio")) {
+                    Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Buscar")) {
+                    Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -193,4 +245,6 @@ public class PublicarActivity extends AppCompatActivity {
         Intent intent = new Intent(PublicarActivity.this, PublicacionActivity.class);
         startActivity(intent);
     }
+
+
 }

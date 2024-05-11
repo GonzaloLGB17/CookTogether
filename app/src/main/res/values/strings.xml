@@ -20,4 +20,6 @@
     <string name="tvIngr">Ingredientes</string>
     <string name="tvIntrReceta">Instrucciones</string>
     <string name="btCompartir">Compartir</string>
+    <string name="tbIntr">Ingredientes</string>
+    <string name="tbInstrucciones">Instrucciones</string>
 </resources>

@@ -1,9 +1,7 @@
 package views;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,16 +24,19 @@ import controllers.RecetaController;
 import controllers.UserController;
 import models.RecetaModel;
 import models.UserModel;
+import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
 public class PublicacionActivity extends AppCompatActivity {
     private ImageView imgUserPublicacion, imgRecetaPublicacion;
-    private TextView tvUserPublicacion, etInstrucciones, etIngredientes;
+    private TextView tvUserPublicacion, tvTitulo, tvContent;
+    private AnimatedBottomBar menuBar;
+    private AnimatedBottomBar bottomBar;
     private EditText etDescripcion,  etTitulo;
     private UserController userController = new UserController();
     private RecetaController recetaController = new RecetaController();
     private ImageUtil imageUtil = new ImageUtil();
-    UserModel user = new UserModel();
+    private UserModel user = new UserModel();
     RecetaModel receta = new RecetaModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,32 +51,25 @@ public class PublicacionActivity extends AppCompatActivity {
         initComponents();
     }
 
-    private void initComponents(){
+    private void initComponents() {
         imgUserPublicacion = findViewById(R.id.imgUserPublicacion);
         imgRecetaPublicacion = findViewById(R.id.imgRecetaPublicacion);
         tvUserPublicacion = findViewById(R.id.tvUserPublicacion);
         etDescripcion = findViewById(R.id.etDescReceta);
-        etInstrucciones = findViewById(R.id.tvIntrRecetaContent);
-        etIngredientes = findViewById(R.id.tvIngrRecetaContent);
+        tvTitulo = findViewById(R.id.tvTituloPublicacion);
+        tvContent = findViewById(R.id.tvContentPublicacion);
         etTitulo = findViewById(R.id.etTituloReceta);
+        menuBar = findViewById(R.id.menuBar);
+        bottomBar = findViewById(R.id.bottomBarPublicacion);
 
 
-        etDescripcion.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (view.getId() == R.id.etDescReceta) {
-                    view.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                        case MotionEvent.ACTION_UP:
-                            view.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-
-        
+        Intent login = getIntent();
+        String username = login.getStringExtra("username");
+        try {
+            user = userController.buscarUsuario(username);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             receta = recetaController.buscarReceta("Empanadas criollas", 22);
@@ -81,11 +77,92 @@ public class PublicacionActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        tvUserPublicacion.setText(username);
+        imgUserPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+
         etTitulo.setText(receta.getTitulo());
         etDescripcion.setText(receta.getDescripcion());
-        etIngredientes.setText(receta.getIngredientes());
-        etInstrucciones.setText(receta.getInstrucciones());
         imgRecetaPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
+        tvTitulo.setText("Ingredientes");
+        tvContent.setText(receta.getIngredientes());
+
+        menuBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
+                if (tab.getTitle().equals("Ingredientes")) {
+                    tvTitulo.setText("Ingredientes");
+                    tvContent.setText(receta.getIngredientes());
+                }
+                if (tab.getTitle().equals("Instrucciones")) {
+                    tvTitulo.setText("Instrucciones");
+                    tvContent.setText(receta.getInstrucciones());
+                }
+            }
+
+            @Override
+            public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
+                if (newTab.getTitle().equals("Ingredientes")) {
+                    tvTitulo.setText("Ingredientes");
+                    tvContent.setText(receta.getIngredientes());
+                }
+                if (newTab.getTitle().equals("Instrucciones")) {
+                    tvTitulo.setText("Instrucciones");
+                    tvContent.setText(receta.getInstrucciones());
+                }
+            }
+        });
+
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+            @Override
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
+                if (tab.getTitle().equals("Inicio")) {
+                    Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (tab.getTitle().equals("Buscar")) {
+                    Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (tab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (tab.getTitle().equals("Compartir")) {
+                    Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
+                if (newTab.getTitle().equals("Inicio")) {
+                    Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Buscar")) {
+                    Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Compartir")) {
+                    Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                }
+            }
+        });
+
 
     }
+
 }
