@@ -118,21 +118,25 @@ public class PublicacionActivity extends AppCompatActivity {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }
@@ -142,21 +146,25 @@ public class PublicacionActivity extends AppCompatActivity {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }

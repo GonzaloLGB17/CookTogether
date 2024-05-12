@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context="views.BuscarActivity">
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
@@ -13,12 +14,6 @@
         android:layout_height="wrap_content"
         android:background="#FFF"
         android:backgroundTint="@color/black"
-        app:abb_indicatorAnimation="slide"
-        app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="@color/dorado"
-        app:abb_indicatorHeight="4dp"
-        app:abb_indicatorLocation="bottom"
-        app:abb_indicatorMargin="16dp"
         app:abb_selectedIndex="1"
         app:abb_selectedTabType="text"
         app:abb_tabColor="@color/dorado"

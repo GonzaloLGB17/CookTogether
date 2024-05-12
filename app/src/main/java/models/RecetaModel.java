@@ -5,28 +5,28 @@ public class RecetaModel {
     private String descripcion;
     private String ingredientes;
     private String instrucciones;
-    private int usuarioId;
+    private String usuario;
     private double puntuacionMedia;
     private byte[] fotoReceta;
     private int idReceta;
 
-    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, int usuarioId, double puntuacionMedia, byte[] fotoReceta, int idReceta) {
+    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta, int idReceta) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
         this.instrucciones = instrucciones;
-        this.usuarioId = usuarioId;
+        this.usuario = usuario;
         this.puntuacionMedia = puntuacionMedia;
         this.fotoReceta = fotoReceta;
         this.idReceta = idReceta;
     }
 
-    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, int usuarioId, double puntuacionMedia, byte[] fotoReceta) {
+    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
         this.instrucciones = instrucciones;
-        this.usuarioId = usuarioId;
+        this.usuario = usuario;
         this.puntuacionMedia = puntuacionMedia;
         this.fotoReceta = fotoReceta;
     }
@@ -66,12 +66,12 @@ public class RecetaModel {
         this.instrucciones = instrucciones;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public double getPuntuacionMedia() {

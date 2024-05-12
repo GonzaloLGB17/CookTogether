@@ -159,16 +159,19 @@ public class PublicarActivity extends AppCompatActivity {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
 
@@ -179,16 +182,19 @@ public class PublicarActivity extends AppCompatActivity {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }
@@ -216,6 +222,7 @@ public class PublicarActivity extends AppCompatActivity {
     }
 
     public void publicar(View view){
+        //Introducir validaciones de campos
         if(bitmap == null){
             Toast.makeText(this, "Selecciona una foto para tu receta.", Toast.LENGTH_SHORT).show();
         }
@@ -228,7 +235,7 @@ public class PublicarActivity extends AppCompatActivity {
                     etDescripcion.getText().toString(),
                     etIngredientes.getText().toString(),
                     etInstrucciones.getText().toString(),
-                    user.getId(),
+                    user.getUsername(),
                     0,
                     imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
             );

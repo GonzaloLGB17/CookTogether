@@ -34,7 +34,7 @@ public class RecetaDAO {
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario_id, puntuacion_media, foto_receta)\n" +
+        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta)\n" +
                 "VALUES (?,?,?,?,?,?,?)";
         try{
             PreparedStatement sentencia = connection.prepareStatement(query);
@@ -42,7 +42,7 @@ public class RecetaDAO {
             sentencia.setString(2, receta.getDescripcion());
             sentencia.setString(3, receta.getIngredientes());
             sentencia.setString(4, receta.getInstrucciones());
-            sentencia.setInt(5, receta.getUsuarioId());
+            sentencia.setString(5, receta.getUsuario());
             sentencia.setDouble(6,receta.getPuntuacionMedia());
             sentencia.setBytes(7, receta.getFotoReceta());
             insertarReceta = true;
@@ -55,7 +55,7 @@ public class RecetaDAO {
         return insertarReceta;
     }
 
-    public RecetaModel buscarReceta(String titulo, int userId) throws SQLException {
+    public RecetaModel buscarReceta(String titulo, String usuario) throws SQLException {
         PreparedStatement sentencia = null;
         ResultSet rs = null;
         RecetaModel recetaModel = null;
@@ -64,10 +64,10 @@ public class RecetaDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT titulo, descripcion, ingredientes, instrucciones, usuario_id, puntuacion_media, foto_receta FROM recetas WHERE titulo = ? AND usuario_id = ?";
+        String query = "SELECT titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta FROM recetas WHERE titulo = ? AND usuario = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, titulo);
-        sentencia.setInt(2, userId);
+        sentencia.setString(2, usuario);
         rs = sentencia.executeQuery();
         // Verificar si se encontró el usuario y crear el objeto UserModel
         if (rs.next()) {
@@ -76,7 +76,7 @@ public class RecetaDAO {
                     rs.getString("descripcion"),
                     rs.getString("ingredientes"),
                     rs.getString("instrucciones"),
-                    rs.getInt("usuario_id"),
+                    rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"));
         } else {

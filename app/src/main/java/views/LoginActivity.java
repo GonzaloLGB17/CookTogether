@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             userController.iniciarSesion(username,password);
             UserModel user = userController.buscarUsuario(username);
-            Intent publicar = new Intent(LoginActivity.this, PublicarActivity.class);
+            Intent publicar = new Intent(LoginActivity.this, InicioActivity.class);
             publicar.putExtra("username", username);
             startActivity(publicar);
         } catch (SQLException e) {

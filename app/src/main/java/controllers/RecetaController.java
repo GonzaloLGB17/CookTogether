@@ -10,7 +10,7 @@ public class RecetaController {
         return new RecetaDAO().insertarReceta(receta);
     }
 
-    public RecetaModel buscarReceta(String titulo, int userId) throws SQLException {
-        return new RecetaDAO().buscarReceta(titulo,userId);
+    public RecetaModel buscarReceta(String titulo, String usuario) throws SQLException {
+        return new RecetaDAO().buscarReceta(titulo,usuario);
     }
 }

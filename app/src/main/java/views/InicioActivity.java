@@ -18,7 +18,7 @@ import controllers.UserController;
 import models.UserModel;
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity{
     private AnimatedBottomBar bottomBar;
     private UserModel user = new UserModel();
     private UserController userController = new UserController();
@@ -53,16 +53,19 @@ public class InicioActivity extends AppCompatActivity {
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(InicioActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(InicioActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }
@@ -72,16 +75,19 @@ public class InicioActivity extends AppCompatActivity {
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(InicioActivity.this, BuscarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(InicioActivity.this, PerfilActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
                     intent.putExtra("username", username);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }
