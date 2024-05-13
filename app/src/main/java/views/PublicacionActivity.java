@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.cooktogether.R;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import controllers.RecetaController;
 import controllers.UserController;
@@ -37,7 +38,8 @@ public class PublicacionActivity extends AppCompatActivity {
     private RecetaController recetaController = new RecetaController();
     private ImageUtil imageUtil = new ImageUtil();
     private UserModel user = new UserModel();
-    RecetaModel receta = new RecetaModel();
+    private RecetaModel receta = new RecetaModel();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +63,6 @@ public class PublicacionActivity extends AppCompatActivity {
         etTitulo = findViewById(R.id.etTituloReceta);
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
-
-
         Intent login = getIntent();
         String username = login.getStringExtra("username");
         try {
@@ -72,7 +72,7 @@ public class PublicacionActivity extends AppCompatActivity {
         }
 
         try {
-            receta = recetaController.buscarReceta("Empanadas criollas", 22);
+            receta = recetaController.buscarReceta("Empanadas criollas", "username");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

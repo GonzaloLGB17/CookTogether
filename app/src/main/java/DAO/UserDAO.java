@@ -82,7 +82,7 @@ public class UserDAO {
         }
         UserModel usuario = null;
         ArrayList<UserModel> usuarios = new ArrayList<>();
-        String query = "SELECT * FROM Usuario;";
+        String query = "SELECT * FROM usuarios;";
         PreparedStatement sentencia = connection.prepareStatement(query);
         ResultSet rs = sentencia.executeQuery();
         while (rs.next()){

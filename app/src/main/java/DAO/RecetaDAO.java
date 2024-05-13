@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.ConexionBBDD;
 import models.RecetaModel;
@@ -84,5 +85,32 @@ public class RecetaDAO {
         }
         closeDBConnection();
         return recetaModel;
+    }
+
+    public ArrayList<RecetaModel> obtenerRecetas() throws SQLException{
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        RecetaModel recetaModel = null;
+        ArrayList<RecetaModel> recetas = new ArrayList<>();
+        String query = "SELECT * FROM recetas;";
+        PreparedStatement sentencia = connection.prepareStatement(query);
+        ResultSet rs = sentencia.executeQuery();
+        while (rs.next()){
+            recetaModel = new RecetaModel(
+                    rs.getString("titulo"),
+                    rs.getString("descripcion"),
+                    rs.getString("ingredientes"),
+                    rs.getString("instrucciones"),
+                    rs.getString("usuario"),
+                    rs.getDouble("puntuacion_media"),
+                    rs.getBytes("foto_receta"));
+
+            if(recetaModel!=null){
+                recetas.add(recetaModel);
+            }
+        }
+        closeDBConnection();
+        return recetas;
     }
 }
