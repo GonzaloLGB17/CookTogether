@@ -9,6 +9,7 @@ public class RecetaModel {
     private double puntuacionMedia;
     private byte[] fotoReceta;
     private int idReceta;
+    private UserModel user;
 
     public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta, int idReceta) {
         this.titulo = titulo;

@@ -12,12 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooktogether.R;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import adapters.InicioAdapter;
 import controllers.RecetaController;
 import controllers.UserController;
 import models.RecetaModel;
@@ -34,6 +37,8 @@ public class InicioActivity extends AppCompatActivity{
     private ImageUtil imageUtil = new ImageUtil();
     private TextView tvUserInicio;
     private ImageView imgUserInicio;
+    private RecyclerView rvInicio;
+    private InicioAdapter inicioAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,5 +119,9 @@ public class InicioActivity extends AppCompatActivity{
         } catch (SQLException e) {
             Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
         }
+        rvInicio = findViewById(R.id.rvInicio);
+        inicioAdapter = new InicioAdapter(this, recetas);
+        rvInicio.setAdapter(inicioAdapter);
+        rvInicio.setLayoutManager(new LinearLayoutManager(this));
     }
 }

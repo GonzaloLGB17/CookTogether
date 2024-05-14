@@ -230,15 +230,16 @@ public class PublicarActivity extends AppCompatActivity {
                 etIngredientes.getText().toString().isEmpty()){
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
         }else{
-            RecetaModel receta = new RecetaModel(
-                    etTitulo.getText().toString(),
-                    etDescripcion.getText().toString(),
-                    etIngredientes.getText().toString(),
-                    etInstrucciones.getText().toString(),
-                    user.getUsername(),
-                    0,
-                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
-            );
+            RecetaModel receta = null;
+                receta = new RecetaModel(
+                        etTitulo.getText().toString(),
+                        etDescripcion.getText().toString(),
+                        etIngredientes.getText().toString(),
+                        etInstrucciones.getText().toString(),
+                        user.getUsername(),
+                        0,
+                        imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
+                );
             try {
                 recetaController.insertarReceta(receta);
                 Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
