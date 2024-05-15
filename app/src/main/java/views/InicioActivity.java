@@ -1,5 +1,6 @@
 package views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -23,12 +24,14 @@ import java.util.ArrayList;
 import adapters.InicioAdapter;
 import controllers.RecetaController;
 import controllers.UserController;
+import interfaces.InterfaceInicioPublicacion;
 import models.RecetaModel;
 import models.UserModel;
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
-public class InicioActivity extends AppCompatActivity{
+public class InicioActivity extends AppCompatActivity implements InterfaceInicioPublicacion {
+
     private AnimatedBottomBar bottomBar;
     private UserModel user = new UserModel();
     private UserController userController = new UserController();
@@ -120,8 +123,16 @@ public class InicioActivity extends AppCompatActivity{
             Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
         }
         rvInicio = findViewById(R.id.rvInicio);
-        inicioAdapter = new InicioAdapter(this, recetas);
+        inicioAdapter = new InicioAdapter(this, recetas, this);
         rvInicio.setAdapter(inicioAdapter);
         rvInicio.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void pubCardClick(int position) {
+        Intent intent = new Intent(this, PublicacionActivity.class);
+        intent.putExtra("user", recetas.get(position).getUsuario());
+        intent.putExtra("receta", recetas.get(position).getTitulo());
+        startActivity(intent);
     }
 }

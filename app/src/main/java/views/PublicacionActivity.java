@@ -63,8 +63,9 @@ public class PublicacionActivity extends AppCompatActivity {
         etTitulo = findViewById(R.id.etTituloReceta);
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("user");
+        String recetaTitulo = intent.getStringExtra("receta");
         try {
             user = userController.buscarUsuario(username);
         } catch (SQLException e) {
@@ -72,7 +73,7 @@ public class PublicacionActivity extends AppCompatActivity {
         }
 
         try {
-            receta = recetaController.buscarReceta("Empanadas criollas", "username");
+            receta = recetaController.buscarReceta(recetaTitulo, username);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

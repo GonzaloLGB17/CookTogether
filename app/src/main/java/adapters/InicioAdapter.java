@@ -16,16 +16,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.UserController;
+import interfaces.InterfaceInicioPublicacion;
 import models.RecetaModel;
 import models.UserModel;
 import utils.ImageUtil;
 
 public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHolder> {
-    Context context;
-    ArrayList<RecetaModel> recetas;
-    public InicioAdapter(Context context, ArrayList<RecetaModel> recetas){
+    public Context context;
+    public ArrayList<RecetaModel> recetas;
+    private final InterfaceInicioPublicacion interfaceInicioPublicacion;
+    public InicioAdapter(Context context, ArrayList<RecetaModel> recetas, InterfaceInicioPublicacion interfaceInicioPublicacion){
         this.context = context;
         this.recetas = recetas;
+        this.interfaceInicioPublicacion = interfaceInicioPublicacion;
     }
 
     @NonNull
@@ -33,7 +36,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.publicacion_layout, parent, false);
-        return new InicioAdapter.MyViewHolder(view);
+        return new InicioAdapter.MyViewHolder(view, interfaceInicioPublicacion);
     }
 
     @Override
@@ -55,16 +58,28 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
         return recetas.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         private ImageView imgPublicacionInicio, imgUserPublicacionCard;
         private TextView tvTituloCard, tvUserCard, tvPuntuacionCard;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, InterfaceInicioPublicacion interfaceInicioPublicacion) {
             super(itemView);
             tvUserCard = itemView.findViewById(R.id.tvUsuarioCard);
             tvTituloCard = itemView.findViewById(R.id.tvTituloCard);
             tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacioCard);
             imgPublicacionInicio = itemView.findViewById(R.id.imgPublicacionInicio);
             imgUserPublicacionCard = itemView.findViewById(R.id.imgUserPublicacionCard);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(interfaceInicioPublicacion != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            interfaceInicioPublicacion.pubCardClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

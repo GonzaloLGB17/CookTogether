@@ -1,6 +1,8 @@
 package models;
 
-public class RecetaModel {
+import java.io.Serializable;
+
+public class RecetaModel{
     private String titulo;
     private String descripcion;
     private String ingredientes;

@@ -69,24 +69,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
-        app:abb_indicatorAppearance="round"
-        app:abb_indicatorHeight="4dp"
-        app:abb_indicatorMargin="16dp"
-        app:abb_selectedIndex="1"
+        android:backgroundTint="@color/black"
         app:abb_selectedTabType="text"
+        app:abb_tabColor="@color/dorado"
+        app:abb_tabColorSelected="@color/plateado"
         app:abb_tabs="@menu/tabs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView"
-        app:layout_constraintVertical_bias="1.0"
-        android:backgroundTint="@color/black"
-        app:abb_tabColor="@color/dorado"
-        app:abb_tabColorSelected="@color/plateado"
-        app:abb_indicatorColor="@color/dorado"
-        app:abb_indicatorLocation="bottom"
-        app:abb_indicatorAnimation="slide"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -179,8 +172,8 @@
 
             <EditText
                 android:id="@+id/etDescReceta"
-                android:layout_width="392dp"
-                android:layout_height="134dp"
+                android:layout_width="391dp"
+                android:layout_height="193dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/fondo_et_plat"
