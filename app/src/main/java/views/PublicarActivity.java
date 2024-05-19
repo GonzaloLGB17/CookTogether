@@ -8,8 +8,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ import utils.ImageUtil;
 public class PublicarActivity extends AppCompatActivity {
     private AnimatedBottomBar bottomBar;
     private ImageView imgUserPublicar, imgRecetaPublicar;
+    private Spinner spCategorias;
     private TextView tvUserPublicar;
     private EditText etDescripcion, etInstrucciones, etIngredientes, etTitulo;
     private UserController userController = new UserController();
@@ -62,8 +66,13 @@ public class PublicarActivity extends AppCompatActivity {
         etDescripcion = findViewById(R.id.etDescReceta);
         etInstrucciones = findViewById(R.id.etIntrReceta);
         etIngredientes = findViewById(R.id.etIngrReceta);
-        etTitulo = findViewById(R.id.etTituloReceta);
+        etTitulo = findViewById(R.id.etTituloRecetaPublicar);
         bottomBar = findViewById(R.id.bottomBarPublicar);
+        spCategorias = findViewById(R.id.spCategoriasPublicar);
+        String[] categorias = {"Platos Principales", "Entrantes", "Postres", "Sopas", "Ensaladas"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categorias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCategorias.setAdapter(adapter);
 
         Intent login = getIntent();
         String username = login.getStringExtra("username");
@@ -75,7 +84,6 @@ public class PublicarActivity extends AppCompatActivity {
 
         tvUserPublicar.setText(username);
         imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
-
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
             // Este metodo lo utilizo para poder scrollear en el edit text dentro de un scroll view.
             @Override
@@ -201,6 +209,7 @@ public class PublicarActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     @Override
@@ -221,6 +230,8 @@ public class PublicarActivity extends AppCompatActivity {
         }
     }
 
+
+
     public void publicar(View view){
         //Introducir validaciones de campos
         if(bitmap == null){
@@ -238,7 +249,8 @@ public class PublicarActivity extends AppCompatActivity {
                         etInstrucciones.getText().toString(),
                         user.getUsername(),
                         0,
-                        imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
+                        imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000)),
+                        spCategorias.getSelectedItem().toString()
                 );
             try {
                 recetaController.insertarReceta(receta);

@@ -64,6 +64,44 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
 
+    <LinearLayout
+        android:id="@+id/lineaUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgUserPublicacion"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.083"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:srcCompat="@drawable/defcookicon"
+            app:strokeColor="@color/dorado"
+            app:strokeWidth="0dp" />
+
+        <TextView
+            android:id="@+id/tvUserPublicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Usuario"
+            android:textAlignment="textStart"
+            android:textColor="@color/plateado"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottomBarPublicacion"
         android:layout_width="match_parent"
@@ -83,14 +121,14 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="409dp"
-        android:layout_height="754dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBarPublicacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025">
+        app:layout_constraintTop_toBottomOf="@id/lineaUser">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,71 +136,55 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="218dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgUserPublicacion"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:padding="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.083"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                    app:srcCompat="@drawable/defcookicon"
-                    app:strokeColor="@color/dorado"
-                    app:strokeWidth="0dp" />
-
-                <TextView
-                    android:id="@+id/tvUserPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="Usuario"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/plateado"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="392dp"
-                android:layout_height="91dp"
+                android:layout_width="351dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/etTituloReceta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                <LinearLayout
+                    android:layout_width="229dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:clickable="false"
-                    android:ems="10"
-                    android:hint="@string/etTituloReceta"
-                    android:inputType="text"
-                    android:textColor="@color/plateado"
-                    android:textColorHint="@color/plateado"
-                    android:textSize="16dp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/etTituloRecetaPublicacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/etTituloReceta"
+                        android:inputType="text"
+                        android:textColor="@color/plateado"
+                        android:textColorHint="@color/plateado"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvCategoriaRecetaPublicacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:text="Categoria"
+                        android:textColor="@color/plateado"
+                        android:textColorHint="@color/plateado"
+                        android:textSize="16dp" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imgRecetaPublicacion"
-                    android:layout_width="157dp"
-                    android:layout_height="91dp"
+                    android:layout_width="111dp"
+                    android:layout_height="88dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/addimagereceta" />
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvDescReceta"
-                android:layout_width="392dp"
+                android:layout_width="349dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/tvDescReceta"
@@ -172,7 +194,7 @@
 
             <EditText
                 android:id="@+id/etDescReceta"
-                android:layout_width="391dp"
+                android:layout_width="350dp"
                 android:layout_height="193dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
@@ -181,7 +203,6 @@
                 android:ems="10"
                 android:enabled="true"
                 android:focusable="auto"
-                android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
                 android:overScrollMode="always"
@@ -191,19 +212,23 @@
                 android:scrollbarSize="4dp"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
+                android:textColor="@color/black"
                 android:verticalScrollbarPosition="right" />
 
             <nl.joery.animatedbottombar.AnimatedBottomBar
                 android:id="@+id/menuBar"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:background="#FFF"
                 android:backgroundTint="@color/black"
                 app:abb_indicatorAppearance="round"
+                app:abb_indicatorColor="@color/dorado"
                 app:abb_indicatorHeight="4dp"
                 app:abb_indicatorMargin="16dp"
                 app:abb_selectedIndex="1"
                 app:abb_selectedTabType="text"
+                app:abb_tabAnimation="slide"
                 app:abb_tabColor="@color/dorado"
                 app:abb_tabColorSelected="@color/plateado"
                 app:abb_tabs="@menu/tabpubli"
@@ -212,13 +237,11 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/scrollView"
-                app:layout_constraintVertical_bias="1.0"
-                app:abb_tabAnimation="slide"
-                app:abb_indicatorColor="@color/dorado"/>
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tvTituloPublicacion"
-                android:layout_width="392dp"
+                android:layout_width="352dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/fondo_et_gris"
@@ -230,7 +253,7 @@
 
             <TextView
                 android:id="@+id/tvContentPublicacion"
-                android:layout_width="392dp"
+                android:layout_width="362dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"

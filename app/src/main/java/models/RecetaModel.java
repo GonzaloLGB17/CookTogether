@@ -11,9 +11,9 @@ public class RecetaModel{
     private double puntuacionMedia;
     private byte[] fotoReceta;
     private int idReceta;
-    private UserModel user;
+    private String categoria;
 
-    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta, int idReceta) {
+    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta, int idReceta, String categoria) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
@@ -22,9 +22,10 @@ public class RecetaModel{
         this.puntuacionMedia = puntuacionMedia;
         this.fotoReceta = fotoReceta;
         this.idReceta = idReceta;
+        this.categoria = categoria;
     }
 
-    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta) {
+    public RecetaModel(String titulo, String descripcion, String ingredientes, String instrucciones, String usuario, double puntuacionMedia, byte[] fotoReceta, String categoria) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
@@ -32,6 +33,7 @@ public class RecetaModel{
         this.usuario = usuario;
         this.puntuacionMedia = puntuacionMedia;
         this.fotoReceta = fotoReceta;
+        this.categoria = categoria;
     }
 
     public RecetaModel() {
@@ -99,5 +101,12 @@ public class RecetaModel{
 
     public void setIdReceta(int idReceta) {
         this.idReceta = idReceta;
+    }
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

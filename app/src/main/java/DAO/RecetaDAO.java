@@ -35,8 +35,8 @@ public class RecetaDAO {
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta)\n" +
-                "VALUES (?,?,?,?,?,?,?)";
+        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria)\n" +
+                "VALUES (?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement sentencia = connection.prepareStatement(query);
             sentencia.setString(1,receta.getTitulo());
@@ -46,6 +46,7 @@ public class RecetaDAO {
             sentencia.setString(5, receta.getUsuario());
             sentencia.setDouble(6,receta.getPuntuacionMedia());
             sentencia.setBytes(7, receta.getFotoReceta());
+            sentencia.setString(8, receta.getCategoria());
             insertarReceta = true;
             sentencia.execute();
         }catch (SQLException e){
@@ -65,7 +66,7 @@ public class RecetaDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta FROM recetas WHERE titulo = ? AND usuario = ?";
+        String query = "SELECT titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria FROM recetas WHERE titulo = ? AND usuario = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, titulo);
         sentencia.setString(2, usuario);
@@ -79,7 +80,8 @@ public class RecetaDAO {
                     rs.getString("instrucciones"),
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
-                    rs.getBytes("foto_receta"));
+                    rs.getBytes("foto_receta"),
+                    rs.getString("categoria"));
         } else {
             throw new SQLException("No existe el usuario indicado.");
         }
@@ -104,7 +106,8 @@ public class RecetaDAO {
                     rs.getString("instrucciones"),
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
-                    rs.getBytes("foto_receta"));
+                    rs.getBytes("foto_receta"),
+                    rs.getString("categoria"));
 
             if(recetaModel!=null){
                 recetas.add(recetaModel);

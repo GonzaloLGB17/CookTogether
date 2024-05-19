@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="460dp"
     android:background="@color/black">
 
     <androidx.cardview.widget.CardView
         android:layout_width="319dp"
-        android:layout_height="440dp"
+        android:layout_height="414dp"
         android:backgroundTint="@color/black"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="441dp">
+            android:layout_height="414dp"
+            android:background="@drawable/fondo_et_card">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgUserPublicacionCard"
@@ -92,16 +93,16 @@
 
             <TextView
                 android:id="@+id/tvTituloCard"
-                android:layout_width="249dp"
-                android:layout_height="32dp"
+                android:layout_width="269dp"
+                android:layout_height="31dp"
                 android:text="Titulo de la publicacion"
                 android:textColor="@color/plateado"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.342"
+                app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.889" />
+                app:layout_constraintVertical_bias="0.921" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

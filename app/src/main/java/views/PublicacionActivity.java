@@ -30,7 +30,7 @@ import utils.ImageUtil;
 
 public class PublicacionActivity extends AppCompatActivity {
     private ImageView imgUserPublicacion, imgRecetaPublicacion;
-    private TextView tvUserPublicacion, tvTitulo, tvContent;
+    private TextView tvUserPublicacion, tvTitulo, tvContent, tvCategoria;
     private AnimatedBottomBar menuBar;
     private AnimatedBottomBar bottomBar;
     private EditText etDescripcion,  etTitulo;
@@ -60,7 +60,8 @@ public class PublicacionActivity extends AppCompatActivity {
         etDescripcion = findViewById(R.id.etDescReceta);
         tvTitulo = findViewById(R.id.tvTituloPublicacion);
         tvContent = findViewById(R.id.tvContentPublicacion);
-        etTitulo = findViewById(R.id.etTituloReceta);
+        tvCategoria = findViewById(R.id.tvCategoriaRecetaPublicacion);
+        etTitulo = findViewById(R.id.etTituloRecetaPublicacion);
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
         Intent intent = getIntent();
@@ -86,6 +87,7 @@ public class PublicacionActivity extends AppCompatActivity {
         imgRecetaPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
         tvTitulo.setText("Ingredientes");
         tvContent.setText(receta.getIngredientes());
+        tvCategoria.setText("Categoría: " + receta.getCategoria());
 
         menuBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
