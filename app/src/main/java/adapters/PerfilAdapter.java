@@ -12,20 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooktogether.R;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controllers.UserController;
 import interfaces.InterfacePublicacion;
 import models.RecetaModel;
-import models.UserModel;
 import utils.ImageUtil;
 
-public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHolder> {
+public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHolder> {
     public Context context;
     public ArrayList<RecetaModel> recetas;
     private final InterfacePublicacion interfacePublicacion;
-    public InicioAdapter(Context context, ArrayList<RecetaModel> recetas, InterfacePublicacion interfacePublicacion){
+    public PerfilAdapter(Context context, ArrayList<RecetaModel> recetas, InterfacePublicacion interfacePublicacion){
         this.context = context;
         this.recetas = recetas;
         this.interfacePublicacion = interfacePublicacion;
@@ -35,22 +32,16 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.publicacion_layout, parent, false);
-        return new InicioAdapter.MyViewHolder(view, interfacePublicacion);
+        View view = layoutInflater.inflate(R.layout.publicacion_perfil_layout, parent, false);
+        return new PerfilAdapter.MyViewHolder(view, interfacePublicacion);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tvUserCard.setText(recetas.get(position).getUsuario());
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
         holder.tvPuntuacionCard.setText(String.valueOf(recetas.get(position).getPuntuacionMedia()));
-        holder.imgPublicacionInicio.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
-        try {
-            UserModel user = new UserController().buscarUsuario(recetas.get(position).getUsuario());
-            holder.imgUserPublicacionCard.setImageBitmap(new ImageUtil().transformarBytesBitmap(user.getFotoUsuario()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        holder.imgPublicacionPerfil.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
+
     }
 
     @Override
@@ -59,20 +50,18 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private ImageView imgPublicacionInicio, imgUserPublicacionCard;
-        private TextView tvTituloCard, tvUserCard, tvPuntuacionCard;
+        private ImageView imgPublicacionPerfil;
+        private TextView tvTituloCard, tvPuntuacionCard;
         public MyViewHolder(@NonNull View itemView, InterfacePublicacion interfacePublicacion) {
             super(itemView);
-            tvUserCard = itemView.findViewById(R.id.tvUsuarioCard);
-            tvTituloCard = itemView.findViewById(R.id.tvTituloCard);
-            tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacioCard);
-            imgPublicacionInicio = itemView.findViewById(R.id.imgPublicacionInicio);
-            imgUserPublicacionCard = itemView.findViewById(R.id.imgUserPublicacionCard);
+            tvTituloCard = itemView.findViewById(R.id.tvTituloCardPerfil);
+            tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacionCardPerfil);
+            imgPublicacionPerfil = itemView.findViewById(R.id.imgPublicacionPerfil);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(interfacePublicacion != null){
+                        if(interfacePublicacion != null){
                         int position = getAdapterPosition();
                         if(position != RecyclerView.NO_POSITION){
                             interfacePublicacion.pubCardClick(position);

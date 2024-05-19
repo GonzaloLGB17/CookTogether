@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.cooktogether.R;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import controllers.RecetaController;
 import controllers.UserController;
@@ -70,8 +69,8 @@ public class PublicarActivity extends AppCompatActivity {
         bottomBar = findViewById(R.id.bottomBarPublicar);
         spCategorias = findViewById(R.id.spCategoriasPublicar);
         String[] categorias = {"Platos Principales", "Entrantes", "Postres", "Sopas", "Ensaladas"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categorias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_categorias, categorias);
+        adapter.setDropDownViewResource(R.layout.spinner_categorias);
         spCategorias.setAdapter(adapter);
 
         Intent login = getIntent();
@@ -233,7 +232,6 @@ public class PublicarActivity extends AppCompatActivity {
 
 
     public void publicar(View view){
-        //Introducir validaciones de campos
         if(bitmap == null){
             Toast.makeText(this, "Selecciona una foto para tu receta.", Toast.LENGTH_SHORT).show();
         }
@@ -250,8 +248,8 @@ public class PublicarActivity extends AppCompatActivity {
                         user.getUsername(),
                         0,
                         imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000)),
-                        spCategorias.getSelectedItem().toString()
-                );
+                        spCategorias.getSelectedItem().toString(),
+                        new Timestamp(System.currentTimeMillis()));
             try {
                 recetaController.insertarReceta(receta);
                 Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();

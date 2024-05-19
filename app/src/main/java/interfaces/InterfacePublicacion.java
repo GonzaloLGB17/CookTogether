@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface InterfaceInicioPublicacion {
+public interface InterfacePublicacion {
     public void pubCardClick(int position);
 }

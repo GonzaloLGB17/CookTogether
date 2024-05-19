@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import database.ConexionBBDD;
@@ -31,12 +32,13 @@ public class RecetaDAO {
     }
 
     public boolean insertarReceta(RecetaModel receta) throws SQLException {
+        RecetaModel recetaModel = receta;
         boolean insertarReceta = false;
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria)\n" +
-                "VALUES (?,?,?,?,?,?,?,?)";
+        String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria, fecha_hora)\n" +
+                "VALUES (?,?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement sentencia = connection.prepareStatement(query);
             sentencia.setString(1,receta.getTitulo());
@@ -47,6 +49,7 @@ public class RecetaDAO {
             sentencia.setDouble(6,receta.getPuntuacionMedia());
             sentencia.setBytes(7, receta.getFotoReceta());
             sentencia.setString(8, receta.getCategoria());
+            sentencia.setTimestamp(9, receta.getFechaHora());
             insertarReceta = true;
             sentencia.execute();
         }catch (SQLException e){
@@ -66,12 +69,12 @@ public class RecetaDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria FROM recetas WHERE titulo = ? AND usuario = ?";
+        String query = "SELECT * FROM recetas WHERE titulo = ? AND usuario = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, titulo);
         sentencia.setString(2, usuario);
         rs = sentencia.executeQuery();
-        // Verificar si se encontró el usuario y crear el objeto UserModel
+        // Verificar si se encontró la receta y crear el objeto RecetaModel
         if (rs.next()) {
             recetaModel = new RecetaModel(
                     rs.getString("titulo"),
@@ -81,21 +84,26 @@ public class RecetaDAO {
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
-                    rs.getString("categoria"));
+                    rs.getString("categoria"),
+                    rs.getTimestamp("fecha_hora"));
         } else {
-            throw new SQLException("No existe el usuario indicado.");
+            throw new SQLException("No existe la receta indicada.");
         }
         closeDBConnection();
         return recetaModel;
     }
 
-    public ArrayList<RecetaModel> obtenerRecetas() throws SQLException{
+    public ArrayList<RecetaModel> obtenerRecetasFiltros(String filtro) throws SQLException{
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
+        String query = "SELECT * FROM recetas;";
         RecetaModel recetaModel = null;
         ArrayList<RecetaModel> recetas = new ArrayList<>();
-        String query = "SELECT * FROM recetas;";
+        if(filtro.equals("Recientes")){
+            query = "SELECT * FROM recetas ORDER BY fecha_hora DESC;";
+        }
+
         PreparedStatement sentencia = connection.prepareStatement(query);
         ResultSet rs = sentencia.executeQuery();
         while (rs.next()){
@@ -107,7 +115,68 @@ public class RecetaDAO {
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
-                    rs.getString("categoria"));
+                    rs.getString("categoria"),
+                    rs.getTimestamp("fecha_hora"));
+
+            if(recetaModel!=null){
+                recetas.add(recetaModel);
+            }
+        }
+        closeDBConnection();
+        return recetas;
+    }
+
+    public ArrayList<RecetaModel> obtenerRecetas() throws SQLException{
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        RecetaModel recetaModel = null;
+        ArrayList<RecetaModel> recetas = new ArrayList<>();
+        String query = "SELECT * FROM recetas;";
+        PreparedStatement sentencia = connection.prepareStatement(query);
+
+        ResultSet rs = sentencia.executeQuery();
+        while (rs.next()){
+            recetaModel = new RecetaModel(
+                    rs.getString("titulo"),
+                    rs.getString("descripcion"),
+                    rs.getString("ingredientes"),
+                    rs.getString("instrucciones"),
+                    rs.getString("usuario"),
+                    rs.getDouble("puntuacion_media"),
+                    rs.getBytes("foto_receta"),
+                    rs.getString("categoria"),
+                    rs.getTimestamp("fecha_hora"));
+
+            if(recetaModel!=null){
+                recetas.add(recetaModel);
+            }
+        }
+        closeDBConnection();
+        return recetas;
+    }
+
+    public ArrayList<RecetaModel> obtenerRecetasUsuario(String user) throws SQLException{
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        RecetaModel recetaModel = null;
+        ArrayList<RecetaModel> recetas = new ArrayList<>();
+        String query = "SELECT * FROM recetas WHERE usuario = ?;";
+        PreparedStatement sentencia = connection.prepareStatement(query);
+        sentencia.setString(1, user);
+        ResultSet rs = sentencia.executeQuery();
+        while (rs.next()){
+            recetaModel = new RecetaModel(
+                    rs.getString("titulo"),
+                    rs.getString("descripcion"),
+                    rs.getString("ingredientes"),
+                    rs.getString("instrucciones"),
+                    rs.getString("usuario"),
+                    rs.getDouble("puntuacion_media"),
+                    rs.getBytes("foto_receta"),
+                    rs.getString("categoria"),
+                    rs.getTimestamp("fecha_hora"));
 
             if(recetaModel!=null){
                 recetas.add(recetaModel);

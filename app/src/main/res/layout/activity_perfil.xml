@@ -8,6 +8,60 @@
     android:background="@color/black"
     tools:context="views.PerfilActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayoutPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/rvPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgUserPerfil"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.083"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:srcCompat="@drawable/defcookicon"
+            app:strokeColor="@color/dorado"
+            app:strokeWidth="0dp" />
+
+        <TextView
+            android:id="@+id/tvUserPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Usuario"
+            android:textAlignment="textStart"
+            android:textColor="@color/plateado"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:isScrollContainer="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBarPerfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutPerfil"
+        tools:ignore="NotSibling" />
+
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottomBarPerfil"
         android:layout_width="match_parent"
@@ -23,16 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
