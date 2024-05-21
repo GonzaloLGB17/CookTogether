@@ -35,8 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         etUsernameLogin = findViewById(R.id.etUsernameLogin);
         etPasswordLogin = findViewById(R.id.etPasswordLogin);
         tvRegisterLogin = findViewById(R.id.tvRegisterLogin);
-        etUsernameLogin.setText("glpz00");
-        etPasswordLogin.setText("1234");
         logo = findViewById(R.id.imgLogoLogin);
         tvRegisterLogin.setOnClickListener(new View.OnClickListener() {
             @Override

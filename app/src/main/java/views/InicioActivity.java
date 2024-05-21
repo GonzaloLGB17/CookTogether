@@ -46,6 +46,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
     private RecyclerView rvInicio;
     private InicioAdapter inicioAdapter;
     private Spinner spFilters;
+    private String username = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         imgUserInicio = findViewById(R.id.imgUserInicio);
         imgFilters = findViewById(R.id.imgFilters);
         Intent login = getIntent();
-        String username = login.getStringExtra("username");
+        username = login.getStringExtra("username");
         try {
             user = userController.buscarUsuario(username);
         } catch (SQLException e) {
@@ -167,7 +168,9 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
     @Override
     public void pubCardClick(int position) {
         Intent intent = new Intent(this, PublicacionActivity.class);
-        intent.putExtra("user", recetas.get(position).getUsuario());
+        String userName = tvUserInicio.getText().toString();
+        intent.putExtra("username", userName);
+        intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());
         startActivity(intent);
     }

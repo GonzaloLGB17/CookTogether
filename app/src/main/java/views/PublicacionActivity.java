@@ -62,6 +62,7 @@ public class PublicacionActivity extends AppCompatActivity {
         bottomBar = findViewById(R.id.bottomBarPublicacion);
         Intent intent = getIntent();
         String username = intent.getStringExtra("user");
+        String usernamePub = intent.getStringExtra("userPub");
         String recetaTitulo = intent.getStringExtra("receta");
         try {
             user = userController.buscarUsuario(username);
@@ -70,13 +71,17 @@ public class PublicacionActivity extends AppCompatActivity {
         }
 
         try {
-            receta = recetaController.buscarReceta(recetaTitulo, username);
+            receta = recetaController.buscarReceta(recetaTitulo, usernamePub);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        tvUserPublicacion.setText(username);
-        imgUserPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+        tvUserPublicacion.setText(receta.getUsuario());
+        try {
+            imgUserPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(userController.buscarUsuario(receta.getUsuario()).getFotoUsuario()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         etTitulo.setText(receta.getTitulo());
         etDescripcion.setText(receta.getDescripcion());
