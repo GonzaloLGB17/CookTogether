@@ -163,7 +163,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
     @Override
     public void pubCardClick(int position) {
         Intent intent = new Intent(this, PublicacionActivity.class);
-        String userName = tvUserInicio.getText().toString();
+
         intent.putExtra("user", user);
         intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());

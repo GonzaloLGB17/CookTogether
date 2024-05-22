@@ -123,7 +123,8 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
     @Override
     public void pubCardClick(int position) {
         Intent intent = new Intent(this, PublicacionActivity.class);
-        intent.putExtra("user", recetas.get(position).getUsuario());
+        intent.putExtra("user", user);
+        intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());
         startActivity(intent);
     }

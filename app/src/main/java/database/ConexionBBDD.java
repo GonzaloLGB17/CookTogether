@@ -24,7 +24,8 @@ public class ConexionBBDD {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName(DRIVER);
-            conexion = DriverManager.getConnection(URLL, USUARIO, CONTR);
+            //conexion = DriverManager.getConnection(URLL, USUARIO, CONTR);
+            conexion = DriverManager.getConnection(URL, USUARIO, PASSWORD);
         }catch (SQLException e){
             System.out.println("Error en la conexión a BBDD");
             e.printStackTrace();
