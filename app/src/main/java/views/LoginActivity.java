@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsernameLogin, etPasswordLogin;
     private UserController userController = new UserController();
     private ImageView logo;
+    UserModel user = new UserModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPasswordLogin.getText().toString();
         try {
             userController.iniciarSesion(username,password);
-            UserModel user = userController.buscarUsuario(username);
+            user = userController.buscarUsuario(username);
             Intent publicar = new Intent(LoginActivity.this, InicioActivity.class);
-            publicar.putExtra("username", username);
+            publicar.putExtra("user", user);
             startActivity(publicar);
         } catch (SQLException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

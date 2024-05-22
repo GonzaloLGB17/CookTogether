@@ -57,15 +57,10 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         tvUserPerfil = findViewById(R.id.tvUserPerfil);
         imgUserPerfil = findViewById(R.id.imgUserPerfil);
 
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Intent intent = getIntent();
+        user = (UserModel) intent.getSerializableExtra("user");
 
-        tvUserPerfil.setText(username);
+        tvUserPerfil.setText(user.getUsername());
         imgUserPerfil.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
@@ -73,19 +68,19 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PerfilActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PerfilActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PerfilActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -95,26 +90,26 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PerfilActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PerfilActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PerfilActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             }
         });
         try {
-            recetas = recetaController.obtenerRecetasUsuario(username);
+            recetas = recetaController.obtenerRecetasUsuario(user.getUsername());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

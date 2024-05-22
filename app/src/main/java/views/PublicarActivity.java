@@ -73,15 +73,10 @@ public class PublicarActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.spinner_categorias);
         spCategorias.setAdapter(adapter);
 
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Intent intent = getIntent();
+        user = (UserModel) intent.getSerializableExtra("user");
 
-        tvUserPublicar.setText(username);
+        tvUserPublicar.setText(user.getUsername());
         imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
             // Este metodo lo utilizo para poder scrollear en el edit text dentro de un scroll view.
@@ -165,19 +160,19 @@ public class PublicarActivity extends AppCompatActivity {
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -188,19 +183,19 @@ public class PublicarActivity extends AppCompatActivity {
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicarActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicarActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicarActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }

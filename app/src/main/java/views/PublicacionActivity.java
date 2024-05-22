@@ -61,14 +61,9 @@ public class PublicacionActivity extends AppCompatActivity {
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
         Intent intent = getIntent();
-        String username = intent.getStringExtra("user");
+        user = (UserModel) intent.getSerializableExtra("user");
         String usernamePub = intent.getStringExtra("userPub");
         String recetaTitulo = intent.getStringExtra("receta");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         try {
             receta = recetaController.buscarReceta(recetaTitulo, usernamePub);
@@ -121,25 +116,25 @@ public class PublicacionActivity extends AppCompatActivity {
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -149,25 +144,25 @@ public class PublicacionActivity extends AppCompatActivity {
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(PublicacionActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(PublicacionActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }

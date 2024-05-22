@@ -65,15 +65,10 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         tvUserInicio = findViewById(R.id.tvUserInicio);
         imgUserInicio = findViewById(R.id.imgUserInicio);
         imgFilters = findViewById(R.id.imgFilters);
-        Intent login = getIntent();
-        username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Intent intent = getIntent();
+        user = (UserModel) intent.getSerializableExtra("user");
 
-        tvUserInicio.setText(username);
+        tvUserInicio.setText(user.getUsername());
         imgUserInicio.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
@@ -81,19 +76,19 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(InicioActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(InicioActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -103,19 +98,19 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Buscar")) {
                     Intent intent = new Intent(InicioActivity.this, BuscarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(InicioActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -169,7 +164,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
     public void pubCardClick(int position) {
         Intent intent = new Intent(this, PublicacionActivity.class);
         String userName = tvUserInicio.getText().toString();
-        intent.putExtra("username", userName);
+        intent.putExtra("user", user);
         intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());
         startActivity(intent);

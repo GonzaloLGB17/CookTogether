@@ -38,13 +38,8 @@ public class BuscarActivity extends AppCompatActivity {
     private void initComponents() {
         bottomBar = findViewById(R.id.bottomBarBuscar);
 
-        Intent login = getIntent();
-        String username = login.getStringExtra("username");
-        try {
-            user = userController.buscarUsuario(username);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Intent intent = getIntent();
+        user = (UserModel) intent.getSerializableExtra("user");
 
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
@@ -52,19 +47,19 @@ public class BuscarActivity extends AppCompatActivity {
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(BuscarActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(BuscarActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(BuscarActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -74,19 +69,19 @@ public class BuscarActivity extends AppCompatActivity {
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Inicio")) {
                     Intent intent = new Intent(BuscarActivity.this, InicioActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Perfil")) {
                     Intent intent = new Intent(BuscarActivity.this, PerfilActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(BuscarActivity.this, PublicarActivity.class);
-                    intent.putExtra("username", username);
+                    intent.putExtra("user", user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
