@@ -30,7 +30,7 @@ import utils.ImageUtil;
 
 public class PerfilActivity extends AppCompatActivity implements InterfacePublicacion {
     private AnimatedBottomBar bottomBar;
-    private TextView tvUserPerfil;
+    private TextView tvUserPerfil, tvPuntuacionPerfil, tvNumPublicaciones;
     private ImageView imgUserPerfil;
     private UserModel user = new UserModel();
     private ImageUtil imageUtil = new ImageUtil();
@@ -56,6 +56,8 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         bottomBar = findViewById(R.id.bottomBarPerfil);
         tvUserPerfil = findViewById(R.id.tvUserPerfil);
         imgUserPerfil = findViewById(R.id.imgUserPerfil);
+        tvNumPublicaciones = findViewById(R.id.tvNumPublicaciones);
+        tvPuntuacionPerfil = findViewById(R.id.tvPuntuacionPerfil);
 
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
@@ -81,6 +83,7 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PerfilActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -103,6 +106,7 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PerfilActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -118,6 +122,19 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         rvPerfil.setAdapter(perfilAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         rvPerfil.setLayoutManager(layoutManager);
+        try {
+            String puntuacioMedia = userController.obtenerPuntuacionUsuario(user.getUsername());
+            tvPuntuacionPerfil.setText(puntuacioMedia);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            String publicaciones = userController.obtenerRecetasUsuario(user.getUsername());
+            tvNumPublicaciones.setText(publicaciones);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -126,6 +143,7 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         intent.putExtra("user", user);
         intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());
+        intent.putExtra("mode","true");
         startActivity(intent);
     }
 }

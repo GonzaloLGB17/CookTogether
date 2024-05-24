@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class RecetaModel{
+public class RecetaModel implements Serializable {
     private String titulo;
     private String descripcion;
     private String ingredientes;

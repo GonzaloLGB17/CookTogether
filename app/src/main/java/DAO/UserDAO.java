@@ -212,5 +212,51 @@ public class UserDAO {
         return user;
     }
 
+    public String obtenerPuntuacionUsuario(String usuario) throws SQLException{
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        double puntuacion = 0;
+        // Inicializar la conexión a la base de datos
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        // Preparar y ejecutar la consulta SQL
+        String query = "SELECT AVG(puntuacion_media) AS puntuacion FROM recetas WHERE usuario = ? ";
+        sentencia = connection.prepareStatement(query);
+        sentencia.setString(1, usuario);
+        rs = sentencia.executeQuery();
+        // Verificar si se encontró el usuario y crear el objeto UserModel
+        if (rs.next()) {
+            puntuacion = rs.getDouble("puntuacion");
+        } else {
+            throw new SQLException("No existe el usuario indicado.");
+        }
+        closeDBConnection();
+        return String.valueOf(puntuacion);
+    }
+
+    public String obtenerRecetasUsuario(String usuario) throws SQLException{
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        int recetas = 0;
+        // Inicializar la conexión a la base de datos
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        // Preparar y ejecutar la consulta SQL
+        String query = "SELECT COUNT(usuario) AS recetas FROM recetas WHERE usuario = ? ";
+        sentencia = connection.prepareStatement(query);
+        sentencia.setString(1, usuario);
+        rs = sentencia.executeQuery();
+        // Verificar si se encontró el usuario y crear el objeto UserModel
+        if (rs.next()) {
+            recetas = rs.getInt("recetas");
+        } else {
+            throw new SQLException("No existe el usuario indicado.");
+        }
+        closeDBConnection();
+        return String.valueOf(recetas);
+    }
+
 
 }

@@ -108,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etUsernameRegister.getText().toString(),
                     etPasswordRegister.getText().toString(),
                     0,
-                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000))
+                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,800,600))
             );
             try {
                 userController.insertarUsuario(userModel);

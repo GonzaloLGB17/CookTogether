@@ -66,7 +66,7 @@
 
     <LinearLayout
         android:id="@+id/lineaUser"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
 
         <TextView
             android:id="@+id/tvUserPublicacion"
-            android:layout_width="match_parent"
+            android:layout_width="251dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
@@ -100,6 +100,43 @@
             android:textSize="20sp"
             android:textStyle="bold"
             tools:ignore="RtlCompat" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgEditPub"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.09"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.533"
+                    app:srcCompat="@drawable/edit" />
+
+                <ImageView
+                    android:id="@+id/imgTrashPub"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.757"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.466"
+                    app:srcCompat="@drawable/trash" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -149,12 +186,13 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/etTituloRecetaPublicacion"
+                    <TextView
+                        android:id="@+id/tvTituloRecetaPublicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:gravity="center_vertical"
                         android:hint="@string/etTituloReceta"
                         android:inputType="text"
                         android:textColor="@color/plateado"
@@ -195,8 +233,8 @@
 
             <EditText
                 android:id="@+id/etDescReceta"
-                android:layout_width="350dp"
-                android:layout_height="193dp"
+                android:layout_width="352dp"
+                android:layout_height="195dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/fondo_et_plat"
@@ -241,7 +279,7 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/tvTituloPublicacion"
+                android:id="@+id/tvInfoPublicacion"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -28,5 +28,11 @@ public class UserController {
         return new UserDAO().iniciarSesion(usernameMail,passwd);
     }
 
+    public String obtenerPuntuacionUsuario(String usuario) throws SQLException{
+        return new UserDAO().obtenerPuntuacionUsuario(usuario);
+    }
 
+    public String obtenerRecetasUsuario(String usuario) throws SQLException{
+        return new UserDAO().obtenerRecetasUsuario(usuario);
+    }
 }

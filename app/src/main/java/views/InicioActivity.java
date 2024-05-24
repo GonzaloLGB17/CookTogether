@@ -89,6 +89,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -111,6 +112,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(InicioActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -167,6 +169,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         intent.putExtra("user", user);
         intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());
+        intent.putExtra("mode","false");
         startActivity(intent);
     }
 

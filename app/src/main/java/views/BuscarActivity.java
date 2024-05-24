@@ -60,6 +60,7 @@ public class BuscarActivity extends AppCompatActivity {
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(BuscarActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -82,6 +83,7 @@ public class BuscarActivity extends AppCompatActivity {
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(BuscarActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }

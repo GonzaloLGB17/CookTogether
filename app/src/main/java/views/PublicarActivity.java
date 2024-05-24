@@ -44,7 +44,9 @@ public class PublicarActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap = null;
     private ImageUtil imageUtil = new ImageUtil();
-    UserModel user = new UserModel();
+    private UserModel user = new UserModel();
+    private RecetaModel receta = new RecetaModel();
+    private boolean isEditMode = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +77,18 @@ public class PublicarActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
+        isEditMode = Boolean.parseBoolean(intent.getStringExtra("mode"));
 
         tvUserPublicar.setText(user.getUsername());
         imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+        if(isEditMode){
+            receta = (RecetaModel) intent.getSerializableExtra("receta");
+            etIngredientes.setText(receta.getIngredientes());
+            etInstrucciones.setText(receta.getInstrucciones());
+            etDescripcion.setText(receta.getDescripcion());
+            etTitulo.setText(receta.getTitulo());
+            imgRecetaPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
+        }
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
             // Este metodo lo utilizo para poder scrollear en el edit text dentro de un scroll view.
             @Override
@@ -85,10 +96,10 @@ public class PublicarActivity extends AppCompatActivity {
                 if (view.getId() == R.id.etIngrReceta) {
                     view.getParent().requestDisallowInterceptTouchEvent(true);
                     /**
-                    * Evita que el padre del EditText intercepte eventos táctiles.
-                    * Esto significa que los eventos táctiles no se propagarán a los View padres,
-                    * permitiendo que el EditText maneje los eventos táctiles de manera independiente.
-                    **/
+                     * Evita que el padre del EditText intercepte eventos táctiles.
+                     * Esto significa que los eventos táctiles no se propagarán a los View padres,
+                     * permitiendo que el EditText maneje los eventos táctiles de manera independiente.
+                     **/
                     switch (event.getAction()&MotionEvent.ACTION_MASK){
                         /**
                          * Comienza un switch basado en el tipo de acción del evento táctil.
@@ -235,16 +246,16 @@ public class PublicarActivity extends AppCompatActivity {
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
         }else{
             RecetaModel receta = null;
-                receta = new RecetaModel(
-                        etTitulo.getText().toString(),
-                        etDescripcion.getText().toString(),
-                        etIngredientes.getText().toString(),
-                        etInstrucciones.getText().toString(),
-                        user.getUsername(),
-                        0,
-                        imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,1000,1000)),
-                        spCategorias.getSelectedItem().toString(),
-                        new Timestamp(System.currentTimeMillis()));
+            receta = new RecetaModel(
+                    etTitulo.getText().toString(),
+                    etDescripcion.getText().toString(),
+                    etIngredientes.getText().toString(),
+                    etInstrucciones.getText().toString(),
+                    user.getUsername(),
+                    0,
+                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,800,600)),
+                    spCategorias.getSelectedItem().toString(),
+                    new Timestamp(System.currentTimeMillis()));
             try {
                 recetaController.insertarReceta(receta);
                 Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();

@@ -26,4 +26,6 @@ public class RecetaController {
     public ArrayList<RecetaModel> obtenerRecetasUsuario(String user) throws SQLException{
         return new RecetaDAO().obtenerRecetasUsuario(user);
     }
+
+
 }

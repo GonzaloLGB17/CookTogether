@@ -2,6 +2,7 @@ package views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cooktogether.R;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import controllers.RecetaController;
@@ -25,16 +27,17 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
 public class PublicacionActivity extends AppCompatActivity {
-    private ImageView imgUserPublicacion, imgRecetaPublicacion;
-    private TextView tvUserPublicacion, tvTitulo, tvContent, tvCategoria;
+    private ImageView imgUserPublicacion, imgRecetaPublicacion, imgEditPub, imgTrashPub;
+    private TextView tvUserPublicacion, tvTitulo, tvContent, tvCategoria, tvInfoPub;
     private AnimatedBottomBar menuBar;
     private AnimatedBottomBar bottomBar;
-    private EditText etDescripcion,  etTitulo;
+    private EditText etDescripcion;
     private UserController userController = new UserController();
     private RecetaController recetaController = new RecetaController();
     private ImageUtil imageUtil = new ImageUtil();
     private UserModel user = new UserModel();
     private RecetaModel receta = new RecetaModel();
+    private boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +55,21 @@ public class PublicacionActivity extends AppCompatActivity {
     private void initComponents() {
         imgUserPublicacion = findViewById(R.id.imgUserPublicacion);
         imgRecetaPublicacion = findViewById(R.id.imgRecetaPublicacion);
+        imgEditPub = findViewById(R.id.imgEditPub);
+        imgTrashPub = findViewById(R.id.imgTrashPub);
         tvUserPublicacion = findViewById(R.id.tvUserPublicacion);
         etDescripcion = findViewById(R.id.etDescReceta);
-        tvTitulo = findViewById(R.id.tvTituloPublicacion);
+        tvInfoPub = findViewById(R.id.tvInfoPublicacion);
         tvContent = findViewById(R.id.tvContentPublicacion);
         tvCategoria = findViewById(R.id.tvCategoriaRecetaPublicacion);
-        etTitulo = findViewById(R.id.etTituloRecetaPublicacion);
+        tvTitulo = findViewById(R.id.tvTituloRecetaPublicacion);
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
         String usernamePub = intent.getStringExtra("userPub");
         String recetaTitulo = intent.getStringExtra("receta");
-
+        isEditMode = Boolean.parseBoolean(intent.getStringExtra("mode"));
         try {
             receta = recetaController.buscarReceta(recetaTitulo, usernamePub);
         } catch (SQLException e) {
@@ -78,22 +83,41 @@ public class PublicacionActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        etTitulo.setText(receta.getTitulo());
+        tvTitulo.setText(receta.getTitulo());
         etDescripcion.setText(receta.getDescripcion());
         imgRecetaPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
-        tvTitulo.setText("Ingredientes");
+        tvInfoPub.setText("Ingredientes");
         tvContent.setText(receta.getIngredientes());
         tvCategoria.setText("Categoría: " + receta.getCategoria());
+
+        if(isEditMode){
+            imgTrashPub.setVisibility(View.VISIBLE);
+            imgEditPub.setVisibility(View.VISIBLE);
+        }else {
+            imgTrashPub.setVisibility(View.GONE);
+            imgEditPub.setVisibility(View.GONE);
+        }
+
+        imgEditPub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
+                intent.putExtra("mode","true");
+                intent.putExtra("receta", receta);
+                intent.putExtra("user", user);
+                startActivity(intent);
+            }
+        });
 
         menuBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
                 if (tab.getTitle().equals("Ingredientes")) {
-                    tvTitulo.setText("Ingredientes");
+                    tvInfoPub.setText("Ingredientes");
                     tvContent.setText(receta.getIngredientes());
                 }
                 if (tab.getTitle().equals("Instrucciones")) {
-                    tvTitulo.setText("Instrucciones");
+                    tvInfoPub.setText("Instrucciones");
                     tvContent.setText(receta.getInstrucciones());
                 }
             }
@@ -101,11 +125,11 @@ public class PublicacionActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int lastIndex, AnimatedBottomBar.Tab lastTab, int newIndex, AnimatedBottomBar.Tab newTab) {
                 if (newTab.getTitle().equals("Ingredientes")) {
-                    tvTitulo.setText("Ingredientes");
+                    tvInfoPub.setText("Ingredientes");
                     tvContent.setText(receta.getIngredientes());
                 }
                 if (newTab.getTitle().equals("Instrucciones")) {
-                    tvTitulo.setText("Instrucciones");
+                    tvInfoPub.setText("Instrucciones");
                     tvContent.setText(receta.getInstrucciones());
                 }
             }
@@ -135,6 +159,7 @@ public class PublicacionActivity extends AppCompatActivity {
                 if (tab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
@@ -163,6 +188,7 @@ public class PublicacionActivity extends AppCompatActivity {
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(PublicacionActivity.this, PublicarActivity.class);
                     intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }

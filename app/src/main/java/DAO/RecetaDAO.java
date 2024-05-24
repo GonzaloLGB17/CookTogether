@@ -1,5 +1,6 @@
 package DAO;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import database.ConexionBBDD;
 import models.RecetaModel;
 import models.UserModel;
 
-public class RecetaDAO {
+public class RecetaDAO{
     private ConexionBBDD conexionBBDD = new ConexionBBDD();
     private Connection connection;
     private boolean initDBConnection(){
