@@ -56,6 +56,7 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         bottomBar = findViewById(R.id.bottomBarPerfil);
         tvUserPerfil = findViewById(R.id.tvUserPerfil);
         imgUserPerfil = findViewById(R.id.imgUserPerfil);
+        imgUserPerfil.setScaleType(ImageView.ScaleType.FIT_CENTER);
         tvNumPublicaciones = findViewById(R.id.tvNumPublicaciones);
         tvPuntuacionPerfil = findViewById(R.id.tvPuntuacionPerfil);
 

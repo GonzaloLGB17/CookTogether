@@ -1,14 +1,17 @@
 package views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -109,6 +112,14 @@ public class PublicacionActivity extends AppCompatActivity {
             }
         });
 
+        imgTrashPub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDialogoEliminar(receta.getIdReceta());
+
+            }
+        });
+
         menuBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
@@ -195,7 +206,40 @@ public class PublicacionActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void mostrarDialogoEliminar(int recetaId){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Eliminar Receta");
+        builder.setMessage("¿Estás seguro de que deseas eliminar esta receta?");
+        builder.setIcon(R.drawable.defcookicon);
+
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    recetaController.eliminarReceta(recetaId);
+                    dialog.dismiss();
+                    Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
+                    intent.putExtra("user",user);
+                    startActivity(intent);
+                    Toast.makeText(PublicacionActivity.this, "Receta eliminada exitosamente.", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Toast.makeText(PublicacionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

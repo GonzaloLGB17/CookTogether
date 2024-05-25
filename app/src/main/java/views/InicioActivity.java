@@ -64,6 +64,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         bottomBar = findViewById(R.id.bottomBarInicio);
         tvUserInicio = findViewById(R.id.tvUserInicio);
         imgUserInicio = findViewById(R.id.imgUserInicio);
+        imgUserInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgFilters = findViewById(R.id.imgFilters);
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");

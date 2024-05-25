@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
 public class PublicarActivity extends AppCompatActivity {
+    private Button btCompartir;
     private AnimatedBottomBar bottomBar;
     private ImageView imgUserPublicar, imgRecetaPublicar;
     private Spinner spCategorias;
@@ -61,8 +63,11 @@ public class PublicarActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
+        btCompartir = findViewById(R.id.btCompartir);
         imgUserPublicar = findViewById(R.id.imgUserPublicar);
+        imgUserPublicar.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgRecetaPublicar = findViewById(R.id.imgRecetaPublicar);
+        imgRecetaPublicar.setScaleType(ImageView.ScaleType.FIT_CENTER);
         tvUserPublicar = findViewById(R.id.tvUserPublicar);
         etDescripcion = findViewById(R.id.etDescReceta);
         etInstrucciones = findViewById(R.id.etIntrReceta);
@@ -79,6 +84,7 @@ public class PublicarActivity extends AppCompatActivity {
         user = (UserModel) intent.getSerializableExtra("user");
         isEditMode = Boolean.parseBoolean(intent.getStringExtra("mode"));
 
+
         tvUserPublicar.setText(user.getUsername());
         imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
         if(isEditMode){
@@ -87,7 +93,9 @@ public class PublicarActivity extends AppCompatActivity {
             etInstrucciones.setText(receta.getInstrucciones());
             etDescripcion.setText(receta.getDescripcion());
             etTitulo.setText(receta.getTitulo());
-            imgRecetaPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
+            bitmap = imageUtil.transformarBytesBitmap(receta.getFotoReceta());
+            imgRecetaPublicar.setImageBitmap(bitmap);
+            btCompartir.setText("Editar");
         }
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
             // Este metodo lo utilizo para poder scrollear en el edit text dentro de un scroll view.
@@ -228,7 +236,7 @@ public class PublicarActivity extends AppCompatActivity {
                 // Convertir la URI en un Bitmap
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Establecer el Bitmap en el ImageView
-                imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap, 1000, 1000));
+                imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap, 1024, 1024));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -245,28 +253,48 @@ public class PublicarActivity extends AppCompatActivity {
                 etIngredientes.getText().toString().isEmpty()){
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
         }else{
-            RecetaModel receta = null;
-            receta = new RecetaModel(
-                    etTitulo.getText().toString(),
-                    etDescripcion.getText().toString(),
-                    etIngredientes.getText().toString(),
-                    etInstrucciones.getText().toString(),
-                    user.getUsername(),
-                    0,
-                    imageUtil.transformarBitmapBytes(imageUtil.redimensionarImagen(bitmap,800,600)),
-                    spCategorias.getSelectedItem().toString(),
-                    new Timestamp(System.currentTimeMillis()));
-            try {
-                recetaController.insertarReceta(receta);
-                Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            if(!isEditMode){
+                receta = new RecetaModel(
+                        etTitulo.getText().toString(),
+                        etDescripcion.getText().toString(),
+                        etIngredientes.getText().toString(),
+                        etInstrucciones.getText().toString(),
+                        user.getUsername(),
+                        0,
+                        imageUtil.optimizarImagen(bitmap,1024,1024,90),
+                        spCategorias.getSelectedItem().toString(),
+                        new Timestamp(System.currentTimeMillis()));
+                    try {
+                        recetaController.insertarReceta(receta);
+                        Toast.makeText(this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
+                        irPublicacion();
+                    } catch (SQLException e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+            }else{
+                try {
+                    receta.setTitulo(etTitulo.getText().toString());
+                    receta.setCategoria(spCategorias.getSelectedItem().toString());
+                    receta.setFotoReceta(imageUtil.optimizarImagen(bitmap,1024,1024,90));
+                    receta.setDescripcion(etDescripcion.getText().toString());
+                    receta.setIngredientes(etIngredientes.getText().toString());
+                    receta.setInstrucciones(etInstrucciones.getText().toString());
+                    recetaController.editarReceta(receta);
+                    Toast.makeText(this, "Receta editada con éxito.", Toast.LENGTH_SHORT).show();
+                    irPublicacion();
+                } catch (SQLException e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
 
-    public void ir(){
+    public void irPublicacion(){
         Intent intent = new Intent(PublicarActivity.this, PublicacionActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("userPub", receta.getUsuario());
+        intent.putExtra("receta", receta.getTitulo());
+        intent.putExtra("mode","false");
         startActivity(intent);
     }
 

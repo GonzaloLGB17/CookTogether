@@ -57,7 +57,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHold
             tvTituloCard = itemView.findViewById(R.id.tvTituloCardPerfil);
             tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacionCardPerfil);
             imgPublicacionPerfil = itemView.findViewById(R.id.imgPublicacionPerfil);
-
+            imgPublicacionPerfil.setScaleType(ImageView.ScaleType.FIT_CENTER);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

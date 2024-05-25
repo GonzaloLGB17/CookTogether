@@ -44,4 +44,25 @@ public class ImageUtil {
         return Bitmap.createBitmap(imagenOriginal, 0, 0, anchoOriginal, altoOriginal, matrizRedimensionamiento, true);
     }
 
+    // Método para comprimir una imagen
+    public byte[] comprimirImagen(Bitmap bitmap, int quality) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    // Método para optimizar una imagen para que pese menos de 1MB
+    public byte[] optimizarImagen(Bitmap bitmap, int maxWidth, int maxHeight, int quality) {
+        Bitmap resizedBitmap = redimensionarImagen(bitmap, maxWidth, maxHeight);
+        byte[] imageBytes = comprimirImagen(resizedBitmap, quality);
+
+        // Ajustar la calidad hasta que el tamaño sea menor a 1MB
+        while (imageBytes.length > 1024 * 1024 && quality > 10) {
+            quality -= 5;
+            imageBytes = comprimirImagen(resizedBitmap, quality);
+        }
+
+        return imageBytes;
+    }
+
 }

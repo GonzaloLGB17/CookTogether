@@ -67,7 +67,9 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
             tvTituloCard = itemView.findViewById(R.id.tvTituloCard);
             tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacioCard);
             imgPublicacionInicio = itemView.findViewById(R.id.imgPublicacionInicio);
+            imgPublicacionInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imgUserPublicacionCard = itemView.findViewById(R.id.imgUserPublicacionCard);
+            imgUserPublicacionCard.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

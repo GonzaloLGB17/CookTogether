@@ -32,9 +32,7 @@ public class RecetaDAO{
         }
     }
 
-    public boolean insertarReceta(RecetaModel receta) throws SQLException {
-        RecetaModel recetaModel = receta;
-        boolean insertarReceta = false;
+    public void insertarReceta(RecetaModel receta) throws SQLException {
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
@@ -51,14 +49,36 @@ public class RecetaDAO{
             sentencia.setBytes(7, receta.getFotoReceta());
             sentencia.setString(8, receta.getCategoria());
             sentencia.setTimestamp(9, receta.getFechaHora());
-            insertarReceta = true;
             sentencia.execute();
         }catch (SQLException e){
             throw new SQLException("Error al insertar la receta.");
         }finally {
             closeDBConnection();
         }
-        return insertarReceta;
+    }
+
+    public void editarReceta(RecetaModel receta) throws SQLException{
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        String query = "UPDATE recetas SET titulo = ?, descripcion = ?, ingredientes = ?, instrucciones = ?, foto_receta = ?, categoria = ?, fecha_hora = ? WHERE id = ?";
+        try{
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setString(1,receta.getTitulo());
+            sentencia.setString(2, receta.getDescripcion());
+            sentencia.setString(3, receta.getIngredientes());
+            sentencia.setString(4, receta.getInstrucciones());
+            sentencia.setBytes(5, receta.getFotoReceta());
+            sentencia.setString(6, receta.getCategoria());
+            sentencia.setTimestamp(7, receta.getFechaHora());
+            sentencia.setInt(8, receta.getIdReceta());
+            sentencia.execute();
+        }catch (SQLException e){
+            throw new SQLException("Error al editar la receta.");
+        }finally {
+            closeDBConnection();
+        }
+        closeDBConnection();
     }
 
     public RecetaModel buscarReceta(String titulo, String usuario) throws SQLException {
@@ -85,6 +105,7 @@ public class RecetaDAO{
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
+                    rs.getInt("id"),
                     rs.getString("categoria"),
                     rs.getTimestamp("fecha_hora"));
         } else {
@@ -116,6 +137,7 @@ public class RecetaDAO{
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
+                    rs.getInt("id"),
                     rs.getString("categoria"),
                     rs.getTimestamp("fecha_hora"));
 
@@ -146,6 +168,7 @@ public class RecetaDAO{
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
+                    rs.getInt("id"),
                     rs.getString("categoria"),
                     rs.getTimestamp("fecha_hora"));
 
@@ -176,6 +199,7 @@ public class RecetaDAO{
                     rs.getString("usuario"),
                     rs.getDouble("puntuacion_media"),
                     rs.getBytes("foto_receta"),
+                    rs.getInt("id"),
                     rs.getString("categoria"),
                     rs.getTimestamp("fecha_hora"));
 
@@ -185,5 +209,21 @@ public class RecetaDAO{
         }
         closeDBConnection();
         return recetas;
+    }
+
+    public void eliminarReceta(int recetaId) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        String query = "DELETE FROM recetas WHERE id = ?";
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setInt(1, recetaId);
+            sentencia.execute();
+        } catch (SQLException e) {
+            throw new SQLException("Error al eliminar la receta.");
+        } finally {
+            closeDBConnection();
+        }
     }
 }

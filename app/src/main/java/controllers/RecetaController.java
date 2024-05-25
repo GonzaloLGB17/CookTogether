@@ -7,8 +7,8 @@ import DAO.RecetaDAO;
 import models.RecetaModel;
 
 public class RecetaController {
-    public boolean insertarReceta(RecetaModel receta) throws SQLException {
-        return new RecetaDAO().insertarReceta(receta);
+    public void insertarReceta(RecetaModel receta) throws SQLException {
+        new RecetaDAO().insertarReceta(receta);
     }
 
     public RecetaModel buscarReceta(String titulo, String usuario) throws SQLException {
@@ -27,5 +27,11 @@ public class RecetaController {
         return new RecetaDAO().obtenerRecetasUsuario(user);
     }
 
+    public void editarReceta(RecetaModel receta) throws SQLException{
+        new RecetaDAO().editarReceta(receta);
+    }
 
+    public void eliminarReceta(int recetaId) throws SQLException {
+        new RecetaDAO().eliminarReceta(recetaId);
+    }
 }
