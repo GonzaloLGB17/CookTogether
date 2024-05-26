@@ -227,13 +227,43 @@ public class RecetaDAO{
         }
     }
 
+    public boolean comprobarValoracion(int usuarioId, int recetaId) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        boolean existe = false;
+        String query = "SELECT COUNT(*) FROM valoraciones WHERE usuario_id = ? AND receta_id = ?";
+
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setInt(1, usuarioId);
+            sentencia.setInt(2, recetaId);
+            ResultSet rs = sentencia.executeQuery();
+            if(rs.next()){
+                existe = true;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error al comprobar la receta.");
+        } finally {
+            closeDBConnection();
+        }
+        return existe;
+    }
+
     public void insertarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
         if (!initDBConnection()) {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-
         String query = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
 
+        if(comprobarValoracion(usuarioId,recetaId)){
+            query = "UPDATE valoraciones SET puntuacion = ? WHERE usuario_id = ? AND receta_id = ?";
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setInt(2, usuarioId);
+            sentencia.setInt(3, recetaId);
+            sentencia.setDouble(1, puntuacion);
+            sentencia.execute();
+        }
         try {
             PreparedStatement sentencia = connection.prepareStatement(query);
             sentencia.setInt(1, usuarioId);

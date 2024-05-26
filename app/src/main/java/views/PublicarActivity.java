@@ -269,6 +269,7 @@ public class PublicarActivity extends AppCompatActivity {
                     .setHeading("Compartir Receta")
                     .setDescription("¿Estás seguro de que deseas compartir esta receta?\n" +
                             "Comprueba el contenido de la receta, algunos campos no podrán ser modificados posteriormente")
+                    .setIcon(R.drawable.defcookicon)
                     .setBackgroundColor(R.color.black)
                     .setPositiveButtonBackgroundColor(R.color.dorado)
                     .setPositiveButtonText("Si")

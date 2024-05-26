@@ -40,6 +40,13 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    allprojects {
+        repositories {
+            mavenCentral()
+            maven { url = uri("https://jitpack.io") }
+        }
+    }
+
 }
 
 dependencies {

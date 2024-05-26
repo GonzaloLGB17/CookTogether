@@ -3,10 +3,13 @@ package views;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.cooktogether.R;
 import com.saadahmedev.popupdialog.PopupDialog;
 import com.saadahmedev.popupdialog.listener.StandardDialogActionListener;
+import com.suddenh4x.ratingdialog.AppRating;
+import com.suddenh4x.ratingdialog.preferences.RatingThreshold;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -133,11 +139,9 @@ public class PublicacionActivity extends AppCompatActivity {
         imgStarPublicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    recetaController.insertarValoracion(user.getId(),receta.getIdReceta(),Double.valueOf(tvPuntuacionPublicacion.getText().toString()));
-                } catch (SQLException e) {
-                    Toast.makeText(PublicacionActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
+
+                    mostrarStarsDialog();
+
             }
         });
 
@@ -268,5 +272,40 @@ public class PublicacionActivity extends AppCompatActivity {
                     }
 
                 }).show();
+        }
+
+        private void mostrarStarsDialog(){
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View dialogView = inflater.inflate(R.layout.alert_rating, null);
+
+            final RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView);
+            builder.setTitle("Calificar receta");
+
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    double puntuacion = ratingBar.getRating();
+                    try {
+                        recetaController.insertarValoracion(user.getId(),receta.getIdReceta(),puntuacion);
+                        // Mostrar mensaje de éxito
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        // Mostrar mensaje de error
+                    }
+                }
+            });
+
+            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
