@@ -25,8 +25,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cooktogether.R;
 import com.saadahmedev.popupdialog.PopupDialog;
 import com.saadahmedev.popupdialog.listener.StandardDialogActionListener;
-import com.suddenh4x.ratingdialog.AppRating;
-import com.suddenh4x.ratingdialog.preferences.RatingThreshold;
 
 import java.io.Serializable;
 import java.sql.SQLException;
