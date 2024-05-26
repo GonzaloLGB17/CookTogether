@@ -181,6 +181,7 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@drawable/addimgeusuario"
         app:strokeColor="@color/dorado"
-        app:strokeWidth="5dp"/>
+        app:strokeWidth="5dp"
+        android:scaleType="fitXY"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

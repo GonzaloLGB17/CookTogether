@@ -226,4 +226,24 @@ public class RecetaDAO{
             closeDBConnection();
         }
     }
+
+    public void insertarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+
+        String query = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
+
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setInt(1, usuarioId);
+            sentencia.setInt(2, recetaId);
+            sentencia.setDouble(3, puntuacion);
+            sentencia.execute();
+        } catch (SQLException e) {
+            throw new SQLException("Error al valorar la receta.");
+        } finally {
+            closeDBConnection();
+        }
+    }
 }

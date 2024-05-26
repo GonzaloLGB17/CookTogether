@@ -41,7 +41,7 @@ public class UserDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT id, nombre, apellidos, correo, username, password, puntuacion, foto_usuario FROM usuarios WHERE username = ?";
+        String query = "SELECT id, nombre, apellidos, correo, username, password, foto_usuario FROM usuarios WHERE username = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, username);
         rs = sentencia.executeQuery();
@@ -54,7 +54,6 @@ public class UserDAO {
                     rs.getString("correo"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getDouble("puntuacion"),
                     rs.getBytes("foto_usuario")
             );
         } else {
@@ -93,7 +92,6 @@ public class UserDAO {
                     rs.getString("correo"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getDouble("puntuacion"),
                     rs.getBytes("foto_usuario")
             );
 
@@ -105,24 +103,6 @@ public class UserDAO {
         return usuarios;
     }
 
-    public boolean actualizarPuntuacion(String username, double puntuacion) throws SQLException {
-        Connection connection = null;
-        PreparedStatement sentencia = null;
-        boolean actualizarPuntos = false;
-        if(!initDBConnection()){
-            throw new SQLException("No se pudo conectar a la base de datos.");
-        }
-        // Preparar y ejecutar la consulta SQL
-        String query = "UPDATE usuarios SET puntuacion = ? WHERE username = ?";
-        sentencia = connection.prepareStatement(query);
-        sentencia.setDouble(1, puntuacion);
-        sentencia.setString(2, username);
-        int result = sentencia.executeUpdate();
-        if(result>0){
-            actualizarPuntos = true;
-        }
-        return actualizarPuntos;
-    }
 
     public boolean insertarUsuario(UserModel user) throws SQLException {
         boolean insertarUsuario = false;
@@ -132,7 +112,7 @@ public class UserDAO {
         }
 
         try {
-            String query = "{? = call agregar_usuario(?,?,?,?,?,?,?)}";
+            String query = "{? = call insertar_usuario(?,?,?,?,?,?)}";
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, user.getNombre());
@@ -140,8 +120,7 @@ public class UserDAO {
             callableStatement.setString(4, user.getCorreo());
             callableStatement.setString(5, user.getUsername());
             callableStatement.setString(6, user.getPassword());
-            callableStatement.setDouble(7, user.getPuntuacion());
-            callableStatement.setBytes(8, user.getFotoUsuario());
+            callableStatement.setBytes(7, user.getFotoUsuario());
             callableStatement.execute();
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
@@ -183,7 +162,7 @@ public class UserDAO {
 
             if (result == 0) {
                 // Inicio de sesión exitoso, obtener detalles del usuario
-                String getUserQuery = "SELECT nombre, apellidos, correo, username, puntuacion, foto_usuario FROM usuarios WHERE username = ? OR correo = ?";
+                String getUserQuery = "SELECT nombre, apellidos, correo, username, foto_usuario FROM usuarios WHERE username = ? OR correo = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(getUserQuery);
                 preparedStatement.setString(1, usernameMail);
                 preparedStatement.setString(2, usernameMail);
@@ -196,7 +175,6 @@ public class UserDAO {
                     user.setApellidos(resultSet.getString("apellidos"));
                     user.setCorreo(resultSet.getString("correo"));
                     user.setUsername(resultSet.getString("username"));
-                    user.setPuntuacion(resultSet.getDouble("puntuacion"));
                 }
             }
         } catch (SQLException e) {
@@ -232,7 +210,8 @@ public class UserDAO {
             throw new SQLException("No existe el usuario indicado.");
         }
         closeDBConnection();
-        return String.valueOf(puntuacion);
+
+        return String.valueOf(String.format("%.1f", puntuacion));
     }
 
     public String obtenerRecetasUsuario(String usuario) throws SQLException{

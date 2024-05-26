@@ -37,9 +37,6 @@ public class UserControllerHilo implements Runnable {
                 case "buscar":
                     userDAO.buscarUsuario(username);
                     break;
-                case "actualizarPuntuacion":
-                    userDAO.actualizarPuntuacion(username, puntos);
-                    break;
                 // Otros casos según las operaciones que necesites
             }
         } catch (SQLException e) {

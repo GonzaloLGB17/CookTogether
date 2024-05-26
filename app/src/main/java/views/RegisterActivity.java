@@ -59,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
         etPasswordRegister = findViewById(R.id.etPasswordRegister);
         etConfirmarPasswordRegister = findViewById(R.id.etConfirmarPasswordRegister);
         imgUserRegister = findViewById(R.id.imgUserRegister);
-        imgUserRegister.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         imgUserRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
                     etCorreoRegister.getText().toString(),
                     etUsernameRegister.getText().toString(),
                     etPasswordRegister.getText().toString(),
-                    0,
                     imageUtil.optimizarImagen(bitmap,1024,1024,90)
             );
             try {

@@ -1,5 +1,6 @@
 package views;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +19,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cooktogether.R;
+import com.saadahmedev.popupdialog.PopupDialog;
+import com.saadahmedev.popupdialog.listener.StandardDialogActionListener;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import controllers.RecetaController;
 import controllers.UserController;
@@ -30,8 +34,8 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 import utils.ImageUtil;
 
 public class PublicacionActivity extends AppCompatActivity {
-    private ImageView imgUserPublicacion, imgRecetaPublicacion, imgEditPub, imgTrashPub;
-    private TextView tvUserPublicacion, tvTitulo, tvContent, tvCategoria, tvInfoPub;
+    private ImageView imgUserPublicacion, imgRecetaPublicacion, imgEditPub, imgTrashPub, imgStarPublicacion;
+    private TextView tvUserPublicacion, tvTitulo, tvContent, tvCategoria, tvInfoPub, tvPuntuacionPublicacion;
     private AnimatedBottomBar menuBar;
     private AnimatedBottomBar bottomBar;
     private EditText etDescripcion;
@@ -60,12 +64,14 @@ public class PublicacionActivity extends AppCompatActivity {
         imgRecetaPublicacion = findViewById(R.id.imgRecetaPublicacion);
         imgEditPub = findViewById(R.id.imgEditPub);
         imgTrashPub = findViewById(R.id.imgTrashPub);
+        imgStarPublicacion = findViewById(R.id.imgStarPublicacion);
         tvUserPublicacion = findViewById(R.id.tvUserPublicacion);
         etDescripcion = findViewById(R.id.etDescReceta);
         tvInfoPub = findViewById(R.id.tvInfoPublicacion);
         tvContent = findViewById(R.id.tvContentPublicacion);
         tvCategoria = findViewById(R.id.tvCategoriaRecetaPublicacion);
         tvTitulo = findViewById(R.id.tvTituloRecetaPublicacion);
+        tvPuntuacionPublicacion = findViewById(R.id.tvPuntuacionPublicacion);
         menuBar = findViewById(R.id.menuBar);
         bottomBar = findViewById(R.id.bottomBarPublicacion);
         Intent intent = getIntent();
@@ -96,9 +102,13 @@ public class PublicacionActivity extends AppCompatActivity {
         if(isEditMode){
             imgTrashPub.setVisibility(View.VISIBLE);
             imgEditPub.setVisibility(View.VISIBLE);
+            imgStarPublicacion.setVisibility(View.GONE);
+            tvPuntuacionPublicacion.setVisibility(View.GONE);
         }else {
             imgTrashPub.setVisibility(View.GONE);
             imgEditPub.setVisibility(View.GONE);
+            imgStarPublicacion.setVisibility(View.VISIBLE);
+            tvPuntuacionPublicacion.setVisibility(View.VISIBLE);
         }
 
         imgEditPub.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +127,17 @@ public class PublicacionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mostrarDialogoEliminar(receta.getIdReceta());
 
+            }
+        });
+
+        imgStarPublicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    recetaController.insertarValoracion(user.getId(),receta.getIdReceta(),Double.valueOf(tvPuntuacionPublicacion.getText().toString()));
+                } catch (SQLException e) {
+                    Toast.makeText(PublicacionActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -209,37 +230,43 @@ public class PublicacionActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoEliminar(int recetaId){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Eliminar Receta");
-        builder.setMessage("¿Estás seguro de que deseas eliminar esta receta?");
-        builder.setIcon(R.drawable.defcookicon);
+        PopupDialog.getInstance(PublicacionActivity.this)
+                .standardDialogBuilder()
+                .createStandardDialog()
+                .setIcon(R.drawable.defcookicon)
+                .setHeading("Eliminar Receta")
+                .setDescription("¿Estás seguro de que deseas eliminar esta receta?")
+                .setBackgroundColor(R.color.black)
+                .setPositiveButtonBackgroundColor(R.color.dorado)
+                .setPositiveButtonText("Si")
+                .setNegativeButtonBackground(R.color.rojo)
+                .setNegativeButtonText("No")
+                .setHeadingFontSize(Float.valueOf(20))
+                .setHeadingTextColor(R.color.dorado)
+                .setDescriptionTextColor(R.color.plateado)
+                .setFontFamily(R.font.amaranth)
+                .build(new StandardDialogActionListener() {
+                    @Override
+                    public void onPositiveButtonClicked(Dialog dialog) {
+                        dialog.dismiss();
+                        try {
+                            recetaController.eliminarReceta(recetaId);
+                            dialog.dismiss();
+                            Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
+                            intent.putExtra("user", user);
+                            startActivity(intent);
+                            Toast.makeText(PublicacionActivity.this, "Receta eliminada exitosamente.", Toast.LENGTH_SHORT).show();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(PublicacionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                try {
-                    recetaController.eliminarReceta(recetaId);
-                    dialog.dismiss();
-                    Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
-                    intent.putExtra("user",user);
-                    startActivity(intent);
-                    Toast.makeText(PublicacionActivity.this, "Receta eliminada exitosamente.", Toast.LENGTH_SHORT).show();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    Toast.makeText(PublicacionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                    @Override
+                    public void onNegativeButtonClicked(Dialog dialog) {
+                        dialog.dismiss();
+                    }
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+                }).show();
+        }
     }
-
-}

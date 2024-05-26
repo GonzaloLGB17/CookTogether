@@ -279,7 +279,7 @@
                 android:layout_gravity="center"
                 android:backgroundTint="@color/dorado"
                 android:fontFamily="@font/amaranth"
-                android:onClick="publicar"
+                android:onClick="mostrarDialogoCompartir"
                 android:text="@string/btCompartir"
                 android:textColor="@color/gris"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -9,27 +9,24 @@ public class UserModel implements Serializable {
     private String correo;
     private String username;
     private String password;
-    private double puntuacion;
 
     private byte[] fotoUsuario;
-    public UserModel(int id, String nombre, String apellidos, String correo, String username, String password, double puntuacion, byte[] fotoUsuario) {
+    public UserModel(int id, String nombre, String apellidos, String correo, String username, String password, byte[] fotoUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
         this.username = username;
         this.password = password;
-        this.puntuacion = puntuacion;
         this.fotoUsuario = fotoUsuario;
     }
 
-    public UserModel(String nombre, String apellidos, String correo, String username, String password, double puntuacion, byte[] fotoUsuario) {
+    public UserModel(String nombre, String apellidos, String correo, String username, String password, byte[] fotoUsuario) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
         this.username = username;
         this.password = password;
-        this.puntuacion = puntuacion;
         this.fotoUsuario = fotoUsuario;
     }
 
@@ -85,13 +82,6 @@ public class UserModel implements Serializable {
         this.password = password;
     }
 
-    public double getPuntuacion() {
-        return puntuacion;
-    }
-
-    public void setPuntuacion(double puntuacion) {
-        this.puntuacion = puntuacion;
-    }
     public byte[] getFotoUsuario() {
         return fotoUsuario;
     }

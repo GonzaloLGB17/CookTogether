@@ -20,10 +20,6 @@ public class UserController {
         return new UserDAO().comprobarUsuario(username);
     }
 
-    public boolean actualizarPuntuacion(String username, int puntos) throws SQLException{
-        return new UserDAO().actualizarPuntuacion(username, puntos);
-    }
-
     public UserModel iniciarSesion(String usernameMail, String passwd) throws SQLException {
         return new UserDAO().iniciarSesion(usernameMail,passwd);
     }

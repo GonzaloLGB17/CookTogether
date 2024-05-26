@@ -39,7 +39,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
-        holder.tvPuntuacionCard.setText(String.valueOf(recetas.get(position).getPuntuacionMedia()));
+        holder.tvPuntuacionCard.setText(String.valueOf(String.format("%.1f", recetas.get(position).getPuntuacionMedia())));
         holder.imgPublicacionPerfil.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
 
     }

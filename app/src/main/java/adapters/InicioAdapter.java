@@ -43,10 +43,12 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvUserCard.setText(recetas.get(position).getUsuario());
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
-        holder.tvPuntuacionCard.setText(String.valueOf(recetas.get(position).getPuntuacionMedia()));
+        holder.tvPuntuacionCard.setText(String.valueOf(String.format("%.1f", recetas.get(position).getPuntuacionMedia())));
+        holder.imgPublicacionInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         holder.imgPublicacionInicio.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
         try {
             UserModel user = new UserController().buscarUsuario(recetas.get(position).getUsuario());
+
             holder.imgUserPublicacionCard.setImageBitmap(new ImageUtil().transformarBytesBitmap(user.getFotoUsuario()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
