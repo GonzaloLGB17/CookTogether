@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooktogether.R;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controllers.RecetaController;
 import interfaces.InterfacePublicacion;
 import models.RecetaModel;
 import utils.ImageUtil;
@@ -22,6 +24,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHold
     public Context context;
     public ArrayList<RecetaModel> recetas;
     private final InterfacePublicacion interfacePublicacion;
+    private RecetaController recetaController = new RecetaController();
     public PerfilAdapter(Context context, ArrayList<RecetaModel> recetas, InterfacePublicacion interfacePublicacion){
         this.context = context;
         this.recetas = recetas;

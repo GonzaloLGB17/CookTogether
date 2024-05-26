@@ -38,4 +38,7 @@ public class RecetaController {
     public void insertarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
         new RecetaDAO().insertarValoracion(usuarioId,recetaId,puntuacion);
     }
+    public String obtenerPuntuacionReceta(int idReceta) throws SQLException{
+        return new RecetaDAO().obtenerPuntuacionReceta(idReceta);
+    }
 }

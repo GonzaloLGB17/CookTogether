@@ -85,6 +85,7 @@ public class PublicacionActivity extends AppCompatActivity {
         isEditMode = Boolean.parseBoolean(intent.getStringExtra("mode"));
         try {
             receta = recetaController.buscarReceta(recetaTitulo, usernamePub);
+            tvPuntuacionPublicacion.setText(recetaController.obtenerPuntuacionReceta(receta.getIdReceta()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -288,6 +289,7 @@ public class PublicacionActivity extends AppCompatActivity {
                     double puntuacion = ratingBar.getRating();
                     try {
                         recetaController.insertarValoracion(user.getId(),receta.getIdReceta(),puntuacion);
+                        tvPuntuacionPublicacion.setText(recetaController.obtenerPuntuacionReceta(receta.getIdReceta()));
                         // Mostrar mensaje de éxito
                     } catch (SQLException e) {
                         e.printStackTrace();

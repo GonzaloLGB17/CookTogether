@@ -232,7 +232,7 @@ public class RecetaDAO{
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         boolean existe = false;
-        String query = "SELECT COUNT(*) FROM valoraciones WHERE usuario_id = ? AND receta_id = ?";
+        String query = "SELECT * FROM valoraciones WHERE usuario_id = ? AND receta_id = ?";
 
         try {
             PreparedStatement sentencia = connection.prepareStatement(query);
@@ -244,8 +244,6 @@ public class RecetaDAO{
             }
         } catch (SQLException e) {
             throw new SQLException("Error al comprobar la receta.");
-        } finally {
-            closeDBConnection();
         }
         return existe;
     }
@@ -254,26 +252,65 @@ public class RecetaDAO{
         if (!initDBConnection()) {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        String query = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
+        boolean existe = comprobarValoracion(usuarioId,recetaId);
+        if(existe){
+            actualizarValoracion(usuarioId,recetaId,puntuacion);
+        }else{
+            String query = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
+            try {
+                PreparedStatement sentencia = connection.prepareStatement(query);
+                sentencia.setInt(1, usuarioId);
+                sentencia.setInt(2, recetaId);
+                sentencia.setDouble(3, puntuacion);
+                sentencia.execute();
+            } catch (SQLException e) {
+                throw new SQLException("Error al valorar la receta.");
+            } finally {
+                closeDBConnection();
+            }
+        }
+    }
 
-        if(comprobarValoracion(usuarioId,recetaId)){
-            query = "UPDATE valoraciones SET puntuacion = ? WHERE usuario_id = ? AND receta_id = ?";
-            PreparedStatement sentencia = connection.prepareStatement(query);
+    public void actualizarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+
+        String query = "UPDATE valoraciones SET puntuacion = ? WHERE usuario_id = ? AND receta_id = ?";
+
+        try (PreparedStatement sentencia = connection.prepareStatement(query)) {
+            sentencia.setDouble(1, puntuacion);
             sentencia.setInt(2, usuarioId);
             sentencia.setInt(3, recetaId);
-            sentencia.setDouble(1, puntuacion);
-            sentencia.execute();
-        }
-        try {
-            PreparedStatement sentencia = connection.prepareStatement(query);
-            sentencia.setInt(1, usuarioId);
-            sentencia.setInt(2, recetaId);
-            sentencia.setDouble(3, puntuacion);
-            sentencia.execute();
+            sentencia.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Error al valorar la receta.");
+            throw new SQLException("Error al actualizar la valoración.");
         } finally {
             closeDBConnection();
         }
+    }
+
+    public String obtenerPuntuacionReceta(int idReceta) throws SQLException{
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        double puntuacion = 0;
+        // Inicializar la conexión a la base de datos
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        // Preparar y ejecutar la consulta SQL
+        String query = "SELECT AVG(puntuacion) AS puntuacion_media FROM valoraciones WHERE receta_id = ? ";
+        sentencia = connection.prepareStatement(query);
+        sentencia.setInt(1, idReceta);
+        rs = sentencia.executeQuery();
+        // Verificar si se encontró el usuario y crear el objeto UserModel
+        if (rs.next()) {
+            puntuacion = rs.getDouble("puntuacion_media");
+        } else {
+            throw new SQLException("No existe el usuario indicado.");
+        }
+        closeDBConnection();
+
+        return String.valueOf(String.format("%.1f", puntuacion));
     }
 }

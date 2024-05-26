@@ -15,6 +15,7 @@ import com.example.cooktogether.R;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controllers.RecetaController;
 import controllers.UserController;
 import interfaces.InterfacePublicacion;
 import models.RecetaModel;
@@ -25,6 +26,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public Context context;
     public ArrayList<RecetaModel> recetas;
     private final InterfacePublicacion interfacePublicacion;
+    private RecetaController recetaController = new RecetaController();
     public InicioAdapter(Context context, ArrayList<RecetaModel> recetas, InterfacePublicacion interfacePublicacion){
         this.context = context;
         this.recetas = recetas;
@@ -43,7 +45,11 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvUserCard.setText(recetas.get(position).getUsuario());
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
-        holder.tvPuntuacionCard.setText(String.valueOf(String.format("%.1f", recetas.get(position).getPuntuacionMedia())));
+        try {
+            holder.tvPuntuacionCard.setText(recetaController.obtenerPuntuacionReceta(recetas.get(position).getIdReceta()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         holder.imgPublicacionInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         holder.imgPublicacionInicio.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
         try {
