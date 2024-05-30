@@ -258,18 +258,18 @@ public class PublicarActivity extends AppCompatActivity {
             Toast.makeText(this, "Selecciona una foto para tu receta.", Toast.LENGTH_SHORT).show();
         }
         else if(etInstrucciones.getText().toString().isEmpty() || etDescripcion.getText().toString().isEmpty() ||
-                etIngredientes.getText().toString().isEmpty() || etTitulo.getText().toString().isEmpty() ||
-                etTitulo.getText().toString().equals(getResources().getResourceName(R.string.etTituloReceta))){
+                etIngredientes.getText().toString().isEmpty() || etTitulo.getText().toString().isEmpty()){
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
         }else {
 
             PopupDialog.getInstance(PublicarActivity.this)
                     .standardDialogBuilder()
                     .createStandardDialog()
+                    .setCancelable(false)
                     .setHeading("Compartir Receta")
                     .setDescription("¿Estás seguro de que deseas compartir esta receta?\n" +
                             "Comprueba el contenido de la receta, algunos campos no podrán ser modificados posteriormente")
-                    .setIcon(R.drawable.defcookicon)
+                    .setIcon(R.drawable.add)
                     .setBackgroundColor(R.color.black)
                     .setPositiveButtonBackgroundColor(R.color.dorado)
                     .setPositiveButtonText("Si")
@@ -336,61 +336,6 @@ public class PublicarActivity extends AppCompatActivity {
         intent.putExtra("mode","false");
         startActivity(intent);
     }
-
-    /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Compartir Receta");
-            builder.setMessage("¿Estás seguro de que deseas compartir esta receta?\n" +
-                                "Comprueba el contenido de la receta, algunos campos no podrán ser modificados posteriormente");
-            builder.setIcon(R.drawable.defcookicon);
-
-            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if(!isEditMode){
-                        receta = new RecetaModel(
-                                etTitulo.getText().toString(),
-                                etDescripcion.getText().toString(),
-                                etIngredientes.getText().toString(),
-                                etInstrucciones.getText().toString(),
-                                user.getUsername(),
-                                0,
-                                imageUtil.optimizarImagen(bitmap,1024,1024,90),
-                                spCategorias.getSelectedItem().toString(),
-                                new Timestamp(System.currentTimeMillis()));
-                        try {
-                            recetaController.insertarReceta(receta);
-                            Toast.makeText(PublicarActivity.this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
-                            irPublicacion();
-                        } catch (SQLException e) {
-                            Toast.makeText(PublicarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        try {
-                            receta.setTitulo(etTitulo.getText().toString());
-                            receta.setCategoria(spCategorias.getSelectedItem().toString());
-                            receta.setFotoReceta(imageUtil.optimizarImagen(bitmap,1024,1024,90));
-                            receta.setDescripcion(etDescripcion.getText().toString());
-                            receta.setIngredientes(etIngredientes.getText().toString());
-                            receta.setInstrucciones(etInstrucciones.getText().toString());
-                            recetaController.editarReceta(receta);
-                            Toast.makeText(PublicarActivity.this, "Receta editada con éxito.", Toast.LENGTH_SHORT).show();
-                            irPublicacion();
-                        } catch (SQLException e) {
-                            Toast.makeText(PublicarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
-
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();*/
 
 
 }

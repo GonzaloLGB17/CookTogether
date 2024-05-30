@@ -6,4 +6,5 @@
     <color name="plateado">#DDD6CC</color>
     <color name="gris">#302c34</color>
     <color name="rojo">#B84357</color>
+    <color name="transparente">#00B84357</color>
 </resources>

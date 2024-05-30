@@ -1,6 +1,8 @@
 package views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -66,6 +68,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         imgUserInicio = findViewById(R.id.imgUserInicio);
         imgUserInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgFilters = findViewById(R.id.imgFilters);
+
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
 
@@ -180,4 +183,6 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         rvInicio.setAdapter(inicioAdapter);
         rvInicio.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
 }

@@ -262,7 +262,7 @@
                 android:layout_height="195dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/fondo_et_plat"
+                android:background="@drawable/fondo_et_card"
                 android:clickable="false"
                 android:ems="10"
                 android:enabled="true"
@@ -276,7 +276,7 @@
                 android:scrollbarSize="4dp"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:textColor="@color/black"
+                android:textColor="@color/plateado"
                 android:verticalScrollbarPosition="right" />
 
             <nl.joery.animatedbottombar.AnimatedBottomBar

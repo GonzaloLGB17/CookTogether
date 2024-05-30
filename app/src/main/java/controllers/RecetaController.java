@@ -41,4 +41,9 @@ public class RecetaController {
     public String obtenerPuntuacionReceta(int idReceta) throws SQLException{
         return new RecetaDAO().obtenerPuntuacionReceta(idReceta);
     }
+
+    public void eliminarValoracion(int recetaId) throws SQLException {
+        new RecetaDAO().eliminarValoracion(recetaId);
+    }
+
 }

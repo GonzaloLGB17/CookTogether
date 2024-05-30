@@ -253,6 +253,7 @@ public class PublicacionActivity extends AppCompatActivity {
                     public void onPositiveButtonClicked(Dialog dialog) {
                         dialog.dismiss();
                         try {
+                            recetaController.eliminarValoracion(recetaId);
                             recetaController.eliminarReceta(recetaId);
                             dialog.dismiss();
                             Intent intent = new Intent(PublicacionActivity.this, InicioActivity.class);
@@ -290,10 +291,8 @@ public class PublicacionActivity extends AppCompatActivity {
                     try {
                         recetaController.insertarValoracion(user.getId(),receta.getIdReceta(),puntuacion);
                         tvPuntuacionPublicacion.setText(recetaController.obtenerPuntuacionReceta(receta.getIdReceta()));
-                        // Mostrar mensaje de éxito
                     } catch (SQLException e) {
                         e.printStackTrace();
-                        // Mostrar mensaje de error
                     }
                 }
             });

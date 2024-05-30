@@ -24,4 +24,5 @@
     <string name="tbIntr">Ingredientes</string>
     <string name="tbInstrucciones">Instrucciones</string>
     <string name="tvEtPublicaciones">Publicaciones</string>
+    <string name="chSesion">Recordar sesión</string>
 </resources>

@@ -38,6 +38,7 @@ public class RecetaDAO{
         }
         String query="INSERT INTO recetas (titulo, descripcion, ingredientes, instrucciones, usuario, puntuacion_media, foto_receta, categoria, fecha_hora)\n" +
                 "VALUES (?,?,?,?,?,?,?,?,?)";
+        
         try{
             PreparedStatement sentencia = connection.prepareStatement(query);
             sentencia.setString(1,receta.getTitulo());
@@ -50,9 +51,58 @@ public class RecetaDAO{
             sentencia.setString(8, receta.getCategoria());
             sentencia.setTimestamp(9, receta.getFechaHora());
             sentencia.execute();
+
+            
         }catch (SQLException e){
             throw new SQLException("Error al insertar la receta.");
         }finally {
+            closeDBConnection();
+        }
+    }
+
+    public void insertarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        boolean existe = comprobarValoracion(usuarioId,recetaId);
+        if(existe){
+            actualizarValoracion(usuarioId,recetaId,puntuacion);
+        }else{
+            String insertValoracionQuery = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
+            try {
+                // Inserta la valoración
+                PreparedStatement sentencia = connection.prepareStatement(insertValoracionQuery);
+                sentencia.setInt(1, usuarioId);
+                sentencia.setInt(2, recetaId);
+                sentencia.setDouble(3, puntuacion);
+                sentencia.execute();
+            } catch (SQLException e) {
+                throw new SQLException("Error al insertar la valoración y actualizar la puntuación media.");
+            }
+        }
+        insertarValoracionMedia(recetaId);
+        closeDBConnection();
+    }
+
+    public void insertarValoracionMedia(int recetaId) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        String insertarVal = "UPDATE recetas\n" +
+                "    SET puntuacion_media = (\n" +
+                "        SELECT AVG(puntuacion)\n" +
+                "        FROM valoraciones\n" +
+                "        WHERE receta_id = ?\n" +
+                "    )\n" +
+                "    WHERE id = ?;";
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(insertarVal);
+            sentencia.setInt(1,recetaId);
+            sentencia.setInt(2,recetaId);
+            sentencia.execute();
+        } catch (SQLException e) {
+            throw new SQLException("Error al insertar la valoración y actualizar la puntuación media.", e);
+        } finally {
             closeDBConnection();
         }
     }
@@ -85,17 +135,14 @@ public class RecetaDAO{
         PreparedStatement sentencia = null;
         ResultSet rs = null;
         RecetaModel recetaModel = null;
-        // Inicializar la conexión a la base de datos
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        // Preparar y ejecutar la consulta SQL
         String query = "SELECT * FROM recetas WHERE titulo = ? AND usuario = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, titulo);
         sentencia.setString(2, usuario);
         rs = sentencia.executeQuery();
-        // Verificar si se encontró la receta y crear el objeto RecetaModel
         if (rs.next()) {
             recetaModel = new RecetaModel(
                     rs.getString("titulo"),
@@ -227,6 +274,24 @@ public class RecetaDAO{
         }
     }
 
+    public void eliminarValoracion(int recetaId) throws SQLException {
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+
+        String query = "DELETE FROM valoraciones WHERE receta_id = ?";
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(query);
+            sentencia.setInt(1, recetaId);
+            sentencia.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Error al eliminar la valoración.", e);
+        } finally {
+            closeDBConnection();
+        }
+    }
+
+
     public boolean comprobarValoracion(int usuarioId, int recetaId) throws SQLException {
         if (!initDBConnection()) {
             throw new SQLException("No se pudo conectar a la base de datos.");
@@ -248,28 +313,7 @@ public class RecetaDAO{
         return existe;
     }
 
-    public void insertarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
-        if (!initDBConnection()) {
-            throw new SQLException("No se pudo conectar a la base de datos.");
-        }
-        boolean existe = comprobarValoracion(usuarioId,recetaId);
-        if(existe){
-            actualizarValoracion(usuarioId,recetaId,puntuacion);
-        }else{
-            String query = "INSERT INTO valoraciones (usuario_id, receta_id, puntuacion) VALUES (?, ?, ?)";
-            try {
-                PreparedStatement sentencia = connection.prepareStatement(query);
-                sentencia.setInt(1, usuarioId);
-                sentencia.setInt(2, recetaId);
-                sentencia.setDouble(3, puntuacion);
-                sentencia.execute();
-            } catch (SQLException e) {
-                throw new SQLException("Error al valorar la receta.");
-            } finally {
-                closeDBConnection();
-            }
-        }
-    }
+    
 
     public void actualizarValoracion(int usuarioId, int recetaId, double puntuacion) throws SQLException {
         if (!initDBConnection()) {
@@ -277,8 +321,8 @@ public class RecetaDAO{
         }
 
         String query = "UPDATE valoraciones SET puntuacion = ? WHERE usuario_id = ? AND receta_id = ?";
-
-        try (PreparedStatement sentencia = connection.prepareStatement(query)) {
+        try {
+            PreparedStatement sentencia = connection.prepareStatement(query);
             sentencia.setDouble(1, puntuacion);
             sentencia.setInt(2, usuarioId);
             sentencia.setInt(3, recetaId);
