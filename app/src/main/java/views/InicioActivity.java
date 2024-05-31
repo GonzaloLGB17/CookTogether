@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,11 +45,10 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
     private ArrayList<RecetaModel> recetas = new ArrayList<>();
     private ImageUtil imageUtil = new ImageUtil();
     private TextView tvUserInicio;
-    private ImageView imgUserInicio, imgFilters;
+    private ImageView imgUserInicio, imgFilters, imgCategory;
     private RecyclerView rvInicio;
     private InicioAdapter inicioAdapter;
-    private Spinner spFilters;
-    private String username = "";
+    private Spinner spFilters, spCategorias;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +68,23 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         imgUserInicio = findViewById(R.id.imgUserInicio);
         imgUserInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgFilters = findViewById(R.id.imgFilters);
+        imgCategory = findViewById(R.id.imgCategory);
+        rvInicio = findViewById(R.id.rvInicio);
+        spFilters = findViewById(R.id.spFilters);
+        spCategorias = findViewById(R.id.spCategorias);
 
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
 
         tvUserInicio.setText(user.getUsername());
         imgUserInicio.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+
+        try {
+            recetas = recetaController.obtenerRecetasFiltros("Recientes");
+        } catch (SQLException e) {
+            Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+        cargarRv(recetas);
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
@@ -123,11 +134,22 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             }
         });
 
-        spFilters = findViewById(R.id.spFilters);
-        String[] categorias = {" ","Recientes"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_categorias, categorias);
+        String[] filtros = {"Recientes", "Mayor puntuacion"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_categorias, filtros);
         adapter.setDropDownViewResource(R.layout.spinner_categorias);
         spFilters.setAdapter(adapter);
+
+        String[] categorias = {"Platos Principales", "Entrantes", "Postres", "Sopas", "Ensaladas"};
+        ArrayAdapter<String> adapterCat = new ArrayAdapter<>(InicioActivity.this, R.layout.spinner_categorias, categorias);
+        adapterCat.setDropDownViewResource(R.layout.spinner_categorias);
+        spCategorias.setAdapter(adapterCat);
+
+        imgCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spCategorias.performClick();
+            }
+        });
 
         imgFilters.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +162,27 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String filtro = parent.getItemAtPosition(position).toString();
+                    try {
+                        recetas = recetaController.obtenerRecetasFiltros(filtro);
+                        cargarRv(recetas);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+
+        });
+
+        spCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String categoria = parent.getItemAtPosition(position).toString();
                 try {
-                    recetas = recetaController.obtenerRecetasFiltros(filtro);
+                    recetas = recetaController.obtenerRecetasCategorias(categoria);
                     cargarRv(recetas);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -150,26 +191,14 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(parent.getContext(), "HOLA",Toast.LENGTH_LONG).show();
+
             }
         });
-
-        try {
-            recetas = recetaController.obtenerRecetas();
-        } catch (SQLException e) {
-            Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
-        }
-        rvInicio = findViewById(R.id.rvInicio);
-        inicioAdapter = new InicioAdapter(this, recetas, this);
-        rvInicio.setAdapter(inicioAdapter);
-        // GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        rvInicio.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     public void pubCardClick(int position) {
         Intent intent = new Intent(this, PublicacionActivity.class);
-
         intent.putExtra("user", user);
         intent.putExtra("userPub", recetas.get(position).getUsuario());
         intent.putExtra("receta", recetas.get(position).getTitulo());

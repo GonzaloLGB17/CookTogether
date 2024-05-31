@@ -166,13 +166,14 @@ public class RecetaDAO{
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        String query = "SELECT * FROM recetas;";
-        RecetaModel recetaModel = null;
-        ArrayList<RecetaModel> recetas = new ArrayList<>();
-        if(filtro.equals("Recientes")){
+        String query = "";
+        if(filtro.equals("Mayor puntuacion")){
+            query = "SELECT * FROM recetas ORDER BY puntuacion_media DESC;";
+        }else{
             query = "SELECT * FROM recetas ORDER BY fecha_hora DESC;";
         }
-
+        RecetaModel recetaModel = null;
+        ArrayList<RecetaModel> recetas = new ArrayList<>();
         PreparedStatement sentencia = connection.prepareStatement(query);
         ResultSet rs = sentencia.executeQuery();
         while (rs.next()){
@@ -187,7 +188,6 @@ public class RecetaDAO{
                     rs.getInt("id"),
                     rs.getString("categoria"),
                     rs.getTimestamp("fecha_hora"));
-
             if(recetaModel!=null){
                 recetas.add(recetaModel);
             }
@@ -196,15 +196,15 @@ public class RecetaDAO{
         return recetas;
     }
 
-    public ArrayList<RecetaModel> obtenerRecetas() throws SQLException{
+    public ArrayList<RecetaModel> obtenerRecetasCategorias(String categoria) throws SQLException{
         if(!initDBConnection()){
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         RecetaModel recetaModel = null;
         ArrayList<RecetaModel> recetas = new ArrayList<>();
-        String query = "SELECT * FROM recetas;";
+        String query = "SELECT * FROM recetas WHERE categoria = ? ORDER BY fecha_hora DESC;";
         PreparedStatement sentencia = connection.prepareStatement(query);
-
+        sentencia.setString(1, categoria);
         ResultSet rs = sentencia.executeQuery();
         while (rs.next()){
             recetaModel = new RecetaModel(

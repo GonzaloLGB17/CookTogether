@@ -19,8 +19,8 @@ public class RecetaController {
         return new RecetaDAO().obtenerRecetasFiltros(filtro);
     }
 
-    public ArrayList<RecetaModel> obtenerRecetas() throws SQLException{
-        return new RecetaDAO().obtenerRecetas();
+    public ArrayList<RecetaModel> obtenerRecetasCategorias(String categoria) throws SQLException{
+        return new RecetaDAO().obtenerRecetasCategorias(categoria);
     }
 
     public ArrayList<RecetaModel> obtenerRecetasUsuario(String user) throws SQLException{

@@ -25,4 +25,7 @@
     <string name="tbInstrucciones">Instrucciones</string>
     <string name="tvEtPublicaciones">Publicaciones</string>
     <string name="chSesion">Recordar sesión</string>
+    <string name="chCambiarPass">Cambiar constraseña</string>
+    <string name="etOldPassword">Actual contraseña</string>
+    <string name="etNewPassword">Nueva contraseña</string>
 </resources>

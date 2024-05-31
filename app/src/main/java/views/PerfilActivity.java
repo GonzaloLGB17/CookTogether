@@ -38,7 +38,7 @@ import utils.ImageUtil;
 public class PerfilActivity extends AppCompatActivity implements InterfacePublicacion {
     private AnimatedBottomBar bottomBar;
     private TextView tvUserPerfil, tvPuntuacionPerfil, tvNumPublicaciones;
-    private ImageView imgUserPerfil, imgLogout;
+    private ImageView imgUserPerfil, imgLogout, imgEditProfile;
     private UserModel user = new UserModel();
     private ImageUtil imageUtil = new ImageUtil();
     private RecetaController recetaController = new RecetaController();
@@ -62,6 +62,7 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
     private void initComponents() {
         bottomBar = findViewById(R.id.bottomBarPerfil);
         tvUserPerfil = findViewById(R.id.tvUserPerfil);
+        imgEditProfile =findViewById(R.id.imgEditProfile);
         imgUserPerfil = findViewById(R.id.imgUserPerfil);
         imgUserPerfil.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgLogout = findViewById(R.id.imgLogout);
@@ -149,6 +150,15 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
             @Override
             public void onClick(View v) {
                mostrarAlertaLogout();
+            }
+        });
+
+        imgEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerfilActivity.this, EditActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         });
     }

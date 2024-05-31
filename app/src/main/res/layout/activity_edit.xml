@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:onClick="registrar"
+    tools:context="views.RegisterActivity">
+
+
+    <EditText
+        android:id="@+id/etUsernameEdit"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/fondo_et_gris"
+        android:ems="10"
+        android:fontFamily="@font/amaranth"
+        android:hint="@string/etUsernameRegister"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/plateado"
+        android:textColorHint="@color/plateado"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321" />
+
+    <EditText
+        android:id="@+id/etOldPasswordEdit"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/fondo_et_gris"
+        android:ems="10"
+        android:fontFamily="@font/amaranth"
+        android:hint="@string/etOldPassword"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="@color/plateado"
+        android:textColorHint="@color/plateado"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43" />
+
+    <EditText
+        android:id="@+id/etNewPasswordEdit"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/fondo_et_gris"
+        android:ems="10"
+        android:fontFamily="@font/amaranth"
+        android:hint="@string/etNewPassword"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="@color/plateado"
+        android:textColorHint="@color/plateado"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538" />
+
+    <ImageButton
+        android:id="@+id/imgBtReturnEdit"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:background="@null"
+        android:contentDescription="@string/imgBtReturnRegister"
+        android:contextClickable="false"
+        android:onClick="volverLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/returnnsesenta" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgUserEdit"
+        android:layout_width="143dp"
+        android:layout_height="146dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:srcCompat="@drawable/addimgeusuario"
+        app:strokeColor="@color/dorado"
+        app:strokeWidth="5dp"
+        android:scaleType="fitXY"/>
+
+    <CheckBox
+        android:id="@+id/chCambiarPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/amaranth"
+        android:text="@string/chCambiarPass"
+        android:textColor="@color/dorado"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.754" />
+
+    <ImageView
+        android:id="@+id/imgConfirmar"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/confirmar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
