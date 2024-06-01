@@ -2,16 +2,12 @@ package views;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,14 +18,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cooktogether.R;
 
-import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 
 import controllers.UserController;
 import models.UserModel;
 import utils.ImageUtil;
-
-import android.graphics.BitmapFactory;
 
 public class RegisterActivity extends AppCompatActivity {
     private UserController userController = new UserController();
@@ -43,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consEdit), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -100,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
         }else if(!etPasswordRegister.getText().toString().equals(etConfirmarPasswordRegister.getText().toString())){
             Toast.makeText(this, "Las contraseñas introducidas no coinciden.", Toast.LENGTH_SHORT).show();
+        }else if(etUsernameRegister.getText().toString().length()>10){
+            Toast.makeText(this, "El nombre de usuario es demasiado largo.", Toast.LENGTH_SHORT).show();
         }else{
             UserModel userModel = new UserModel(
                     etNombreRegister.getText().toString(),

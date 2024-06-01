@@ -12,8 +12,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cooktogether.R;
 
-import java.sql.SQLException;
-
 import controllers.UserController;
 import models.UserModel;
 import nl.joery.animatedbottombar.AnimatedBottomBar;
@@ -27,7 +25,7 @@ public class BuscarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_buscar);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consEdit), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

@@ -64,15 +64,21 @@ public class UserDAO {
     }
 
     public boolean comprobarUsuario(String username) throws SQLException {
-        boolean comprobar = false;
-        ArrayList<UserModel> usuarios = obtenerUsuarios();
-        for(int i = 0;i<usuarios.size();i++){
-            if(usuarios.get(i).getUsername().equals(username)){
-                throw new SQLException("El usuario ya existe.");
-            }
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        boolean usuario = false;
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        comprobar = true;
-        return comprobar;
+        String query = "SELECT id, nombre, apellidos, correo, username, password, foto_usuario FROM usuarios WHERE username = ?";
+        sentencia = connection.prepareStatement(query);
+        sentencia.setString(1, username);
+        rs = sentencia.executeQuery();
+        if (rs.next()) {
+            usuario = true;
+        }
+        closeDBConnection();
+        return usuario;
     }
 
     public ArrayList<UserModel> obtenerUsuarios() throws SQLException{
@@ -237,5 +243,79 @@ public class UserDAO {
         return String.valueOf(recetas);
     }
 
+    public void actualizarUsuario(UserModel user, boolean actualizarPass, String nuevoUsername, byte[] nuevaFotoUsuario, String nuevaPass, String oldPass) throws SQLException {
+        PreparedStatement sentencia = null;
+        if (!initDBConnection()) {
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        if(actualizarPass){
+            boolean passCorrecta = comprobarPassword(oldPass,user.getId());
+            if(passCorrecta){
+                cambiarPass(nuevaPass, user.getId());
+            }else {
+                throw new SQLException("La contraseña actual es incorrecta");
+            }
+        }
+        try {
+            String query = "UPDATE usuarios SET username = ?, foto_usuario = ? WHERE id = ?";
+            sentencia = connection.prepareStatement(query);
 
+            sentencia.setString(1, nuevoUsername);
+            sentencia.setBytes(2, nuevaFotoUsuario);
+            sentencia.setInt(3, user.getId());
+
+            int filasActualizadas = sentencia.executeUpdate();
+            if (filasActualizadas == 0) {
+                throw new SQLException("No existe el usuario indicado o no se pudo actualizar.");
+            }
+        } finally {
+            closeDBConnection();
+        }
+    }
+
+    public void cambiarPass(String newPass, int id) throws SQLException {
+        if(!initDBConnection()){
+            throw new SQLException("Error al conectar con la BBDD");
+        }
+        PreparedStatement sentencia = null;
+        try {
+            String query = "UPDATE usuarios SET password = encode(digest(?, 'sha512'), 'hex') WHERE id = ?";
+            sentencia = connection.prepareStatement(query);
+
+            sentencia.setString(1, newPass);
+            sentencia.setInt(2, id);
+
+            sentencia.executeUpdate();
+        } catch (SQLException e){
+            throw new SQLException("Error al modificar la contraseña del usuario");
+        }
+    }
+
+    public boolean comprobarPassword(String password, int id) throws SQLException{
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        boolean passwordCorrecta = false;
+        if (!initDBConnection()) {
+            throw new SQLException("Error al conectar con la BBDD");
+        }
+
+        try {
+            String query = "SELECT * FROM usuarios WHERE id = ? AND password = encode(digest(?, 'sha512'), 'hex')";
+            sentencia = connection.prepareStatement(query);
+            sentencia.setInt(1, id);
+            sentencia.setString(2,password);
+            rs = sentencia.executeQuery();
+            if(rs.next()){
+                passwordCorrecta = true;
+            }else {
+                throw new SQLException("La contraseña actual introducida es incorrecta.");
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        return passwordCorrecta;
+    }
 }
+
+
+

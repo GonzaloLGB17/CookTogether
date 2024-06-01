@@ -26,6 +26,6 @@
     <string name="tvEtPublicaciones">Publicaciones</string>
     <string name="chSesion">Recordar sesión</string>
     <string name="chCambiarPass">Cambiar constraseña</string>
-    <string name="etOldPassword">Actual contraseña</string>
+    <string name="etOldPassword">Contraseña actual</string>
     <string name="etNewPassword">Nueva contraseña</string>
 </resources>

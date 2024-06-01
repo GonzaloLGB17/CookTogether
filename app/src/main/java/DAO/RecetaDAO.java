@@ -128,7 +128,6 @@ public class RecetaDAO{
         }finally {
             closeDBConnection();
         }
-        closeDBConnection();
     }
 
     public RecetaModel buscarReceta(String titulo, String usuario) throws SQLException {
@@ -202,7 +201,7 @@ public class RecetaDAO{
         }
         RecetaModel recetaModel = null;
         ArrayList<RecetaModel> recetas = new ArrayList<>();
-        String query = "SELECT * FROM recetas WHERE categoria = ? ORDER BY fecha_hora DESC;";
+        String query = "SELECT * FROM recetas WHERE categoria = ? ORDER BY puntuacion_media DESC;";
         PreparedStatement sentencia = connection.prepareStatement(query);
         sentencia.setString(1, categoria);
         ResultSet rs = sentencia.executeQuery();

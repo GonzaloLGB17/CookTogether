@@ -31,4 +31,8 @@ public class UserController {
     public String obtenerRecetasUsuario(String usuario) throws SQLException{
         return new UserDAO().obtenerRecetasUsuario(usuario);
     }
+
+    public void actualizarUsuario(UserModel user, boolean actualizarPass, String nuevoUsername, byte[] nuevaFotoUsuario, String nuevaPass, String oldPass) throws SQLException {
+        new UserDAO().actualizarUsuario(user,actualizarPass,nuevoUsername,nuevaFotoUsuario,nuevaPass, oldPass);
+    }
 }

@@ -1,10 +1,7 @@
 package views;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,7 +51,7 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_inicio);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consEdit), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -78,13 +75,6 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
 
         tvUserInicio.setText(user.getUsername());
         imgUserInicio.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
-
-        try {
-            recetas = recetaController.obtenerRecetasFiltros("Recientes");
-        } catch (SQLException e) {
-            Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
-        }
-        cargarRv(recetas);
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
@@ -134,12 +124,12 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             }
         });
 
-        String[] filtros = {"Recientes", "Mayor puntuacion"};
+        String[] filtros = {"-","Recientes", "Mayor puntuacion"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_categorias, filtros);
         adapter.setDropDownViewResource(R.layout.spinner_categorias);
         spFilters.setAdapter(adapter);
 
-        String[] categorias = {"Platos Principales", "Entrantes", "Postres", "Sopas", "Ensaladas"};
+        String[] categorias = {"-","Platos Principales", "Entrantes", "Postres", "Sopas", "Ensaladas"};
         ArrayAdapter<String> adapterCat = new ArrayAdapter<>(InicioActivity.this, R.layout.spinner_categorias, categorias);
         adapterCat.setDropDownViewResource(R.layout.spinner_categorias);
         spCategorias.setAdapter(adapterCat);
@@ -162,12 +152,17 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String filtro = parent.getItemAtPosition(position).toString();
+                if(filtro.equals("-")){
+                    //Este condicional lo uso para que no cargue nada ni cambie el valor del array de las recetas de manera automatica
+                }else{
                     try {
                         recetas = recetaController.obtenerRecetasFiltros(filtro);
                         cargarRv(recetas);
+                        spFilters.setSelection(0);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
+                }
             }
 
             @Override
@@ -181,11 +176,16 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String categoria = parent.getItemAtPosition(position).toString();
-                try {
-                    recetas = recetaController.obtenerRecetasCategorias(categoria);
-                    cargarRv(recetas);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                if (categoria.equals("-")){
+                    //Este condicional lo uso para que no cargue nada ni cambie el valor del array de las recetas de manera automatica
+                }else{
+                    try {
+                        recetas = recetaController.obtenerRecetasCategorias(categoria);
+                        cargarRv(recetas);
+                        spCategorias.setSelection(0);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
 
@@ -194,6 +194,12 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
 
             }
         });
+        try {
+            recetas = recetaController.obtenerRecetasFiltros("Recientes");
+        } catch (SQLException e) {
+            Toast.makeText(this, e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+        cargarRv(recetas);
     }
 
     @Override
@@ -212,6 +218,5 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         rvInicio.setAdapter(inicioAdapter);
         rvInicio.setLayoutManager(new LinearLayoutManager(this));
     }
-
 
 }
