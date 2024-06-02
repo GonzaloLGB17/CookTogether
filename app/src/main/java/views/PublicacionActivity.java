@@ -134,9 +134,9 @@ public class PublicacionActivity extends AppCompatActivity {
         imgStarPublicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(!user.getUsername().equals(usernamePub)){
                     mostrarStarsDialog();
-
+                }
             }
         });
 
@@ -276,7 +276,7 @@ public class PublicacionActivity extends AppCompatActivity {
 
             final RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.CustomAlertDialog);
             builder.setView(dialogView);
             builder.setTitle("Calificar receta");
 

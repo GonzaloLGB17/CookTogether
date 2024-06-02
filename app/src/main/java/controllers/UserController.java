@@ -35,4 +35,8 @@ public class UserController {
     public void actualizarUsuario(UserModel user, boolean actualizarPass, String nuevoUsername, byte[] nuevaFotoUsuario, String nuevaPass, String oldPass) throws SQLException {
         new UserDAO().actualizarUsuario(user,actualizarPass,nuevoUsername,nuevaFotoUsuario,nuevaPass, oldPass);
     }
+
+    public void cambiarPass(String newPass, String oldPass,int id) throws SQLException {
+        new UserDAO().cambiarPass(newPass, oldPass,id);
+    }
 }

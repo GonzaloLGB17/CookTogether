@@ -248,14 +248,6 @@ public class UserDAO {
         if (!initDBConnection()) {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
-        if(actualizarPass){
-            boolean passCorrecta = comprobarPassword(oldPass,user.getId());
-            if(passCorrecta){
-                cambiarPass(nuevaPass, user.getId());
-            }else {
-                throw new SQLException("La contraseña actual es incorrecta");
-            }
-        }
         try {
             String query = "UPDATE usuarios SET username = ?, foto_usuario = ? WHERE id = ?";
             sentencia = connection.prepareStatement(query);
@@ -273,21 +265,26 @@ public class UserDAO {
         }
     }
 
-    public void cambiarPass(String newPass, int id) throws SQLException {
+    public void cambiarPass(String newPass, String oldPass,int id) throws SQLException {
         if(!initDBConnection()){
             throw new SQLException("Error al conectar con la BBDD");
         }
-        PreparedStatement sentencia = null;
-        try {
-            String query = "UPDATE usuarios SET password = encode(digest(?, 'sha512'), 'hex') WHERE id = ?";
-            sentencia = connection.prepareStatement(query);
+        boolean passCorrecta = comprobarPassword(oldPass,id);
+        if(!passCorrecta){
+            throw new SQLException("La contraseña actual es incorrecta");
+        }else {
+            PreparedStatement sentencia = null;
+            try {
+                String query = "UPDATE usuarios SET password = encode(digest(?, 'sha512'), 'hex') WHERE id = ?";
+                sentencia = connection.prepareStatement(query);
 
-            sentencia.setString(1, newPass);
-            sentencia.setInt(2, id);
+                sentencia.setString(1, newPass);
+                sentencia.setInt(2, id);
 
-            sentencia.executeUpdate();
-        } catch (SQLException e){
-            throw new SQLException("Error al modificar la contraseña del usuario");
+                sentencia.executeUpdate();
+            } catch (SQLException e){
+                throw new SQLException("Error al modificar la contraseña del usuario");
+            }
         }
     }
 

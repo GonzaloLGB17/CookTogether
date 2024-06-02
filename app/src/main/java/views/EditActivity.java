@@ -137,16 +137,29 @@ public class EditActivity extends AppCompatActivity {
 
     private void editarUser(){
         boolean usuarioDispo = comprobarUsername();
-            if(checked){
-                if(etOldPasswordEdit.getText().toString().isEmpty() || etNewPasswordEdit.getText().toString().isEmpty()
-                        || etConfirmarNewPasswordEdit.getText().toString().isEmpty()){
-                    Toast.makeText(this, "Ningún campo de contraseña puede estar vacío.", Toast.LENGTH_SHORT).show();
-                }else if(etNewPasswordEdit.getText().toString().equals(etOldPasswordEdit.getText().toString())){
-                    Toast.makeText(this, "La contraseña actual y la contraseña vieja son la misma.", Toast.LENGTH_SHORT).show();
-                }else if(!etConfirmarNewPasswordEdit.getText().toString().equals(etNewPasswordEdit.getText().toString())){
-                    Toast.makeText(this, "Las contraseñas nuevas introducidas no coinciden.", Toast.LENGTH_SHORT).show();
+        boolean df = true;
+        if(checked){
+            if(etOldPasswordEdit.getText().toString().isEmpty() || etNewPasswordEdit.getText().toString().isEmpty()
+                    || etConfirmarNewPasswordEdit.getText().toString().isEmpty()){
+                Toast.makeText(this, "Ningún campo de contraseña puede estar vacío.", Toast.LENGTH_SHORT).show();
+                df = false;
+            }else if(etNewPasswordEdit.getText().toString().equals(etOldPasswordEdit.getText().toString())){
+                Toast.makeText(this, "La contraseña actual y la contraseña vieja son la misma.", Toast.LENGTH_SHORT).show();
+                df = false;
+            }else if(!etConfirmarNewPasswordEdit.getText().toString().equals(etNewPasswordEdit.getText().toString())){
+                Toast.makeText(this, "Las contraseñas nuevas introducidas no coinciden.", Toast.LENGTH_SHORT).show();
+                df = false;
+            }else {
+                try {
+                    userController.cambiarPass(etNewPasswordEdit.getText().toString(), etOldPasswordEdit.getText().toString(),user.getId());
+                    df = true;
+                } catch (SQLException e) {
+                    df = false;
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+        if(df){
             if(etUsernameEdit.getText().toString().length()>10){
                 Toast.makeText(this, "El nombre de usuario es demasiado largo.", Toast.LENGTH_SHORT).show();
             }else if(etUsernameEdit.getText().toString().isEmpty()){
@@ -156,7 +169,9 @@ public class EditActivity extends AppCompatActivity {
             }else{
                 try {
                     userController.actualizarUsuario(user,checked,etUsernameEdit.getText().toString(),
-                            imageUtil.optimizarImagen(bitmap,1024,1024,90),etNewPasswordEdit.getText().toString(), etOldPasswordEdit.getText().toString());
+                            imageUtil.optimizarImagen(bitmap,1024,1024,90),
+                            etNewPasswordEdit.getText().toString(), etOldPasswordEdit.getText().toString());
+
                     user = userController.buscarUsuario(etUsernameEdit.getText().toString());
                     saveCredentials();
                     Intent intent = new Intent(EditActivity.this, PerfilActivity.class);
@@ -166,7 +181,7 @@ public class EditActivity extends AppCompatActivity {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-
+        }
     }
 
     private void saveCredentials(){
@@ -182,7 +197,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private boolean comprobarUsername(){
-        boolean userDispo = false;
+     boolean userDispo = false;
         if(!etUsernameEdit.getText().toString().equals(user.getUsername())){
             // Uso este condicional para comprobar que el nombre nuevo del usuario no esté ya usado por otro
             try {
