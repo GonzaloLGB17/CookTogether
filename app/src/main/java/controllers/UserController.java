@@ -39,4 +39,12 @@ public class UserController {
     public void cambiarPass(String newPass, String oldPass,int id) throws SQLException {
         new UserDAO().cambiarPass(newPass, oldPass,id);
     }
+
+    public ArrayList<UserModel> obtenerUsuarios() throws SQLException{
+        return new UserDAO().obtenerUsuarios();
+    }
+
+    public ArrayList<UserModel> obtenerUsuariosBuscados(String username) throws SQLException{
+        return  new UserDAO().obtenerUsuariosBuscados(username);
+    }
 }

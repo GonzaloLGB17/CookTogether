@@ -109,6 +109,35 @@ public class UserDAO {
         return usuarios;
     }
 
+    public ArrayList<UserModel> obtenerUsuariosBuscados(String username) throws SQLException{
+        if(!initDBConnection()){
+            throw new SQLException("No se pudo conectar a la base de datos.");
+        }
+        UserModel usuario = null;
+        ArrayList<UserModel> usuarios = new ArrayList<>();
+        String query = "SELECT * FROM usuarios WHERE username LIKE ? ORDER BY (SELECT AVG(puntuacion_media) AS puntuacion FROM recetas WHERE usuario = ? );";
+        PreparedStatement sentencia = connection.prepareStatement(query);
+        sentencia.setString(1, "%" + username + "%");
+        ResultSet rs = sentencia.executeQuery();
+        while (rs.next()){
+            usuario = new UserModel(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getString("apellidos"),
+                    rs.getString("correo"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getBytes("foto_usuario")
+            );
+
+            if(usuario!=null){
+                usuarios.add(usuario);
+            }
+        }
+        closeDBConnection();
+        return usuarios;
+    }
+
 
     public boolean insertarUsuario(UserModel user) throws SQLException {
         boolean insertarUsuario = false;

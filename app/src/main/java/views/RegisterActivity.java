@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consEdit), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consRegister), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etNombreRegister.getText().toString(),
                     etApellidosRegister.getText().toString(),
                     etCorreoRegister.getText().toString(),
-                    etUsernameRegister.getText().toString(),
+                    etUsernameRegister.getText().toString().toLowerCase(),
                     etPasswordRegister.getText().toString(),
                     imageUtil.optimizarImagen(bitmap,1024,1024,90)
             );
