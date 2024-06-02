@@ -115,7 +115,7 @@ public class UserDAO {
         }
         UserModel usuario = null;
         ArrayList<UserModel> usuarios = new ArrayList<>();
-        String query = "SELECT * FROM usuarios WHERE username LIKE ? ORDER BY (SELECT AVG(puntuacion_media) AS puntuacion FROM recetas WHERE usuario = ? );";
+        String query = "SELECT * FROM usuarios WHERE username LIKE ?";
         PreparedStatement sentencia = connection.prepareStatement(query);
         sentencia.setString(1, "%" + username + "%");
         ResultSet rs = sentencia.executeQuery();
@@ -234,7 +234,7 @@ public class UserDAO {
             throw new SQLException("No se pudo conectar a la base de datos.");
         }
         // Preparar y ejecutar la consulta SQL
-        String query = "SELECT AVG(puntuacion_media) AS puntuacion FROM recetas WHERE usuario = ? ";
+        String query = "SELECT AVG(puntuacion_media) AS puntuacion FROM recetas WHERE usuario = ?";
         sentencia = connection.prepareStatement(query);
         sentencia.setString(1, usuario);
         rs = sentencia.executeQuery();

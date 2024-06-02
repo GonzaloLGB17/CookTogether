@@ -146,6 +146,9 @@ public class BuscarActivity extends AppCompatActivity implements InterfacePublic
 
     @Override
     public void pubCardClick(int position) {
-
+        Intent intent = new Intent(BuscarActivity.this, UserBuscadoPerfilActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("userPub", usuarios.get(position).getUsername());
+        startActivity(intent);
     }
 }
