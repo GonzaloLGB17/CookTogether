@@ -71,13 +71,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        tools:layout_editor_absoluteY="3dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgUserPublicar"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:padding="10dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

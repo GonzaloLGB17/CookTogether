@@ -3,6 +3,7 @@ package views;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,14 +89,17 @@ public class PublicacionActivity extends AppCompatActivity {
 
         tvUserPublicacion.setText(receta.getUsuario());
         try {
-            imgUserPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(userController.buscarUsuario(receta.getUsuario()).getFotoUsuario()));
+
+            Bitmap foto = imageUtil.transformarBytesBitmap(userController.buscarUsuario(receta.getUsuario()).getFotoUsuario());
+            imgUserPublicacion.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         tvTitulo.setText(receta.getTitulo());
         etDescripcion.setText(receta.getDescripcion());
-        imgRecetaPublicacion.setImageBitmap(imageUtil.transformarBytesBitmap(receta.getFotoReceta()));
+        Bitmap fotoR = imageUtil.transformarBytesBitmap(receta.getFotoReceta());
+        imgRecetaPublicacion.setImageBitmap(imageUtil.redimensionarImagen(fotoR,1920,1080));
         tvInfoPub.setText("Ingredientes");
         tvContent.setText(receta.getIngredientes());
         tvCategoria.setText("Categoría: " + receta.getCategoria());

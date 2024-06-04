@@ -68,9 +68,7 @@ public class PublicarActivity extends AppCompatActivity {
     private void initComponents(){
         btCompartir = findViewById(R.id.btCompartir);
         imgUserPublicar = findViewById(R.id.imgUserPublicar);
-        imgUserPublicar.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgRecetaPublicar = findViewById(R.id.imgRecetaPublicar);
-        imgRecetaPublicar.setScaleType(ImageView.ScaleType.FIT_CENTER);
         tvUserPublicar = findViewById(R.id.tvUserPublicar);
         etDescripcion = findViewById(R.id.etDescReceta);
         etInstrucciones = findViewById(R.id.etIntrReceta);
@@ -89,7 +87,8 @@ public class PublicarActivity extends AppCompatActivity {
 
 
         tvUserPublicar.setText(user.getUsername());
-        imgUserPublicar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+        Bitmap foto = imageUtil.transformarBytesBitmap(user.getFotoUsuario());
+        imgUserPublicar.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
         if(isEditMode){
             receta = (RecetaModel) intent.getSerializableExtra("receta");
             etIngredientes.setText(receta.getIngredientes());
@@ -100,7 +99,7 @@ public class PublicarActivity extends AppCompatActivity {
             etTitulo.setFocusableInTouchMode(false);
             etTitulo.setClickable(false);
             bitmap = imageUtil.transformarBytesBitmap(receta.getFotoReceta());
-            imgRecetaPublicar.setImageBitmap(bitmap);
+            imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap,1920,1080));
             btCompartir.setText("Editar");
         }
         etIngredientes.setOnTouchListener(new View.OnTouchListener() {
@@ -244,7 +243,7 @@ public class PublicarActivity extends AppCompatActivity {
                 // Convertir la URI en un Bitmap
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Establecer el Bitmap en el ImageView
-                imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap, 1024, 1024));
+                imgRecetaPublicar.setImageBitmap(imageUtil.redimensionarImagen(bitmap, 1920, 1080));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -258,6 +257,8 @@ public class PublicarActivity extends AppCompatActivity {
         else if(etInstrucciones.getText().toString().isEmpty() || etDescripcion.getText().toString().isEmpty() ||
                 etIngredientes.getText().toString().isEmpty() || etTitulo.getText().toString().isEmpty()){
             Toast.makeText(this, "Ningún campo puede estar vacío.", Toast.LENGTH_SHORT).show();
+        }else if(etTitulo.getText().toString().length()>24){
+            Toast.makeText(PublicarActivity.this,"Por favor intenta escribir un titulo más corto",Toast.LENGTH_SHORT).show();
         }else {
 
             PopupDialog.getInstance(PublicarActivity.this)
@@ -281,28 +282,29 @@ public class PublicarActivity extends AppCompatActivity {
                         @Override
                         public void onPositiveButtonClicked(Dialog dialog) {
                             if(!isEditMode){
-                                receta = new RecetaModel(
-                                        etTitulo.getText().toString(),
-                                        etDescripcion.getText().toString(),
-                                        etIngredientes.getText().toString(),
-                                        etInstrucciones.getText().toString(),
-                                        user.getUsername(),
-                                        0,
-                                        imageUtil.optimizarImagen(bitmap,1024,1024,90),
-                                        spCategorias.getSelectedItem().toString(),
-                                        new Timestamp(System.currentTimeMillis()));
-                                try {
-                                    recetaController.insertarReceta(receta);
-                                    Toast.makeText(PublicarActivity.this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
-                                    irPublicacion();
-                                } catch (SQLException e) {
-                                    Toast.makeText(PublicarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
+                                    receta = new RecetaModel(
+                                            etTitulo.getText().toString(),
+                                            etDescripcion.getText().toString(),
+                                            etIngredientes.getText().toString(),
+                                            etInstrucciones.getText().toString(),
+                                            user.getUsername(),
+                                            0,
+                                            imageUtil.optimizarImagen(bitmap,1024,1024,80),
+                                            spCategorias.getSelectedItem().toString(),
+                                            new Timestamp(System.currentTimeMillis()));
+                                    try {
+                                        recetaController.insertarReceta(receta);
+                                        Toast.makeText(PublicarActivity.this, "Receta publicada con éxito.", Toast.LENGTH_SHORT).show();
+                                        irPublicacion();
+                                    } catch (SQLException e) {
+                                        Toast.makeText(PublicarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
                             }else{
                                 try {
                                     receta.setTitulo(etTitulo.getText().toString());
                                     receta.setCategoria(spCategorias.getSelectedItem().toString());
-                                    receta.setFotoReceta(imageUtil.optimizarImagen(bitmap,1024,1024,90));
+                                    receta.setFotoReceta(imageUtil.optimizarImagen(bitmap,1024,1024,80));
                                     receta.setDescripcion(etDescripcion.getText().toString());
                                     receta.setIngredientes(etIngredientes.getText().toString());
                                     receta.setInstrucciones(etInstrucciones.getText().toString());

@@ -3,6 +3,7 @@ package views;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -62,7 +63,6 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         tvUserPerfil = findViewById(R.id.tvUserPerfil);
         imgEditProfile =findViewById(R.id.imgEditProfile);
         imgUserPerfil = findViewById(R.id.imgUserPerfil);
-        imgUserPerfil.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgLogout = findViewById(R.id.imgLogout);
         tvNumPublicaciones = findViewById(R.id.tvNumPublicaciones);
         tvPuntuacionPerfil = findViewById(R.id.tvPuntuacionPerfil);
@@ -71,8 +71,8 @@ public class PerfilActivity extends AppCompatActivity implements InterfacePublic
         user = (UserModel) intent.getSerializableExtra("user");
 
         tvUserPerfil.setText(user.getUsername());
-        imgUserPerfil.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
-
+        Bitmap foto = imageUtil.transformarBytesBitmap(user.getFotoUsuario());
+        imgUserPerfil.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {

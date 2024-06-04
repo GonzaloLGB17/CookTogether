@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooktogether.R;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.RecetaController;
@@ -36,15 +36,16 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.publicacion_perfil_layout, parent, false);
-        return new PerfilAdapter.MyViewHolder(view, interfacePublicacion);
+        return new MyViewHolder(view, interfacePublicacion);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
         holder.tvPuntuacionCard.setText(String.valueOf(String.format("%.1f", recetas.get(position).getPuntuacionMedia())));
-        holder.imgPublicacionPerfil.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
-
+        Bitmap fotoR = new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta());
+        holder.imgPublicacionPerfil.setImageBitmap(new ImageUtil().redimensionarImagen(fotoR,1920,1080));
+        holder.tvFechaPubPerfil.setText(recetas.get(position).getTiempoTranscurrido());
     }
 
     @Override
@@ -54,13 +55,13 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private ImageView imgPublicacionPerfil;
-        private TextView tvTituloCard, tvPuntuacionCard;
+        private TextView tvTituloCard, tvPuntuacionCard, tvFechaPubPerfil;
         public MyViewHolder(@NonNull View itemView, InterfacePublicacion interfacePublicacion) {
             super(itemView);
             tvTituloCard = itemView.findViewById(R.id.tvTituloCardPerfil);
             tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacionCardPerfil);
             imgPublicacionPerfil = itemView.findViewById(R.id.imgPublicacionPerfil);
-            imgPublicacionPerfil.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            tvFechaPubPerfil = itemView.findViewById(R.id.tvFechaPubPerfil);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

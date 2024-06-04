@@ -1,6 +1,7 @@
 package views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -65,7 +66,8 @@ public class BuscarActivity extends AppCompatActivity implements InterfacePublic
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
         tvUserBuscar.setText(user.getUsername());
-        imgUserBuscar.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
+        Bitmap foto = imageUtil.transformarBytesBitmap(user.getFotoUsuario());
+        imgUserBuscar.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
         etSearchUsuarios = findViewById(R.id.etSearchUsers);
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {

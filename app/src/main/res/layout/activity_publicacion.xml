@@ -78,6 +78,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:padding="10dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -241,6 +242,7 @@
                     android:id="@+id/imgRecetaPublicacion"
                     android:layout_width="111dp"
                     android:layout_height="88dp"
+                    android:scaleType="centerCrop"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/addimagereceta" />
 

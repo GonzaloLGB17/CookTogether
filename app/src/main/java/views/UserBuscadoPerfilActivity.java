@@ -1,6 +1,7 @@
 package views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,7 +72,8 @@ public class UserBuscadoPerfilActivity extends AppCompatActivity implements Inte
         }
 
         tvUserPerfilBuscado.setText(userBuscado.getUsername());
-        imgUserPerfilBuscado.setImageBitmap(imageUtil.transformarBytesBitmap(userBuscado.getFotoUsuario()));
+        Bitmap foto = imageUtil.transformarBytesBitmap(userBuscado.getFotoUsuario());
+        imgUserPerfilBuscado.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override

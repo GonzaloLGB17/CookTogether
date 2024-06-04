@@ -36,12 +36,15 @@ public class ImageUtil {
         float escalaAncho = ((float) nuevoAncho) / anchoOriginal;
         float escalaAlto = ((float) nuevoAlto) / altoOriginal;
 
-        // Crea una matriz de redimensionamiento y aplica las escalas
-        Matrix matrizRedimensionamiento = new Matrix();
-        matrizRedimensionamiento.postScale(escalaAncho, escalaAlto);
+        // Escoge la escala más pequeña para asegurar que la imagen quepa dentro del nuevo tamaño sin distorsionarla
+        float escala = Math.min(escalaAncho, escalaAlto);
 
-        // Crea y devuelve una nueva imagen redimensionada utilizando la matriz de redimensionamiento
-        return Bitmap.createBitmap(imagenOriginal, 0, 0, anchoOriginal, altoOriginal, matrizRedimensionamiento, true);
+        // Calcula las nuevas dimensiones conservando la relación de aspecto
+        int nuevoAnchoImagen = Math.round(anchoOriginal * escala);
+        int nuevoAltoImagen = Math.round(altoOriginal * escala);
+
+        // Redimensiona la imagen utilizando las nuevas dimensiones
+        return Bitmap.createScaledBitmap(imagenOriginal, nuevoAnchoImagen, nuevoAltoImagen, true);
     }
 
     // Método para comprimir una imagen

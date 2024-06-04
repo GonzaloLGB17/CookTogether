@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        holder.imgUserCardBuscar.setImageBitmap(new ImageUtil().transformarBytesBitmap(usuarios.get(position).getFotoUsuario()));
+
+        Bitmap foto = new ImageUtil().transformarBytesBitmap(usuarios.get(position).getFotoUsuario());
+        holder.imgUserCardBuscar.setImageBitmap(new ImageUtil().redimensionarImagen(foto,1920,1080));
     }
 
     @Override
@@ -67,7 +70,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
             tvPuntuacionCardBuscar = itemView.findViewById(R.id.tvPuntuacionCardBuscar);
             tvNombreCardBuscar = itemView.findViewById(R.id.tvNombreCardBuscar);
             imgUserCardBuscar = itemView.findViewById(R.id.imgUserCardBuscar);
-            imgUserCardBuscar.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

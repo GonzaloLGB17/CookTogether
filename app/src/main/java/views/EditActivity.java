@@ -70,7 +70,7 @@ public class EditActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
         bitmap = imageUtil.transformarBytesBitmap(user.getFotoUsuario());
-        imgUserEdit.setImageBitmap(bitmap);
+        imgUserEdit.setImageBitmap(imageUtil.redimensionarImagen(bitmap,1920,1080));
         etUsernameEdit.setText(user.getUsername());
         chCambiarPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +128,7 @@ public class EditActivity extends AppCompatActivity {
                 // Convertir la URI en un Bitmap
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Establecer el Bitmap en el ImageView
-                imgUserEdit.setImageBitmap(imageUtil.redimensionarImagen(bitmap,1024,1024));
+                imgUserEdit.setImageBitmap(imageUtil.redimensionarImagen(bitmap,143,146));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -169,7 +169,7 @@ public class EditActivity extends AppCompatActivity {
             }else{
                 try {
                     userController.actualizarUsuario(user,checked,etUsernameEdit.getText().toString(),
-                            imageUtil.optimizarImagen(bitmap,1024,1024,90),
+                            imageUtil.optimizarImagen(bitmap,1024,1024,80),
                             etNewPasswordEdit.getText().toString(), etOldPasswordEdit.getText().toString());
 
                     user = userController.buscarUsuario(etUsernameEdit.getText().toString());

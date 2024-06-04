@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // Convertir la URI en un Bitmap
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Establecer el Bitmap en el ImageView
-                imgUserRegister.setImageBitmap(imageUtil.redimensionarImagen(bitmap,1024,1024));
+                imgUserRegister.setImageBitmap(imageUtil.redimensionarImagen(bitmap,1920,1080));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etCorreoRegister.getText().toString(),
                     etUsernameRegister.getText().toString().toLowerCase(),
                     etPasswordRegister.getText().toString(),
-                    imageUtil.optimizarImagen(bitmap,1024,1024,90)
+                    imageUtil.optimizarImagen(bitmap,1024,1024,80)
             );
             try {
                 userController.insertarUsuario(userModel);

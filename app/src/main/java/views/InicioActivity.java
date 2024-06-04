@@ -1,6 +1,7 @@
 package views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,7 +64,6 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         bottomBar = findViewById(R.id.bottomBarInicio);
         tvUserInicio = findViewById(R.id.tvUserInicio);
         imgUserInicio = findViewById(R.id.imgUserInicio);
-        imgUserInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgFilters = findViewById(R.id.imgFilters);
         imgCategory = findViewById(R.id.imgCategory);
         rvInicio = findViewById(R.id.rvInicio);
@@ -74,8 +74,8 @@ public class InicioActivity extends AppCompatActivity implements InterfacePublic
         user = (UserModel) intent.getSerializableExtra("user");
 
         tvUserInicio.setText(user.getUsername());
-        imgUserInicio.setImageBitmap(imageUtil.transformarBytesBitmap(user.getFotoUsuario()));
-
+        Bitmap foto = imageUtil.transformarBytesBitmap(user.getFotoUsuario());
+        imgUserInicio.setImageBitmap(imageUtil.redimensionarImagen(foto,1920,1080));
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {

@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,24 +39,26 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.publicacion_layout, parent, false);
-        return new InicioAdapter.MyViewHolder(view, interfacePublicacion);
+        return new MyViewHolder(view, interfacePublicacion);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvUserCard.setText(recetas.get(position).getUsuario());
         holder.tvTituloCard.setText(recetas.get(position).getTitulo());
+        holder.tvFechaPub.setText(recetas.get(position).getTiempoTranscurrido());
         try {
             holder.tvPuntuacionCard.setText(recetaController.obtenerPuntuacionReceta(recetas.get(position).getIdReceta()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        holder.imgPublicacionInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        holder.imgPublicacionInicio.setImageBitmap(new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta()));
+        Bitmap fotoR = new ImageUtil().transformarBytesBitmap(recetas.get(position).getFotoReceta());
+        holder.imgPublicacionInicio.setImageBitmap(new ImageUtil().redimensionarImagen(fotoR,1920,1080));
+
         try {
             UserModel user = new UserController().buscarUsuario(recetas.get(position).getUsuario());
-
-            holder.imgUserPublicacionCard.setImageBitmap(new ImageUtil().transformarBytesBitmap(user.getFotoUsuario()));
+            Bitmap foto = new ImageUtil().transformarBytesBitmap(user.getFotoUsuario());
+            holder.imgUserPublicacionCard.setImageBitmap(new ImageUtil().redimensionarImagen(foto,1920,1080));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -68,16 +71,15 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private ImageView imgPublicacionInicio, imgUserPublicacionCard;
-        private TextView tvTituloCard, tvUserCard, tvPuntuacionCard;
+        private TextView tvTituloCard, tvUserCard, tvPuntuacionCard, tvFechaPub;
         public MyViewHolder(@NonNull View itemView, InterfacePublicacion interfacePublicacion) {
             super(itemView);
             tvUserCard = itemView.findViewById(R.id.tvUsuarioCard);
             tvTituloCard = itemView.findViewById(R.id.tvTituloCard);
             tvPuntuacionCard = itemView.findViewById(R.id.tvPuntuacioCard);
+            tvFechaPub = itemView.findViewById(R.id.tvFechaPub);
             imgPublicacionInicio = itemView.findViewById(R.id.imgPublicacionInicio);
-            imgPublicacionInicio.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imgUserPublicacionCard = itemView.findViewById(R.id.imgUserPublicacionCard);
-            imgUserPublicacionCard.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
