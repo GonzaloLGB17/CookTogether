@@ -116,6 +116,16 @@ public class PublicacionActivity extends AppCompatActivity {
             tvPuntuacionPublicacion.setVisibility(View.VISIBLE);
         }
 
+        tvUserPublicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(PublicacionActivity.this, UserBuscadoPerfilActivity.class);
+                intent1.putExtra("user", user);
+                intent1.putExtra("userPub", tvUserPublicacion.getText().toString());
+                startActivity(intent1);
+            }
+        });
+
         imgEditPub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

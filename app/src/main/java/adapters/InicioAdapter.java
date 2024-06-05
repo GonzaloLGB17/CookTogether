@@ -24,24 +24,29 @@ import models.UserModel;
 import utils.ImageUtil;
 
 public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHolder> {
+    // Variables miembro para almacenar el contexto, la lista de recetas y la interfaz
     public Context context;
     public ArrayList<RecetaModel> recetas;
     private final InterfacePublicacion interfacePublicacion;
     private RecetaController recetaController = new RecetaController();
+
     public InicioAdapter(Context context, ArrayList<RecetaModel> recetas, InterfacePublicacion interfacePublicacion){
         this.context = context;
         this.recetas = recetas;
         this.interfacePublicacion = interfacePublicacion;
     }
 
+    // Método que crea un nuevo elemento de la lista (ViewHolder)
+    // Contiene referencias a los componentes de la vista y se utiliza para mostrar los datos de la receta en la vista.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //LayoutInflater es un objeto que se utiliza para inflar una vista desde un archivo de layout.
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.publicacion_layout, parent, false);
         return new MyViewHolder(view, interfacePublicacion);
     }
-
+    // Método que configura los datos de un elemento de la lista
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvUserCard.setText(recetas.get(position).getUsuario());
@@ -68,7 +73,8 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
     public int getItemCount() {
         return recetas.size();
     }
-
+    // RecyclerView.Holder es una clase que se utiliza para proporcionar los datos y la lógica para mostrar los elementos de una lista en un RecyclerView.
+    // Constructor que recibe la vista y la interfaz
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private ImageView imgPublicacionInicio, imgUserPublicacionCard;
         private TextView tvTituloCard, tvUserCard, tvPuntuacionCard, tvFechaPub;
@@ -86,6 +92,7 @@ public class InicioAdapter extends RecyclerView.Adapter<InicioAdapter.MyViewHold
                 public void onClick(View v) {
                     if(interfacePublicacion != null){
                         int position = getAdapterPosition();
+                        // position != 0
                         if(position != RecyclerView.NO_POSITION){
                             interfacePublicacion.pubCardClick(position);
                         }

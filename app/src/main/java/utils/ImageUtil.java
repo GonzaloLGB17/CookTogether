@@ -59,7 +59,7 @@ public class ImageUtil {
         Bitmap resizedBitmap = redimensionarImagen(bitmap, maxWidth, maxHeight);
         byte[] imageBytes = comprimirImagen(resizedBitmap, quality);
 
-        // Ajustar la calidad hasta que el tamaño sea menor a 1MB
+        // Ajusta la calidad hasta que el tamaño sea menor a 1MB
         while (imageBytes.length > 1024 * 1024 && quality > 10) {
             quality -= 5;
             imageBytes = comprimirImagen(resizedBitmap, quality);
