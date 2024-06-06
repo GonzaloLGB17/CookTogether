@@ -119,10 +119,16 @@ public class PublicacionActivity extends AppCompatActivity {
         tvUserPublicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(PublicacionActivity.this, UserBuscadoPerfilActivity.class);
-                intent1.putExtra("user", user);
-                intent1.putExtra("userPub", tvUserPublicacion.getText().toString());
-                startActivity(intent1);
+                if(tvUserPublicacion.getText().toString().equals(user.getUsername())){
+                    Intent intent1 = new Intent(PublicacionActivity.this, PerfilActivity.class);
+                    intent1.putExtra("user", user);
+                    startActivity(intent1);
+                }else{
+                    Intent intent1 = new Intent(PublicacionActivity.this, UserBuscadoPerfilActivity.class);
+                    intent1.putExtra("user", user);
+                    intent1.putExtra("userPub", tvUserPublicacion.getText().toString());
+                    startActivity(intent1);
+                }
             }
         });
 

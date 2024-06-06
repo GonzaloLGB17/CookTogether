@@ -97,6 +97,13 @@ public class UserBuscadoPerfilActivity extends AppCompatActivity implements Inte
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
+                if (tab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(UserBuscadoPerfilActivity.this, PerfilActivity.class);
+                    intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -115,6 +122,13 @@ public class UserBuscadoPerfilActivity extends AppCompatActivity implements Inte
                 }
                 if (newTab.getTitle().equals("Compartir")) {
                     Intent intent = new Intent(UserBuscadoPerfilActivity.this, PublicarActivity.class);
+                    intent.putExtra("user", user);
+                    intent.putExtra("mode","false");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }
+                if (newTab.getTitle().equals("Perfil")) {
+                    Intent intent = new Intent(UserBuscadoPerfilActivity.this, PerfilActivity.class);
                     intent.putExtra("user", user);
                     intent.putExtra("mode","false");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
