@@ -19,4 +19,6 @@ puntuación como chef.
 ![Buscar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)
 ### Publicar receta
 ![Publicar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicar.png)
+Se redigirá a la publicación
+![Publicacion](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicacion.png)
 
