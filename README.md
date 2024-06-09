@@ -6,10 +6,20 @@ otros usuarios, además de valorar sus recetas.
 Te permitirá ver el perfil de otros usuarios que contendrá sus recetas además de su 
 puntuación como chef.
 
-## Instalación 
-- Utilizar base de datos local de PostgreSQL
-- Clonar repositorio
+## Instalación
 
+### 1. Configuración de la Base de Datos Local en PostgreSQL
+
+1. Instala PostgreSQL en tu sistema si aún no lo has hecho. Puedes descargarlo desde [el sitio oficial de PostgreSQL](https://www.postgresql.org/download/).
+
+2. Inicia el servidor de PostgreSQL y asegúrate de que esté en ejecución.
+
+3. Abre tu terminal y conéctate a PostgreSQL utilizando el comando `psql -U nombre_usuario -d nombre_base_de_datos`, donde `nombre_usuario` es tu nombre de usuario de PostgreSQL y `nombre_base_de_datos` es el nombre de la base de datos que deseas utilizar para este proyecto.
+
+4. Una vez conectado a PostgreSQL, crea una nueva base de datos para este proyecto utilizando el siguiente comando:
+   ```sql
+   CREATE DATABASE nombre_base_de_datos;
+### 2. Clona este repositorio en tu proyecto
 ## Tutorial de Uso
 Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
 
