@@ -31,7 +31,11 @@ Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
   ![Editar Perfil](https://github.com/GonzaloLGB17/capsAndroid/blob/main/editperfil.png)
 
 - **Búsqueda de Usuarios:** Vista para buscar otros usuarios.<br/>
-  ![Búsqueda de Usuarios](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)
+  ![Búsqueda de Usuarios](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)<br/>
+
+  
+## Autor
+- [@GonzaloLGB17](https://github.com/GonzaloLGB17)
 
 
   
