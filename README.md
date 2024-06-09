@@ -24,7 +24,7 @@ Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
 - **Publicar:** Interfaz para que los usuarios realicen publicaciones con campos para título, descripción, ingredientes e instrucciones.<br/>
   ![Publicar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicar.png)
   
-- **Publicación:** Muestra detalles de una receta con opción para valorarla.<br/>
+- **Publicación:** Muestra detalles de una receta con opción para valorarla, pulsando sobre la puntuación.<br/>
   ![Publicación](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicacion.png)
   
 - **Editar Perfil:** Permite al usuario editar su información, incluyendo la foto de perfil y la contraseña.<br/>
@@ -33,7 +33,8 @@ Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
 - **Búsqueda de Usuarios:** Vista para buscar otros usuarios.<br/>
   ![Búsqueda de Usuarios](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)<br/>
 
-  
+- ## Video resumen: <br/>
+  ![Video](https://github.com/GonzaloLGB17/capsAndroid/blob/main/tuto%20-%20Trim.mp4)<br/>
 ## Autor
 - [@GonzaloLGB17](https://github.com/GonzaloLGB17)
 
