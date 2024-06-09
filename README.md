@@ -38,7 +38,7 @@ Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
   ![Búsqueda de Usuarios](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)<br/>
 
 - ## Video resumen: <br/>
-Mira el vídeo resumen del proyecto [aquí](https://www.ejemplo.com/tu/video.mp4](https://github.com/GonzaloLGB17/capsAndroid/blob/main/tuto%20-%20Trim.mp4).
+Mira el vídeo resumen del proyecto [aquí](https://github.com/GonzaloLGB17/capsAndroid/blob/main/tuto%20-%20Trim.mp4).
 
 ## Autor
 - [@GonzaloLGB17](https://github.com/GonzaloLGB17)
