@@ -9,28 +9,29 @@ puntuación como chef.
 ## Tutorial de Uso
 Este proyecto presenta una aplicación con diversas vistas y funcionalidades:
 
-- **Registro de Usuario:** Vista para registrar nuevos usuarios, con campos de información y opción para seleccionar una foto de perfil.
+- **Registro de Usuario:** Vista para registrar nuevos usuarios, con campos de información y opción para seleccionar una foto de perfil.<br/>
   ![Registro de Usuario](https://github.com/GonzaloLGB17/capsAndroid/blob/main/register.png)
   
-- **Inicio de Sesión:** Los usuarios ingresan credenciales para acceder, con opción para recordar sesión.
+- **Inicio de Sesión:** Los usuarios ingresan credenciales para acceder, con opción para recordar sesión.<br/>
   ![Inicio de Sesión](https://github.com/GonzaloLGB17/capsAndroid/blob/main/login.png)
   
-- **Inicio:** Muestra publicaciones de usuarios con filtros y búsqueda por categorías.
+- **Inicio:** Muestra publicaciones de usuarios con filtros y búsqueda por categorías.<br/>
   ![Inicio](https://github.com/GonzaloLGB17/capsAndroid/blob/main/inicio.png)
   
-- **Perfil:** Muestra información del usuario, permitiendo editar el perfil y cerrar sesión.
+- **Perfil:** Muestra información del usuario, permitiendo editar el perfil y cerrar sesión.<br/>
   ![Perfil](https://github.com/GonzaloLGB17/capsAndroid/blob/main/perfil.png)
   
-- **Publicar:** Interfaz para que los usuarios realicen publicaciones con campos para título, descripción, ingredientes e instrucciones.
+- **Publicar:** Interfaz para que los usuarios realicen publicaciones con campos para título, descripción, ingredientes e instrucciones.<br/>
   ![Publicar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicar.png)
   
-- **Publicación:** Muestra detalles de una receta con opción para valorarla.
+- **Publicación:** Muestra detalles de una receta con opción para valorarla.<br/>
   ![Publicación](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicacion.png)
   
-- **Editar Perfil:** Permite al usuario editar su información, incluyendo la foto de perfil y la contraseña.
+- **Editar Perfil:** Permite al usuario editar su información, incluyendo la foto de perfil y la contraseña.<br/>
   ![Editar Perfil](https://github.com/GonzaloLGB17/capsAndroid/blob/main/editperfil.png)
 
-- **Búsqueda de Usuarios:** Vista para buscar otros usuarios.
+- **Búsqueda de Usuarios:** Vista para buscar otros usuarios.<br/>
   ![Búsqueda de Usuarios](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)
+
 
   
