@@ -7,5 +7,16 @@ Te permitirá ver el perfil de otros usuarios que contendrá sus recetas además
 puntuación como chef.
 
 ## Tutorial de Uso
+### Registro
+![Registro](https://github.com/GonzaloLGB17/capsAndroid/blob/main/register.png)
 ### Login
-![screenshots/pagina_principal.png](https://github.com/GonzaloLGB17/capsAndroid/blob/main/login.png)
+![Login](https://github.com/GonzaloLGB17/capsAndroid/blob/main/login.png)
+### Incio
+![Incio](https://github.com/GonzaloLGB17/capsAndroid/blob/main/inicio.png)
+### Perfil
+![Perfil](https://github.com/GonzaloLGB17/capsAndroid/blob/main/perfil.png)
+### Búsqueda de usuarios
+![Buscar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/buscar.png)
+### Publicar receta
+![Publicar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicar.png)
+
