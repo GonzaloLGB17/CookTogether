@@ -21,5 +21,6 @@ puntuación como chef.
 ![Publicar](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicar.png)
 <br/>
 <p>Se redigirá a la publicación</p>
+
 ![Publicacion](https://github.com/GonzaloLGB17/capsAndroid/blob/main/publicacion.png)
 
