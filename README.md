@@ -8,4 +8,4 @@ puntuación como chef.
 
 ## Tutorial de Uso
 ### Login
-[screenshots/pagina_principal.png](https://github.com/GonzaloLGB17/capsAndroid/blob/main/login.png)
+![screenshots/pagina_principal.png](https://github.com/GonzaloLGB17/capsAndroid/blob/main/login.png)
