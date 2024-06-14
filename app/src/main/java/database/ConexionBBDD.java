@@ -13,7 +13,6 @@ public class ConexionBBDD {
     private static final String DRIVER = "org.postgresql.Driver";
     private static final String URL = "jdbc:postgresql://10.0.2.2:5432/cooktogether";
     private static final String USUARIO = "postgres";
-    String hola = "";
     private static final String PASSWORD = "admin";
 
     //Creamos nuestra funcion para conectarnos a Postgresql
